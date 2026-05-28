@@ -1,0 +1,4 @@
+{
+  "_comment": "Publish-time settings for Signal. Edit base_url after you've enabled GitHub Pages (or any host) and re-run `node render.js` to regenerate every email with absolute links. Leave empty for local-only.",
+  "base_url": ""
+}

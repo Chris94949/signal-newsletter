@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Signal · Issue 001 · Editorial mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #F7F2EA;
+    --bg-card: #FBF8F2;
+    --ink: #1A1410;
+    --ink-soft: #4A3F36;
+    --ink-mute: #7A6F65;
+    --rule: #D9CFC1;
+    --accent: #7A1F1F;
+    --accent-soft: #B95252;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 400;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 56px 28px 80px;
+  }
+  .nameplate {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .nameplate .mark {
+    font-family: "Fraunces", serif;
+    font-weight: 900;
+    font-size: 44px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .nameplate .mark em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .nameplate .meta {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-mute);
+    text-align: right;
+  }
+  .deck {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    margin: 28px 0 40px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 28px;
+  }
+  .section-label {
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 48px 0 14px;
+  }
+  .chart-card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    padding: 22px 22px 18px;
+    margin-bottom: 36px;
+  }
+  .chart-card h3 {
+    font-family: "Fraunces", serif;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 0 4px;
+  }
+  .chart-card .cap {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    color: var(--ink-mute);
+    margin: 0 0 14px;
+  }
+  .chart-wrap { height: 200px; position: relative; }
+  .story {
+    border-top: 1px solid var(--rule);
+    padding: 30px 0 6px;
+  }
+  .story-num {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--ink-mute);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .story h2 {
+    font-family: "Fraunces", serif;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    margin: 0 0 14px;
+  }
+  .story p { font-size: 18px; line-height: 1.6; margin: 0 0 14px; color: var(--ink-soft); }
+  .story a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  details.why {
+    margin-top: 8px;
+    border-top: 1px dotted var(--rule);
+    padding-top: 14px;
+  }
+  details.why summary {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  details.why summary::-webkit-details-marker { display: none; }
+  details.why summary::after {
+    content: "▸";
+    transition: transform 0.2s ease;
+    font-size: 10px;
+  }
+  details.why[open] summary::after { transform: rotate(90deg); }
+  details.why .body {
+    margin-top: 14px;
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    padding-left: 14px;
+    border-left: 2px solid var(--accent);
+  }
+  .quick-hits {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    padding: 26px 26px 22px;
+    margin: 40px 0 0;
+  }
+  .quick-hits h3 {
+    font-family: "Fraunces", serif;
+    font-weight: 700;
+    font-size: 22px;
+    margin: 0 0 18px;
+  }
+  .quick-hits ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: qh;
+  }
+  .quick-hits li {
+    counter-increment: qh;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    padding: 10px 0 10px 36px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .quick-hits li:last-child { border-bottom: none; }
+  .quick-hits li::before {
+    content: counter(qh, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 12px;
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .quick-hits a { color: var(--ink); border-bottom: 1px solid var(--accent-soft); text-decoration: none; }
+  .fun {
+    margin-top: 48px;
+    padding: 32px 26px;
+    border: 1px solid var(--accent);
+    background: transparent;
+    text-align: center;
+  }
+  .fun .kicker {
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .fun h3 {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.35;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+  .fun p {
+    font-family: "Fraunces", serif;
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--ink);
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-mute);
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="nameplate">
+      <div class="mark">Signal<em>.</em></div>
+      <div class="meta">
+        Issue 001<br/>
+        Mon · May 25 · 2026<br/>
+        5-min read
+      </div>
+    </header>
+
+    <p class="deck">
+      This week in AI, made simpler — three stories worth your attention, five quick beats, and one thing that quietly cleared a twenty-year benchmark.
+    </p>
+
+    <div class="section-label">The Chart</div>
+    <div class="chart-card">
+      <h3>AI just had its first big security month</h3>
+      <p class="cap">Palo Alto Networks' monthly CVE disclosures · 2026, illustrative</p>
+      <div class="chart-wrap"><canvas id="cveChart"></canvas></div>
+    </div>
+
+    <div class="section-label">This Week's Three Stories</div>
+
+    <article class="story">
+      <div class="story-num">No. 01 · Frontier</div>
+      <h2>China's 12-day open-coding blitz</h2>
+      <p>In a twelve-day window in mid-May, four Chinese labs — Z.ai (GLM-5.1), MiniMax (M2.7), Moonshot (Kimi K2.6), and DeepSeek (V4) — released open-weights coding models that match the agentic-engineering ceiling of frontier closed models at roughly one third the inference cost.</p>
+      <details class="why">
+        <summary>Why this matters</summary>
+        <div class="body">The frontier isn't moving up anymore — it's moving down on price. When open models hit the same capability ceiling at a third of the cost, the strategic question quietly shifts from "which model is smartest?" to "where does spend go when intelligence becomes cheap?" Expect inference-cost wars, more code agents inside products, and a fresh round of build-vs-buy conversations inside enterprises.</div>
+      </details>
+    </article>
+
+    <article class="story">
+      <div class="story-num">No. 02 · Industry</div>
+      <h2>Gemini stops being a chatbot</h2>
+      <p>At Google I/O on May 19, Google announced Gemini 4.0, plus three companions: Gemini Omni (a video model whose outputs are grounded in knowledge), Gemini Spark (a personal agent that runs tasks across Workspace, Search, Chrome and YouTube), and Gemini 3.5 Flash — frontier-quality intelligence at roughly four times the speed of comparable models, now generally available. <a href="https://techcrunch.com/2026/05/19/google-updates-its-gemini-app-to-take-on-chatgpt-and-claude-at-io-2026/">TechCrunch ↗</a></p>
+      <details class="why">
+        <summary>Why this matters</summary>
+        <div class="body">The bigger shift isn't any single model — it's that Gemini is being repositioned from a destination app to an OS-layer running quietly across Google's surfaces. The chatbot-vs-chatbot framing already feels dated. The new question is which AI lives inside the tools you already use, every day, without your noticing.</div>
+      </details>
+    </article>
+
+    <article class="story">
+      <div class="story-num">No. 03 · Security</div>
+      <h2>The first AI security crossover</h2>
+      <p>Palo Alto Networks' May Patch Wednesday disclosed 26 CVEs — over five times their typical monthly volume — and the majority were surfaced by frontier AI models scanning code, not human researchers. <a href="https://www.paloaltonetworks.com/blog/2026/05/defenders-guide-frontier-ai-impact-cybersecurity-may-2026-update/">Palo Alto ↗</a></p>
+      <details class="why">
+        <summary>Why this matters</summary>
+        <div class="body">This is the cross-over month: AI's contribution to defensive security stopped being a future story and became a production reality. The flip side is uncomfortable — the same class of models is presumably finding the same bugs for attackers. Expect a year of vulnerability-triage catch-up, faster patch cycles, and awkward conversations about responsible-disclosure norms.</div>
+      </details>
+    </article>
+
+    <div class="quick-hits">
+      <h3>Five quick hits</h3>
+      <ol>
+        <li>NVIDIA opened its physical-AI playbook — releasing the Alpamayo autonomous-vehicle family, the Nemotron agentic family, and 10T language tokens, 500K robotics trajectories, 455K protein structures and 100TB of car sensor data as <a href="https://blogs.nvidia.com/blog/open-models-data-tools-accelerate-ai/">open data ↗</a>.</li>
+        <li>Raindrop's Workshop, an open-source local debugger for AI agents, shipped for macOS, Linux and Windows with a one-line install — the first credible "Postman for agents."</li>
+        <li>Japan Airlines made humanoid robots permanent staff at Haneda — a three-year operational commitment from a regulator-cautious legacy airline, not a publicity stunt.</li>
+        <li>Anthropic announced a $1.5B joint venture with Blackstone, Hellman &amp; Friedman, and Goldman Sachs to push AI into community banks and regional health systems — the API-only era is ending.</li>
+        <li>Meta signed a multi-billion-dollar deal to rent Google's TPUs and raised its 2026 AI capex guidance to $125–145B. Even Meta is now renting compute.</li>
+      </ol>
+    </div>
+
+    <div class="fun">
+      <div class="kicker">One Fun Thing</div>
+      <h3>A robot just hit elite-human level at table tennis.</h3>
+      <p>Sony AI's "Ace" is the first known autonomous system to compete with professional-level humans in a common physical sport — quietly clearing a benchmark researchers have circled for two decades. The wild part: it learned mostly from self-play.</p>
+    </div>
+
+    <footer>
+      <span>Signal · A weekly read.</span>
+      <span>003 sources · 005 hits · 001 fun fact</span>
+    </footer>
+  </div>
+
+<script>
+  const ctx = document.getElementById('cveChart');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+      datasets: [{
+        data: [4, 5, 3, 5, 26],
+        backgroundColor: ['#D9CFC1','#D9CFC1','#D9CFC1','#D9CFC1','#7A1F1F'],
+        borderRadius: 2,
+        barThickness: 38
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { backgroundColor:'#1A1410', titleFont:{family:'Inter'}, bodyFont:{family:'Inter'} } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11 }, color: '#7A6F65' } },
+        y: { grid: { color: '#E7DFD3' }, ticks: { font: { family: 'Inter', size: 11 }, color: '#7A6F65', stepSize: 5 }, beginAtZero: true }
+      }
+    }
+  });
+</script>
+</body>
+</html>

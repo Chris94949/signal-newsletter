@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Signal · Issue 001 · Monday · May 25 · 2026</title>
+<meta name="description" content="A friendly weekly read on what actually moved in AI." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FFF6E9;
+    --bg-card: #FFFFFF;
+    --ink: #2A1F1A;
+    --ink-soft: #5B4A40;
+    --ink-mute: #8C7D72;
+    --orange: #E65525;
+    --orange-deep: #B83E12;
+    --orange-soft: #FFE0CF;
+    --orange-tint: #FFF1E6;
+    --sage: #4F8A5F;
+    --sage-soft: #DAEBDF;
+    --pink: #D86A82;
+    --pink-soft: #FBE3E8;
+    --yolk: #F6B83F;
+    --teal: #2C7A7E;
+    --shadow: 0 10px 24px -16px rgba(60, 30, 10, 0.18), 0 2px 6px -2px rgba(60, 30, 10, 0.06);
+    --shadow-soft: 0 4px 12px -8px rgba(60, 30, 10, 0.14);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 22px 64px; }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: linear-gradient(135deg, #E65525 0%, #D14418 100%);
+    color: #FFF;
+    border-radius: 24px;
+    padding: 26px 28px 24px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -34px;
+    bottom: -34px;
+    width: 150px;
+    height: 150px;
+    background: var(--yolk);
+    border-radius: 50%;
+    opacity: 0.92;
+    z-index: 0;
+  }
+  .header .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    z-index: 1;
+  }
+  .header .mark {
+    font-family: "DM Serif Display", serif;
+    font-size: 46px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .header .mark span { color: var(--yolk); }
+  .header .meta {
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: right;
+    opacity: 0.96;
+  }
+  .header .tagline {
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.92;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== EDITOR NOTE ===== */
+  .editor {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin-top: 14px;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .editor .avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), var(--yolk));
+    color: #FFF;
+    font-family: "DM Serif Display", serif;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .editor .text {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .editor .text .from {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* ===== IN THIS ISSUE STRIP ===== */
+  .preview {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 18px 22px 16px;
+    margin-top: 14px;
+    box-shadow: var(--shadow-soft);
+  }
+  .preview .label {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--orange-deep);
+    margin-bottom: 10px;
+  }
+  .preview ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: prev;
+  }
+  .preview li {
+    counter-increment: prev;
+    padding: 7px 0;
+    font-size: 14.5px;
+    color: var(--ink);
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    border-bottom: 1px dashed #F0E2CF;
+  }
+  .preview li:last-of-type { border-bottom: none; }
+  .preview li .emoji { font-size: 16px; line-height: 1; flex-shrink: 0; }
+  .preview li .tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-mute);
+    margin-right: 2px;
+  }
+  .preview li .title { color: var(--ink); font-weight: 500; }
+  .preview .extra {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #F0E2CF;
+    font-size: 13px;
+    color: var(--ink-mute);
+    font-style: italic;
+  }
+
+  /* ===== SECTION KICKER ===== */
+  .kicker {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--orange-deep);
+    margin: 32px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .kicker::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--orange-soft);
+  }
+
+  /* ===== CHART CARD ===== */
+  .chart-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 22px 22px 18px;
+    box-shadow: var(--shadow);
+  }
+  .chart-card h3 {
+    font-family: "DM Serif Display", serif;
+    font-size: 22px;
+    margin: 0 0 4px;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .chart-card .cap { font-size: 12.5px; color: var(--ink-mute); margin: 0 0 14px; }
+  .chart-wrap { height: 200px; position: relative; }
+
+  /* ===== STORIES ===== */
+  .story {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 22px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    border-left: 6px solid var(--orange);
+  }
+  .story[data-color="sage"] { border-left-color: var(--sage); }
+  .story[data-color="pink"] { border-left-color: var(--pink); }
+  .story .story-kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+  .story[data-color="sage"] .story-kicker { color: var(--sage); }
+  .story[data-color="pink"] .story-kicker { color: var(--pink); }
+  .story h2 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.2;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+  .story .why {
+    background: var(--orange-tint);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink);
+    font-weight: 500;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .story[data-color="sage"] .why { background: var(--sage-soft); }
+  .story[data-color="pink"] .why { background: var(--pink-soft); }
+  .story .why .stamp {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange-deep);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .story[data-color="sage"] .why .stamp { color: var(--sage); }
+  .story[data-color="pink"] .why .stamp { color: var(--pink); }
+  .story p.body { font-size: 15.5px; line-height: 1.65; margin: 0 0 12px; color: var(--ink-soft); }
+  .story p.body em {
+    font-style: italic;
+    color: var(--ink-mute);
+    font-size: 14px;
+  }
+  .story p.body a, .story .link {
+    color: var(--orange);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid var(--orange-soft);
+  }
+  .story[data-color="sage"] p.body a, .story[data-color="sage"] .link { color: var(--sage); border-bottom-color: var(--sage-soft); }
+  .story[data-color="pink"] p.body a, .story[data-color="pink"] .link { color: var(--pink); border-bottom-color: var(--pink-soft); }
+
+  details.more {
+    margin-top: 6px;
+    border-top: 1px dashed #F0E2CF;
+    padding-top: 12px;
+  }
+  details.more summary {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--orange-deep);
+    cursor: pointer;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .story[data-color="sage"] details.more summary { color: var(--sage); }
+  .story[data-color="pink"] details.more summary { color: var(--pink); }
+  details.more summary::-webkit-details-marker { display: none; }
+  details.more summary::after {
+    content: "↓";
+    transition: transform 0.2s ease;
+  }
+  details.more[open] summary::after { transform: rotate(180deg); }
+  details.more .body-deep {
+    margin-top: 10px;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+
+  /* ===== QUICK HITS ===== */
+  .qh {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 20px;
+    box-shadow: var(--shadow);
+  }
+  .qh h3 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 24px;
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+  .qh .item {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px dashed #F0E2CF;
+    align-items: flex-start;
+  }
+  .qh .item:last-child { border-bottom: none; }
+  .qh .item .num {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    color: var(--orange);
+    font-size: 16px;
+    line-height: 1.5;
+    flex-shrink: 0;
+    width: 22px;
+  }
+  .qh .item .lede { font-weight: 700; color: var(--ink); }
+  .qh .item .text { font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+  .qh .item .text a { color: var(--ink); font-weight: 600; border-bottom: 2px solid var(--yolk); text-decoration: none; }
+
+  /* ===== FUN FACT ===== */
+  .fun {
+    margin-top: 22px;
+    background: linear-gradient(135deg, #4F8A5F 0%, #2C7A7E 100%);
+    border-radius: 24px;
+    padding: 30px 28px;
+    color: #FFF;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .fun .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.22);
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .fun h3 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 26px;
+    margin: 0 0 10px;
+    line-height: 1.25;
+  }
+  .fun p { font-size: 15px; line-height: 1.55; margin: 0; opacity: 0.97; }
+
+  /* ===== FOOTER (reader loop) ===== */
+  footer.loop {
+    margin-top: 26px;
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 22px;
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+  }
+  footer.loop .signoff {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    margin: 0 0 14px;
+  }
+  footer.loop .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  footer.loop .action {
+    display: inline-block;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: var(--orange-tint);
+    color: var(--orange-deep);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid var(--orange-soft);
+  }
+  footer.loop .action:hover { background: var(--orange-soft); }
+  footer.loop .colophon {
+    margin-top: 10px;
+    padding-top: 14px;
+    border-top: 1px dashed #F0E2CF;
+    font-size: 12px;
+    color: var(--ink-mute);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 22px 14px 50px; }
+    .header { padding: 22px 22px 20px; border-radius: 18px; }
+    .header .mark { font-size: 38px; }
+    .header .row { flex-direction: column; gap: 8px; align-items: flex-start; }
+    .header .meta { text-align: left; }
+    .story h2, .fun h3, .qh h3 { font-size: 22px; }
+    .story, .qh, footer.loop, .chart-card { padding: 20px 18px; border-radius: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="header">
+    <div class="row">
+      <div class="mark" id="brand">Signal<span>.</span></div>
+      <div class="meta">
+        <span id="issueLabel"></span><br/>
+        <span id="dateLabel"></span><br/>
+        <span id="readLabel"></span>
+      </div>
+    </div>
+    <div class="tagline" id="tagline"></div>
+  </header>
+
+  <section class="editor">
+    <div class="avatar" id="editorAvatar">C</div>
+    <div class="text">
+      <div class="from" id="editorFrom">From Chris</div>
+      <div id="editorNote"></div>
+    </div>
+  </section>
+
+  <section class="preview">
+    <div class="label">— In this issue</div>
+    <ol id="previewList"></ol>
+    <div class="extra" id="previewExtra"></div>
+  </section>
+
+  <div class="kicker">— The chart of the week</div>
+  <div class="chart-card">
+    <h3 id="chartTitle"></h3>
+    <p class="cap" id="chartCaption"></p>
+    <div class="chart-wrap"><canvas id="cveChart"></canvas></div>
+  </div>
+
+  <div class="kicker">— This week's three stories</div>
+  <div id="storiesRoot"></div>
+
+  <div class="kicker">— Five quick hits</div>
+  <div class="qh">
+    <h3>Worth knowing in one sentence</h3>
+    <div id="qhRoot"></div>
+  </div>
+
+  <div class="fun">
+    <div class="badge" id="funBadge">🏓 One fun thing</div>
+    <h3 id="funTitle"></h3>
+    <p id="funBody"></p>
+  </div>
+
+  <footer class="loop">
+    <div class="signoff" id="signoff">— Chris 👋  See you next Monday.</div>
+    <div class="actions">
+      <a class="action" id="replyAction" href="#">Reply with one word — was this useful?</a>
+      <a class="action" id="archiveAction" href="index.html">📰 Read past issues</a>
+      <a class="action" id="forwardAction" href="#">↗ Forward to a friend</a>
+    </div>
+    <div class="colophon" id="colophon"></div>
+  </footer>
+</div>
+
+<!-- ===== INLINE ISSUE DATA (decoupled content) ===== -->
+<script type="application/json" id="issue-data">
+{
+  "issue": 1,
+  "date": "2026-05-25",
+  "date_display": "Monday · May 25 · 2026",
+  "read_minutes": 5,
+  "tagline": "A friendly weekly read on what actually moved in AI.",
+  "editor_name": "Chris",
+  "editor_note": "Welcome to Signal, week one. If you only have time for one story, make it the first. The rest is dessert.",
+  "preview": [
+    {
+      "emoji": "🤖",
+      "label": "Frontier",
+      "title": "China just had a 12-day coding-model fire-sale"
+    },
+    {
+      "emoji": "🌐",
+      "label": "Industry",
+      "title": "Gemini quietly stopped being a chatbot"
+    },
+    {
+      "emoji": "🛡️",
+      "label": "Security",
+      "title": "AI had its first real security moment"
+    }
+  ],
+  "chart": {
+    "title": "AI just had its first big security month",
+    "caption": "Palo Alto Networks · monthly CVE disclosures · 2026 (illustrative — rough numbers, not audited)",
+    "labels": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May"
+    ],
+    "values": [
+      4,
+      5,
+      3,
+      5,
+      26
+    ],
+    "highlight_index": 4
+  },
+  "stories": [
+    {
+      "id": "s1",
+      "kicker": "🤖 Frontier · story 01",
+      "color": "orange",
+      "title": "China just had a 12-day coding-model fire-sale",
+      "why_you_care": "Top-tier AI coding just got 3× cheaper — and it didn't come from the usual suspects.",
+      "body": "In a twelve-day window in mid-May, four Chinese labs — Z.ai (GLM-5.1), MiniMax (M2.7), Moonshot (Kimi K2.6), and DeepSeek (V4) — released open-weights coding models that match the agentic-engineering <em>(AI doing the actual coding work, not just suggesting lines)</em> ceiling of frontier closed models, at roughly one third of the inference cost. Quietly. In twelve days.",
+      "more": "The frontier isn't moving up anymore — it's moving <strong>down on price</strong>. When open models hit the same capability ceiling at a third of the cost, \"which model is smartest?\" gives way to a sharper question: where does the money go when intelligence is cheap? Expect inference-cost wars, more coding agents shipping inside products you already use, and a fresh round of build-vs-buy conversations at every enterprise.",
+      "link": null
+    },
+    {
+      "id": "s2",
+      "kicker": "🌐 Industry · story 02",
+      "color": "sage",
+      "title": "Gemini quietly stopped being a chatbot",
+      "why_you_care": "Google is shifting Gemini from \"another AI app\" to \"the AI that's already inside everything you use.\"",
+      "body": "At Google I/O on May 19, Google announced Gemini 4.0 plus three companions: Gemini Omni (a video model whose outputs are grounded in real knowledge), Gemini Spark (a personal agent that runs tasks across Workspace, Search, Chrome, and YouTube), and Gemini 3.5 Flash hitting GA <em>(generally available — meaning anyone can use it now)</em> at roughly 4× the speed of comparable models.",
+      "more": "The shift isn't any single new model — it's that Gemini is being repositioned from a destination app to an OS-layer running quietly across Google's surfaces. The chatbot-vs-chatbot framing already feels dated. The new question is which AI quietly lives inside the tools you reach for every day, without your noticing.",
+      "link": {
+        "label": "TechCrunch",
+        "url": "https://techcrunch.com/2026/05/19/google-updates-its-gemini-app-to-take-on-chatgpt-and-claude-at-io-2026/"
+      }
+    },
+    {
+      "id": "s3",
+      "kicker": "🛡️ Security · story 03",
+      "color": "pink",
+      "title": "AI just had its first real security moment",
+      "why_you_care": "The same models writing your code are now finding bugs in everyone else's — and there are 5× more of them than usual.",
+      "body": "Palo Alto Networks' May Patch Wednesday <em>(the monthly day when security teams disclose what they fixed)</em> disclosed 26 CVEs — over five times their typical monthly volume — and the majority were surfaced by frontier AI models scanning code, not human researchers.",
+      "more": "This is the crossover month: AI's contribution to defensive security stopped being a future story and became a production reality. The uncomfortable flip side is that the same class of models is presumably finding the same bugs for attackers. Expect a year of vulnerability-triage catch-up, faster patch cycles, and awkward conversations about responsible-disclosure norms.",
+      "link": {
+        "label": "Palo Alto Networks",
+        "url": "https://www.paloaltonetworks.com/blog/2026/05/defenders-guide-frontier-ai-impact-cybersecurity-may-2026-update/"
+      }
+    }
+  ],
+  "quick_hits": [
+    {
+      "shape": "stat",
+      "lede": "100 TB",
+      "text": "of car sensor data — NVIDIA dropped open data on a scale nobody else has matched: Alpamayo (autonomous-vehicle models), Nemotron (agentic AI), plus 10T language tokens, 500K robotics trajectories, and 455K protein structures.",
+      "link": {
+        "label": "NVIDIA blog",
+        "url": "https://blogs.nvidia.com/blog/open-models-data-tools-accelerate-ai/"
+      }
+    },
+    {
+      "shape": "question",
+      "lede": "A 'Postman for agents'?",
+      "text": "Raindrop's Workshop — an open-source local debugger for AI agents — shipped for Mac, Linux, and Windows with a one-line install. The first credible one, by most accounts."
+    },
+    {
+      "shape": "verdict",
+      "lede": "Not a publicity stunt.",
+      "text": "Japan Airlines made humanoid robots permanent staff at Haneda — a three-year operational commitment from a regulator-cautious legacy airline, not a press conference."
+    },
+    {
+      "shape": "money",
+      "lede": "$1.5 billion",
+      "text": "— Anthropic announced a joint venture with Blackstone, Hellman & Friedman, and Goldman Sachs to push AI into community banks and regional health systems. The API-only era is ending."
+    },
+    {
+      "shape": "observation",
+      "lede": "Even Meta is renting compute now.",
+      "text": "It signed a multi-billion-dollar deal to rent Google's TPUs and raised its 2026 AI capex guidance to $125–145 billion. The most cash-rich company in the field is leasing chips from a rival."
+    }
+  ],
+  "fun_fact": {
+    "title": "A robot just hit elite-human level at table tennis.",
+    "body": "Sony AI's \"Ace\" is the first known autonomous system to compete with professional-level humans in a popular physical sport — quietly clearing a benchmark researchers have circled for two decades. The wild part: it learned mostly from self-play."
+  },
+  "sources_count": 3,
+  "reply_to": "christienabrhm94@gmail.com",
+  "archive_url": "index.html",
+  "base_url": ""
+}
+</script>
+
+<script>
+(function(){
+  const data = JSON.parse(document.getElementById('issue-data').textContent);
+  const pad = (n) => String(n).padStart(3, '0');
+
+  // Header
+  document.getElementById('issueLabel').textContent = `Issue ${pad(data.issue)}`;
+  document.getElementById('dateLabel').textContent = data.date_display;
+  document.getElementById('readLabel').textContent = `${data.read_minutes}-min read ☕`;
+  document.getElementById('tagline').textContent = data.tagline;
+
+  // Editor note
+  const initial = (data.editor_name || 'S').slice(0,1).toUpperCase();
+  document.getElementById('editorAvatar').textContent = initial;
+  document.getElementById('editorFrom').textContent = `From ${data.editor_name}`;
+  document.getElementById('editorNote').textContent = data.editor_note;
+
+  // Preview strip
+  const previewList = document.getElementById('previewList');
+  data.preview.forEach((p, i) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="emoji">${p.emoji}</span><span class="tag">${p.label} · 0${i+1}</span><span class="title">${p.title}</span>`;
+    previewList.appendChild(li);
+  });
+  document.getElementById('previewExtra').textContent = `+ five quick hits, one chart, and one fun thing involving a robot.`;
+
+  // Chart
+  document.getElementById('chartTitle').textContent = data.chart.title;
+  document.getElementById('chartCaption').textContent = data.chart.caption;
+  const ctx = document.getElementById('cveChart');
+  const colors = data.chart.values.map((_, i) => i === data.chart.highlight_index ? '#E65525' : '#FFE0CF');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: data.chart.labels,
+      datasets: [{
+        data: data.chart.values,
+        backgroundColor: colors,
+        borderRadius: 8,
+        barThickness: 38
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { backgroundColor:'#2A1F1A', titleFont:{family:'Inter',weight:'600'}, bodyFont:{family:'Inter'} } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11, weight: '500' }, color: '#8C7D72' } },
+        y: { grid: { color: '#F5EBDB' }, border: { display: false }, ticks: { font: { family: 'Inter', size: 11 }, color: '#8C7D72', stepSize: 5 }, beginAtZero: true }
+      }
+    }
+  });
+
+  // Stories
+  const storiesRoot = document.getElementById('storiesRoot');
+  data.stories.forEach(s => {
+    const linkHTML = s.link ? ` <a href="${s.link.url}">${s.link.label} ↗</a>` : '';
+    const article = document.createElement('article');
+    article.className = 'story';
+    article.setAttribute('data-color', s.color);
+    article.innerHTML = `
+      <div class="story-kicker">${s.kicker}</div>
+      <h2>${s.title}</h2>
+      <div class="why">
+        <span class="stamp">Why you'd care</span>
+        <span>${s.why_you_care}</span>
+      </div>
+      <p class="body">${s.body}${linkHTML}</p>
+      <details class="more">
+        <summary>More on this</summary>
+        <div class="body-deep">${s.more}</div>
+      </details>
+    `;
+    storiesRoot.appendChild(article);
+  });
+
+  // Quick hits
+  const qhRoot = document.getElementById('qhRoot');
+  data.quick_hits.forEach((q, i) => {
+    const linkHTML = q.link ? ` <a href="${q.link.url}">${q.link.label} ↗</a>` : '';
+    const item = document.createElement('div');
+    item.className = 'item';
+    item.innerHTML = `
+      <div class="num">${String(i+1).padStart(2,'0')}</div>
+      <div class="text"><span class="lede">${q.lede}</span> ${q.text}${linkHTML}</div>
+    `;
+    qhRoot.appendChild(item);
+  });
+
+  // Fun fact
+  document.getElementById('funTitle').textContent = data.fun_fact.title;
+  document.getElementById('funBody').textContent = data.fun_fact.body;
+
+  // Footer / reader loop
+  document.getElementById('signoff').textContent = `— ${data.editor_name} 👋  See you next Monday.`;
+  const replyHref = `mailto:${data.reply_to}?subject=Signal%20%23${pad(data.issue)}%20%E2%80%94%20one%20word%20reply&body=One%20word%20on%20this%20week%27s%20issue%3A%20`;
+  document.getElementById('replyAction').setAttribute('href', replyHref);
+  document.getElementById('archiveAction').setAttribute('href', data.archive_url);
+  document.getElementById('forwardAction').setAttribute('href', `mailto:?subject=You%20might%20like%20Signal&body=I%27ve%20been%20reading%20this%20weekly%20AI%20newsletter%20%E2%80%94%20you%27d%20probably%20like%20it.`);
+  document.getElementById('colophon').innerHTML = `<strong>Signal</strong> · Issue ${pad(data.issue)} · ${data.date_display} · ${data.sources_count} sources this week<br/>Built with care, served warm.`;
+})();
+</script>
+</body>
+</html>

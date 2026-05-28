@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Signal · Issue 001 · Friendly mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FFF6E9;
+    --bg-card: #FFFFFF;
+    --ink: #2A1F1A;
+    --ink-soft: #5B4A40;
+    --ink-mute: #8C7D72;
+    --orange: #FF6B35;
+    --orange-soft: #FFE0CF;
+    --sage: #5BA66A;
+    --pink: #F490A0;
+    --sky: #5FA6CE;
+    --yolk: #FFC857;
+    --shadow: 0 10px 24px -16px rgba(60, 30, 10, 0.18), 0 2px 6px -2px rgba(60, 30, 10, 0.06);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 36px 22px 80px;
+  }
+  /* Header */
+  .header {
+    background: var(--orange);
+    color: #FFF;
+    border-radius: 24px;
+    padding: 28px 28px 26px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -28px;
+    bottom: -28px;
+    width: 140px;
+    height: 140px;
+    background: var(--yolk);
+    border-radius: 50%;
+    opacity: 0.85;
+  }
+  .header .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    z-index: 1;
+  }
+  .header .mark {
+    font-family: "DM Serif Display", serif;
+    font-size: 48px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .header .mark span { color: var(--yolk); }
+  .header .meta {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-align: right;
+    opacity: 0.92;
+  }
+  .header .deck {
+    margin-top: 18px;
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 460px;
+    position: relative;
+    z-index: 1;
+    opacity: 0.96;
+  }
+  /* Wavy divider */
+  .wave {
+    display: block;
+    margin: 26px auto 14px;
+    width: 84px;
+    height: 14px;
+  }
+  /* Section label */
+  .label {
+    display: inline-block;
+    background: var(--ink);
+    color: #FFF;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 999px;
+  }
+  /* Chart card */
+  .chart-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 22px 22px 18px;
+    margin: 14px 0 28px;
+    box-shadow: var(--shadow);
+  }
+  .chart-card h3 {
+    font-family: "DM Serif Display", serif;
+    font-size: 22px;
+    margin: 0 0 4px;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .chart-card .cap { font-size: 13px; color: var(--ink-mute); margin: 0 0 14px; }
+  .chart-wrap { height: 200px; position: relative; }
+  /* Stories */
+  .story {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 22px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow);
+    border-left: 6px solid var(--orange);
+  }
+  .story.s2 { border-left-color: var(--sage); }
+  .story.s3 { border-left-color: var(--pink); }
+  .story-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+  .story.s2 .story-tag { color: var(--sage); }
+  .story.s3 .story-tag { color: var(--pink); }
+  .story h2 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.2;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+  .story p { font-size: 15.5px; line-height: 1.6; margin: 0 0 12px; color: var(--ink-soft); }
+  .story a { color: var(--orange); font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--orange-soft); }
+  .story.s2 a { color: var(--sage); border-bottom-color: rgba(91,166,106,0.25); }
+  details.why {
+    margin-top: 10px;
+    background: #FFF8EE;
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  details.why summary {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--orange);
+    cursor: pointer;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .story.s2 details.why summary { color: var(--sage); }
+  .story.s2 details.why { background: #F0F8F2; }
+  .story.s3 details.why summary { color: #C25A6F; }
+  .story.s3 details.why { background: #FDF0F3; }
+  details.why summary::-webkit-details-marker { display: none; }
+  details.why summary::after {
+    content: "↓";
+    margin-left: auto;
+    transition: transform 0.2s ease;
+  }
+  details.why[open] summary::after { transform: rotate(180deg); }
+  details.why .body {
+    margin-top: 10px;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  /* Quick hits */
+  .qh {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 26px 26px 22px;
+    margin: 28px 0 0;
+    box-shadow: var(--shadow);
+  }
+  .qh h3 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 26px;
+    margin: 0 0 16px;
+    color: var(--ink);
+  }
+  .qh .item {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px dashed #F0E2CF;
+    align-items: flex-start;
+  }
+  .qh .item:last-child { border-bottom: none; }
+  .qh .emoji {
+    font-size: 22px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .qh .text { font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+  .qh .text a { color: var(--ink); font-weight: 600; border-bottom: 2px solid var(--yolk); text-decoration: none; }
+  /* Fun fact */
+  .fun {
+    margin-top: 28px;
+    background: linear-gradient(135deg, #FFC857 0%, #FF6B35 100%);
+    border-radius: 24px;
+    padding: 32px 28px;
+    color: #FFF;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .fun .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(8px);
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .fun h3 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 28px;
+    margin: 0 0 12px;
+    line-height: 1.25;
+  }
+  .fun p { font-size: 15.5px; line-height: 1.55; margin: 0; opacity: 0.96; }
+  /* Footer */
+  footer {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-mute);
+    line-height: 1.6;
+  }
+  footer strong { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="header">
+    <div class="row">
+      <div class="mark">Signal<span>.</span></div>
+      <div class="meta">
+        Issue 001<br/>
+        Mon · May 25 · 2026<br/>
+        5-min read ☕
+      </div>
+    </div>
+    <p class="deck">Hey 👋 — here's what actually moved in AI this week, made friendly. Three stories, five quick hits, one fun fact, three sources. Let's go.</p>
+  </header>
+
+  <svg class="wave" viewBox="0 0 84 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M2 7 Q 12 0, 22 7 T 42 7 T 62 7 T 82 7" stroke="#FF6B35" stroke-width="3" stroke-linecap="round" fill="none"/>
+  </svg>
+
+  <span class="label">📊 The chart</span>
+  <div class="chart-card">
+    <h3>AI just had its first big security month</h3>
+    <p class="cap">Palo Alto Networks' monthly CVE disclosures · 2026, illustrative</p>
+    <div class="chart-wrap"><canvas id="cveChart"></canvas></div>
+  </div>
+
+  <span class="label">🗞️ This week's three stories</span>
+
+  <article class="story s1" style="margin-top:14px;">
+    <div class="story-tag">🤖 Frontier &middot; story 01</div>
+    <h2>China's 12-day open-coding blitz</h2>
+    <p>In a 12-day window in mid-May, four Chinese labs — Z.ai (GLM-5.1), MiniMax (M2.7), Moonshot (Kimi K2.6), and DeepSeek (V4) — all released open-weights coding models that hit the same agentic-engineering ceiling as frontier closed models, at roughly a third of the inference cost. Quietly, in 12 days.</p>
+    <details class="why">
+      <summary>Why this matters</summary>
+      <div class="body">The frontier isn't moving up anymore — it's moving <em>down on price</em>. When open models hit the same ceiling at a third the cost, "which model is smartest?" becomes a less interesting question than "where does the money go when intelligence is cheap?" Expect inference-cost wars, more code agents in product, and a fresh round of build-vs-buy at every enterprise.</div>
+    </details>
+  </article>
+
+  <article class="story s2">
+    <div class="story-tag">🌐 Industry &middot; story 02</div>
+    <h2>Gemini stops being a chatbot</h2>
+    <p>At Google I/O on May 19, Google announced Gemini 4.0 plus three companions: Gemini Omni (a video model whose outputs are grounded in real knowledge), Gemini Spark (a personal agent that runs tasks across Workspace, Search, Chrome, YouTube), and Gemini 3.5 Flash hitting general availability — frontier intelligence at ~4× the speed. <a href="https://techcrunch.com/2026/05/19/google-updates-its-gemini-app-to-take-on-chatgpt-and-claude-at-io-2026/">TechCrunch ↗</a></p>
+    <details class="why">
+      <summary>Why this matters</summary>
+      <div class="body">The shift isn't any one model — it's that Gemini is being repositioned from a destination app to an OS-layer across Google's surfaces. The chatbot-vs-chatbot framing already feels dated; the new question is which AI lives quietly inside the tools you already use.</div>
+    </details>
+  </article>
+
+  <article class="story s3">
+    <div class="story-tag">🛡️ Security &middot; story 03</div>
+    <h2>The first AI security crossover</h2>
+    <p>Palo Alto Networks' May Patch Wednesday disclosed 26 CVEs — over 5× their typical monthly volume — and most were surfaced by frontier AI models scanning code, not human researchers. <a href="https://www.paloaltonetworks.com/blog/2026/05/defenders-guide-frontier-ai-impact-cybersecurity-may-2026-update/">Palo Alto ↗</a></p>
+    <details class="why">
+      <summary>Why this matters</summary>
+      <div class="body">This is the crossover month: AI's contribution to defensive security stopped being a future story and became a production reality. The flip side is uncomfortable — the same class of models is finding the same bugs for attackers. Expect a year of triage catch-up, faster patch cycles, and awkward disclosure conversations.</div>
+    </details>
+  </article>
+
+  <svg class="wave" viewBox="0 0 84 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M2 7 Q 12 0, 22 7 T 42 7 T 62 7 T 82 7" stroke="#5BA66A" stroke-width="3" stroke-linecap="round" fill="none"/>
+  </svg>
+
+  <span class="label">⚡ 5 quick hits</span>
+  <div class="qh">
+    <h3>Stuff worth knowing in one sentence</h3>
+    <div class="item"><div class="emoji">🧠</div><div class="text">NVIDIA opened its physical-AI playbook — Alpamayo (AVs), Nemotron (agents), plus 10T language tokens, 500K robotics trajectories, 455K protein structures, and 100TB of car sensor data as <a href="https://blogs.nvidia.com/blog/open-models-data-tools-accelerate-ai/">open data ↗</a>.</div></div>
+    <div class="item"><div class="emoji">🛠️</div><div class="text">Raindrop's Workshop — an open-source local debugger for AI agents — shipped for Mac/Linux/Windows with a one-line install. The first credible "Postman for agents."</div></div>
+    <div class="item"><div class="emoji">✈️</div><div class="text">Japan Airlines made humanoid robots permanent staff at Haneda — a 3-year operational commitment from a regulator-cautious legacy airline, not a publicity stunt.</div></div>
+    <div class="item"><div class="emoji">💼</div><div class="text">Anthropic announced a $1.5B JV with Blackstone, Hellman &amp; Friedman, and Goldman Sachs to push AI into community banks and regional health systems — the API-only era is ending.</div></div>
+    <div class="item"><div class="emoji">🏗️</div><div class="text">Meta signed a multi-billion-dollar deal to rent Google's TPUs and raised 2026 AI capex guidance to $125–145B. Even Meta is renting compute now.</div></div>
+  </div>
+
+  <div class="fun">
+    <div class="badge">🏓 One fun thing</div>
+    <h3>A robot just hit elite-human level at table tennis.</h3>
+    <p>Sony AI's "Ace" is the first known autonomous system to compete with pro-level humans in a popular physical sport — quietly clearing a benchmark researchers have circled for two decades. The wild part: it learned mostly from self-play.</p>
+  </div>
+
+  <footer>
+    <strong>Signal</strong> — A friendly weekly read on what's actually moving in AI.<br/>
+    Issue 001 · May 25, 2026 · 3 sources this week
+  </footer>
+</div>
+
+<script>
+  const ctx = document.getElementById('cveChart');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+      datasets: [{
+        data: [4, 5, 3, 5, 26],
+        backgroundColor: ['#FFE0CF','#FFE0CF','#FFE0CF','#FFE0CF','#FF6B35'],
+        borderRadius: 8,
+        barThickness: 38
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { backgroundColor:'#2A1F1A', titleFont:{family:'Inter',weight:'600'}, bodyFont:{family:'Inter'} } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11, weight: '500' }, color: '#8C7D72' } },
+        y: { grid: { color: '#F5EBDB' }, border: { display: false }, ticks: { font: { family: 'Inter', size: 11 }, color: '#8C7D72', stepSize: 5 }, beginAtZero: true }
+      }
+    }
+  });
+</script>
+</body>
+</html>

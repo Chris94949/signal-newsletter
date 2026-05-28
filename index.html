@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Signal · Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#FFF6E9;--card:#FFFFFF;--ink:#2A1F1A;--ink-soft:#5B4A40;--ink-mute:#8C7D72;
+    --orange:#E65525;--orange-deep:#B83E12;--yolk:#F6B83F;
+    --shadow:0 10px 24px -16px rgba(60,30,10,0.18),0 2px 6px -2px rgba(60,30,10,0.06);
+  }
+  *{box-sizing:border-box;}html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:"Inter",-apple-system,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:680px;margin:0 auto;padding:36px 22px 64px;}
+  .header{background:linear-gradient(135deg,#E65525,#D14418);color:#FFF;border-radius:22px;padding:26px 28px;box-shadow:var(--shadow);}
+  .header .mark{font-family:"DM Serif Display",serif;font-size:42px;line-height:1;letter-spacing:-0.02em;}
+  .header .mark span{color:var(--yolk);}
+  .header .sub{margin-top:8px;font-size:14px;opacity:0.95;}
+  h2.section{font-family:"DM Serif Display",serif;font-style:italic;font-size:22px;color:var(--orange-deep);margin:30px 0 14px;}
+  .list{display:flex;flex-direction:column;gap:10px;}
+  .row{display:block;background:var(--card);border-radius:14px;padding:18px 22px;text-decoration:none;color:inherit;box-shadow:var(--shadow);border-left:5px solid var(--orange);transition:transform 0.15s ease;}
+  .row:hover{transform:translateY(-1px);}
+  .row .meta{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+  .row .num{font-family:"DM Serif Display",serif;font-size:22px;color:var(--ink);}
+  .row .date{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-mute);}
+  .row .preview{font-size:14px;color:var(--ink-soft);line-height:1.5;}
+  .empty{background:var(--card);border-radius:14px;padding:24px;text-align:center;color:var(--ink-mute);font-style:italic;box-shadow:var(--shadow);}
+  footer{margin-top:32px;text-align:center;font-size:12px;color:var(--ink-mute);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="header">
+    <div class="mark">Signal<span>.</span></div>
+    <div class="sub">The archive — every issue, newest first.</div>
+  </header>
+  <h2 class="section">— Past issues</h2>
+  <div class="list">
+        <a class="row" href="signal-issue-002.html">
+          <div class="meta">
+            <span class="num">No. 002</span>
+            <span class="date">Monday · June 1 · 2026</span>
+          </div>
+          <div class="preview">🧮 AI just disproved an 80-year-old math conjecture · 💰 OpenAI filed for the biggest IPO in history · 🏗️ A leaked S-1 line exposed Anthropic&#39;s $45B compute bill</div>
+        </a>
+        <a class="row" href="signal-issue-001.html">
+          <div class="meta">
+            <span class="num">No. 001</span>
+            <span class="date">Monday · May 25 · 2026</span>
+          </div>
+          <div class="preview">🤖 China just had a 12-day coding-model fire-sale · 🌐 Gemini quietly stopped being a chatbot · 🛡️ AI had its first real security moment</div>
+        </a></div>
+  <footer>Signal · A friendly weekly read on what actually moved in AI.</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Signal · Issue 001 · Modern tech mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #07070C;
+    --bg-grad-from: #0E0E18;
+    --bg-grad-to: #07070C;
+    --card: #11111B;
+    --card-2: #161623;
+    --ink: #ECEDF5;
+    --ink-soft: #B6B7C7;
+    --ink-mute: #6B6C82;
+    --border: #232336;
+    --border-soft: #1B1B2A;
+    --accent: #8B6FFF;
+    --accent-2: #4C8DFF;
+    --grad: linear-gradient(135deg, #8B6FFF 0%, #4C8DFF 100%);
+    --grad-soft: linear-gradient(135deg, rgba(139,111,255,0.14) 0%, rgba(76,141,255,0.14) 100%);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, #14142A 0%, var(--bg) 60%);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .mono { font-family: "JetBrains Mono", monospace; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 44px 24px 80px; }
+
+  /* Header */
+  .header {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(139,111,255,0.06) 0%, transparent 100%), var(--card);
+    padding: 28px 28px 26px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--grad);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .header .topline {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .header .topline .live {
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .header .topline .live::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(139,111,255,0.22);
+  }
+  .header h1 {
+    font-family: "Inter", sans-serif;
+    font-size: 44px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin: 0 0 4px;
+    line-height: 1;
+  }
+  .header h1 .grad {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .header .deck {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 540px;
+    margin: 14px 0 0;
+  }
+  .stats {
+    display: flex;
+    gap: 22px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--border-soft);
+  }
+  .stat {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .stat b { display: block; color: var(--ink); font-size: 18px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 2px; text-transform: none; }
+
+  /* Section header */
+  .section {
+    margin-top: 36px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .section .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--grad);
+  }
+  .section .text {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.06em;
+  }
+  .section .rule { flex: 1; height: 1px; background: var(--border-soft); }
+
+  /* Chart card */
+  .chart-card {
+    background: linear-gradient(180deg, var(--card-2) 0%, var(--card) 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+  }
+  .chart-card h3 { font-size: 16px; font-weight: 600; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .chart-card .cap { font-size: 12px; color: var(--ink-mute); margin: 0 0 16px; font-family: "JetBrains Mono", monospace; }
+  .chart-wrap { height: 200px; position: relative; }
+
+  /* Stories */
+  .story {
+    border: 1px solid var(--border);
+    background: var(--card);
+    border-radius: 12px;
+    padding: 24px 26px 22px;
+    margin-bottom: 14px;
+    transition: border-color 0.2s ease;
+    position: relative;
+  }
+  .story:hover { border-color: rgba(139,111,255,0.45); }
+  .story .id {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--ink-mute);
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .story .id .tag {
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--grad-soft);
+    color: var(--accent);
+    font-weight: 500;
+    border: 1px solid rgba(139,111,255,0.25);
+  }
+  .story h2 {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  .story p { font-size: 15px; line-height: 1.65; color: var(--ink-soft); margin: 0 0 12px; }
+  .story a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(139,111,255,0.5);
+  }
+  .story a:hover { color: var(--accent-2); border-bottom-color: var(--accent-2); }
+  details.why {
+    margin-top: 10px;
+    border-top: 1px dashed var(--border-soft);
+    padding-top: 14px;
+  }
+  details.why summary {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--accent);
+    cursor: pointer;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.04em;
+  }
+  details.why summary::-webkit-details-marker { display: none; }
+  details.why summary::before { content: "$"; color: var(--ink-mute); }
+  details.why summary::after {
+    content: "▸";
+    margin-left: 6px;
+    transition: transform 0.2s ease;
+    font-size: 10px;
+  }
+  details.why[open] summary::after { transform: rotate(90deg); }
+  details.why .body {
+    margin-top: 12px;
+    padding-left: 14px;
+    border-left: 2px solid var(--accent);
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  /* Quick hits */
+  .qh {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 26px;
+    margin-top: 14px;
+  }
+  .qh h3 {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+  }
+  .qh .row {
+    display: flex;
+    gap: 14px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border-soft);
+    align-items: flex-start;
+  }
+  .qh .row:last-child { border-bottom: none; }
+  .qh .idx {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--accent);
+    margin-top: 3px;
+    flex-shrink: 0;
+    min-width: 28px;
+  }
+  .qh .text { font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
+  .qh .text a { color: var(--ink); border-bottom: 1px dashed var(--accent); text-decoration: none; }
+
+  /* Fun fact */
+  .fun {
+    margin-top: 22px;
+    border-radius: 12px;
+    padding: 1px;
+    background: var(--grad);
+  }
+  .fun-inner {
+    background: linear-gradient(135deg, #0E0E1A 0%, #14142A 100%);
+    border-radius: 11px;
+    padding: 30px 28px;
+  }
+  .fun .badge {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
+  }
+  .fun h3 {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+  }
+  .fun p { font-size: 15px; line-height: 1.6; color: var(--ink-soft); margin: 0; }
+
+  footer {
+    margin-top: 36px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-soft);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--ink-mute);
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="header">
+    <div class="topline">
+      <span class="mono">~/signal/issues/001</span>
+      <span class="live">LIVE · MON 05.25.2026</span>
+    </div>
+    <h1>Signal<span class="grad">/</span></h1>
+    <p class="deck">A friendly weekly read on what actually moved in AI this week. Three stories. Five quick hits. One fun fact. Three sources.</p>
+    <div class="stats">
+      <div class="stat"><b>03</b>Stories</div>
+      <div class="stat"><b>05</b>Quick hits</div>
+      <div class="stat"><b>03</b>Sources</div>
+      <div class="stat"><b>5m</b>Read</div>
+    </div>
+  </header>
+
+  <div class="section"><span class="dot"></span><span class="text">// chart of the week</span><span class="rule"></span></div>
+  <div class="chart-card">
+    <h3>AI just had its first big security month</h3>
+    <p class="cap">palo_alto.cve_disclosures.monthly_2026 — illustrative</p>
+    <div class="chart-wrap"><canvas id="cveChart"></canvas></div>
+  </div>
+
+  <div class="section"><span class="dot"></span><span class="text">// this week's three stories</span><span class="rule"></span></div>
+
+  <article class="story">
+    <div class="id"><span>01</span><span class="tag">FRONTIER</span><span>~ 12-day blitz</span></div>
+    <h2>China's 12-day open-coding blitz</h2>
+    <p>In a 12-day window in mid-May, four Chinese labs — Z.ai (GLM-5.1), MiniMax (M2.7), Moonshot (Kimi K2.6), and DeepSeek (V4) — released open-weights coding models matching the agentic-engineering ceiling of frontier closed models at roughly one third the inference cost.</p>
+    <details class="why">
+      <summary>why_this_matters</summary>
+      <div class="body">The frontier isn't moving up anymore — it's moving down on price. When open models hit the same capability ceiling at a third of the cost, "which model is smartest?" gives way to "where does the money go when intelligence is cheap?" Expect inference-cost wars, more code agents shipping in product, and a fresh round of build-vs-buy at every enterprise.</div>
+    </details>
+  </article>
+
+  <article class="story">
+    <div class="id"><span>02</span><span class="tag">INDUSTRY</span><span>~ google i/o</span></div>
+    <h2>Gemini stops being a chatbot</h2>
+    <p>At Google I/O on May 19, Google announced Gemini 4.0 plus three companions: Gemini Omni (a video model grounded in knowledge), Gemini Spark (a personal agent that runs tasks across Workspace, Search, Chrome, YouTube), and Gemini 3.5 Flash hitting GA — frontier intelligence at ~4× the speed of comparable models. <a href="https://techcrunch.com/2026/05/19/google-updates-its-gemini-app-to-take-on-chatgpt-and-claude-at-io-2026/">techcrunch ↗</a></p>
+    <details class="why">
+      <summary>why_this_matters</summary>
+      <div class="body">The shift isn't any one model — it's that Gemini is being repositioned from a destination app to an OS-layer running quietly across Google's surfaces. The chatbot-vs-chatbot framing already feels dated; the new question is which AI lives inside the tools you already use, every day.</div>
+    </details>
+  </article>
+
+  <article class="story">
+    <div class="id"><span>03</span><span class="tag">SECURITY</span><span>~ 26 CVEs in 1 day</span></div>
+    <h2>The first AI security crossover</h2>
+    <p>Palo Alto Networks' May Patch Wednesday disclosed 26 CVEs — over 5× their typical monthly volume — and the majority were surfaced by frontier AI models scanning code, not human researchers. <a href="https://www.paloaltonetworks.com/blog/2026/05/defenders-guide-frontier-ai-impact-cybersecurity-may-2026-update/">palo alto ↗</a></p>
+    <details class="why">
+      <summary>why_this_matters</summary>
+      <div class="body">This is the crossover month — AI's contribution to defensive security stopped being a future story and became a production reality. The uncomfortable flip side: the same class of models is finding the same bugs for attackers. Expect a year of vulnerability-triage catch-up, faster patch cycles, and awkward disclosure conversations.</div>
+    </details>
+  </article>
+
+  <div class="section"><span class="dot"></span><span class="text">// 5 quick hits</span><span class="rule"></span></div>
+  <div class="qh">
+    <h3>Worth one sentence each</h3>
+    <div class="row"><div class="idx">[01]</div><div class="text">NVIDIA opened its physical-AI playbook — Alpamayo (AVs), Nemotron (agents), plus 10T language tokens, 500K robotics trajectories, 455K protein structures, and 100TB of car sensor data as <a href="https://blogs.nvidia.com/blog/open-models-data-tools-accelerate-ai/">open data ↗</a>.</div></div>
+    <div class="row"><div class="idx">[02]</div><div class="text">Raindrop's Workshop — an open-source local debugger for AI agents — shipped for macOS/Linux/Windows with a one-line install. First credible "Postman for agents."</div></div>
+    <div class="row"><div class="idx">[03]</div><div class="text">Japan Airlines made humanoid robots permanent staff at Haneda — a 3-year operational commitment from a regulator-cautious legacy airline, not a stunt.</div></div>
+    <div class="row"><div class="idx">[04]</div><div class="text">Anthropic announced a $1.5B JV with Blackstone, Hellman &amp; Friedman, and Goldman Sachs to push AI into community banks and regional health systems — the API-only era is ending.</div></div>
+    <div class="row"><div class="idx">[05]</div><div class="text">Meta signed a multi-billion-dollar deal to rent Google's TPUs and raised 2026 AI capex guidance to $125–145B. Even Meta is renting compute now.</div></div>
+  </div>
+
+  <div class="fun">
+    <div class="fun-inner">
+      <div class="badge">// one fun thing</div>
+      <h3>A robot just hit elite-human level at table tennis.</h3>
+      <p>Sony AI's "Ace" is the first known autonomous system to compete with pro-level humans in a popular physical sport — quietly clearing a benchmark researchers have circled for two decades. The wild part: it learned mostly from self-play.</p>
+    </div>
+  </div>
+
+  <footer>
+    <span>signal · weekly · 001</span>
+    <span>built with ☕ &amp; chart.js</span>
+  </footer>
+</div>
+
+<script>
+  const ctx = document.getElementById('cveChart');
+  const grad = ctx.getContext('2d').createLinearGradient(0, 0, 0, 200);
+  grad.addColorStop(0, '#8B6FFF');
+  grad.addColorStop(1, '#4C8DFF');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+      datasets: [{
+        data: [4, 5, 3, 5, 26],
+        backgroundColor: ['#232336','#232336','#232336','#232336', grad],
+        borderRadius: 6,
+        barThickness: 38
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { backgroundColor:'#14142A', titleFont:{family:'JetBrains Mono', size: 11}, bodyFont:{family:'Inter', size: 13}, borderColor:'#8B6FFF', borderWidth: 1 } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { family: 'JetBrains Mono', size: 11 }, color: '#6B6C82' }, border: { color: '#232336' } },
+        y: { grid: { color: '#1B1B2A' }, border: { display: false }, ticks: { font: { family: 'JetBrains Mono', size: 11 }, color: '#6B6C82', stepSize: 5 }, beginAtZero: true }
+      }
+    }
+  });
+</script>
+</body>
+</html>
