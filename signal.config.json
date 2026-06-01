@@ -1,4 +1,4 @@
 {
-  "_comment": "Publish-time settings for Signal. Edit base_url after you've enabled GitHub Pages (or any host) and re-run `node render.js` to regenerate every email with absolute links. Leave empty for local-only.",
-  "base_url": ""
+  "_comment": "Publish-time settings for Signal. base_url is the live URL where Signal is hosted; render.js prepends it to email anchor links so they resolve absolutely from any inbox. Update if you move to a custom domain.",
+  "base_url": "https://chris94949.github.io/signal-newsletter/"
 }
