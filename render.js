@@ -317,6 +317,104 @@ function renderIndex(issues) {
 </html>`;
 }
 
+// ---------- MARKDOWN rendering (for Medium / Substack / Dev.to / LinkedIn) ----------
+function inlineHtmlToMd(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/<em>/gi, '*').replace(/<\/em>/gi, '*')
+    .replace(/<strong>/gi, '**').replace(/<\/strong>/gi, '**')
+    .replace(/<br\s*\/?>/gi, '\n');
+}
+
+function renderMarkdown(d) {
+  const issueStr = String(d.issue).padStart(3, '0');
+  const base = d.base_url || '';
+  const canonicalUrl = base ? `${base}signal-issue-${issueStr}.html` : `signal-issue-${issueStr}.html`;
+
+  const previewLines = d.preview
+    .map((p, i) => `- ${p.emoji} **${p.label} · 0${i+1}** — ${p.title}`)
+    .join('\n');
+
+  // Chart as a simple Markdown table
+  const chartHeader = '| ' + d.chart.labels.join(' | ') + ' |';
+  const chartSeparator = '|' + d.chart.labels.map(() => '---').join('|') + '|';
+  const chartValues = '| ' + d.chart.values.map((v, i) =>
+    i === d.chart.highlight_index ? `**${v}**` : String(v)
+  ).join(' | ') + ' |';
+  const chartBlock = `**${d.chart.title}**\n\n*${d.chart.caption}*\n\n${chartHeader}\n${chartSeparator}\n${chartValues}\n\n_(See the interactive chart on the [live page](${canonicalUrl}).)_`;
+
+  const storyBlocks = d.stories.map(s => {
+    const linkLine = s.link ? `\n\n[${s.link.label} →](${s.link.url})` : '';
+    return `### ${s.kicker} — ${s.title}
+
+> **Why you'd care** — ${s.why_you_care}
+
+${inlineHtmlToMd(s.body)}${linkLine}
+
+**More on this.** ${inlineHtmlToMd(s.more)}`;
+  }).join('\n\n---\n\n');
+
+  const quickHitLines = d.quick_hits.map((q, i) => {
+    const linkSuffix = q.link ? ` [${q.link.label} →](${q.link.url})` : '';
+    return `${i+1}. **${q.lede}** ${inlineHtmlToMd(q.text)}${linkSuffix}`;
+  }).join('\n');
+
+  return `# Signal · Issue ${issueStr}
+
+> ${d.tagline}
+
+*${d.date_display} · ${d.read_minutes}-min read*
+
+---
+
+**From ${d.editor_name}** — ${d.editor_note}
+
+---
+
+## In this issue
+
+${previewLines}
+
+Plus ${d.quick_hits.length} quick hits, one chart, and one fun thing.
+
+---
+
+## The chart of the week
+
+${chartBlock}
+
+---
+
+## This week's three stories
+
+${storyBlocks}
+
+---
+
+## Worth knowing in one sentence
+
+${quickHitLines}
+
+---
+
+## One fun thing
+
+**${d.fun_fact.title}**
+
+${inlineHtmlToMd(d.fun_fact.body)}
+
+---
+
+*Signal — a friendly weekly read on what actually moved in AI. Issue ${issueStr} · ${d.date_display}.*
+
+*Want to reply with one word? ${d.reply_to}*
+
+---
+
+> **For syndication:** This piece was originally published at ${canonicalUrl}. When importing to Medium, Substack, Dev.to, or any platform that supports it, set this URL as the canonical URL in the story settings — this preserves SEO and credits the original source.
+`;
+}
+
 // ---------- main ----------
 function main() {
   const arg = process.argv[2];
@@ -331,10 +429,12 @@ function main() {
 
   const pageOut = path.join(DIR, `signal-issue-${issueStr}.html`);
   const emailOut = path.join(DIR, `signal-issue-${issueStr}.email.html`);
+  const mdOut = path.join(DIR, `signal-issue-${issueStr}.md`);
   const indexOut = path.join(DIR, 'index.html');
 
   fs.writeFileSync(pageOut, renderPage(data));
   fs.writeFileSync(emailOut, renderEmail(data));
+  fs.writeFileSync(mdOut, renderMarkdown(data));
 
   // Regenerate archive from all known issues
   const issues = fs.readdirSync(DIR)
@@ -346,6 +446,7 @@ function main() {
   console.log(`✓ Rendered Issue ${issueStr}` + (data.base_url ? ` (links → ${data.base_url})` : ' (relative links — set base_url in signal.config.json after hosting)'));
   console.log(`  ${path.basename(pageOut)}`);
   console.log(`  ${path.basename(emailOut)}`);
+  console.log(`  ${path.basename(mdOut)} (paste this into Medium / Substack / Dev.to)`);
   console.log(`  ${path.basename(indexOut)} (${issues.length} issue${issues.length===1?'':'s'} archived)`);
 }
 
@@ -354,4 +455,4 @@ if (require.main === module) {
   catch (e) { console.error('✗ render.js failed:', e.message); process.exit(1); }
 }
 
-module.exports = { renderPage, renderEmail, renderIndex };
+module.exports = { renderPage, renderEmail, renderMarkdown, renderIndex };
