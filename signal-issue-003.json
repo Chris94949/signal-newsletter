@@ -1,0 +1,88 @@
+{
+  "issue": 3,
+  "date": "2026-06-01",
+  "date_display": "Monday · June 1 · 2026",
+  "read_minutes": 5,
+  "tagline": "A friendly weekly read on what actually moved in AI.",
+  "editor_name": "Chris",
+  "editor_note": "Issue three. This week was Anthropic's — Claude Opus 4.8 shipped Thursday, the company surpassed OpenAI as the most valuable AI startup the same day, and two international offices opened in 48 hours. But the week's most consequential story wasn't a launch. It was a free GitHub tool that strips AI safety guardrails in 10 minutes. Both below. 🛡️",
+  "preview": [
+    { "emoji": "🧠", "label": "Research", "title": "Claude Opus 4.8 makes honesty a benchmark" },
+    { "emoji": "💼", "label": "Industry", "title": "Anthropic surpasses OpenAI as the most valuable AI startup" },
+    { "emoji": "🛡️", "label": "Safety",   "title": "A free tool strips AI safety guardrails in 10 minutes" }
+  ],
+  "chart": {
+    "title": "Anthropic just became the most valuable AI startup",
+    "caption": "Anthropic post-money valuation, $B · 2024 → late May 2026 (illustrative, based on disclosed rounds and reporting)",
+    "labels": ["Late '24", "Mid '25", "Q1 '26", "Q2 '26", "May 28 '26"],
+    "values": [40, 61.5, 183, 380, 950],
+    "highlight_index": 4
+  },
+  "stories": [
+    {
+      "id": "s1",
+      "kicker": "🧠 Research · story 01",
+      "color": "orange",
+      "title": "Claude Opus 4.8 makes honesty a benchmark",
+      "why_you_care": "For the first time, a flagship AI model is being marketed on how *honestly* it works — not just how *much* it can do.",
+      "body": "Anthropic shipped Claude Opus 4.8 on May 28 at the same price as Opus 4.7 ($5/$25 per million tokens). The benchmark numbers are good — 88.6% on SWE-bench Verified, 96.7% on USAMO 2026 math <em>(up from 69.3% on the prior version — the largest single-cycle math jump in the Opus line)</em>. But the eye-catching numbers are the reliability ones: a 4× reduction in unreported code flaws, a 10× reduction in overconfidence, and the first Claude model ever to score 0% on uncritically reporting flawed results.",
+      "more": "The framing is a real shift in how labs compete. For two years, every frontier release has been pitched on raw capability — \"smarter, faster, longer context.\" Opus 4.8's marketing leads with how often the model admits it might be wrong. That's harder to demo and easier to measure once you're using it in production. Expect the next OpenAI and Google releases to claim something similar — reliability becomes the new battleground when capability ceilings flatten.",
+      "link": { "label": "9to5Mac", "url": "https://9to5mac.com/2026/05/28/anthropic-upgrades-claude-with-new-opus-4-8-model-heres-whats-new/" }
+    },
+    {
+      "id": "s2",
+      "kicker": "💼 Industry · story 02",
+      "color": "sage",
+      "title": "Anthropic surpasses OpenAI as the most valuable AI startup",
+      "why_you_care": "Eighteen months ago Anthropic was the scrappy underdog. As of Thursday, it's the highest-valued private AI company on Earth.",
+      "body": "On May 28 — the same day Claude Opus 4.8 shipped — CNBC reported that Anthropic is nearing a $1 trillion valuation in its latest funding round, overtaking OpenAI as the most valuable AI startup. The same week the company opened international offices in Milan (May 27) and Seoul (May 26). Three milestones in 48 hours.",
+      "more": "The market has quietly decided that model-quality and enterprise-trust matter more than consumer reach. OpenAI still has a far larger consumer footprint — 50M+ subscribers vs. Anthropic's enterprise-heavy mix — but investors are pricing Anthropic on the assumption that AI revenue at scale comes from companies, not individuals. That's a thesis bet, and it has roughly 12 months to be proven before the public-market window (OpenAI's S-1) reframes the whole comparison.",
+      "link": { "label": "CNBC", "url": "https://www.cnbc.com/2026/05/28/anthropic-open-ai-startup-value.html" }
+    },
+    {
+      "id": "s3",
+      "kicker": "🛡️ Safety · story 03",
+      "color": "pink",
+      "title": "A free tool strips AI safety guardrails in 10 minutes",
+      "why_you_care": "The argument that open-weight models can ship with meaningful safety just took a public, evidence-backed hit.",
+      "body": "A joint Financial Times / Alice <em>(AI safety research group)</em> investigation published May 25 showed that a free GitHub tool called Heretic can strip all safety protections from open-weight models like Meta's Llama 3.3 and Google's Gemma 3 in under 10 minutes on a standard laptop. The tool has been used to produce 3,500+ jailbroken variants with 13 million cumulative downloads. Once modified, the models comply with prompts for biological weapons, malware, and CSAM.",
+      "more": "Two things change because of this. First, the abstract debate over open-weight safety just became concrete — \"protections survive distribution\" is now an empirical claim, and it's failing. Second, expect Meta and Google to ship a wave of harder-to-strip alignment techniques (constitutional baking, weight-encrypted refusals) over the next two quarters, and expect regulators — particularly under the EU AI Act's August 2026 transparency rules — to start asking pointed questions about open-weight liability.",
+      "link": { "label": "Irish Times", "url": "https://www.irishtimes.com/business/2026/05/25/ai-guardrails-stripped-from-meta-and-google-models-in-minutes/" }
+    }
+  ],
+  "quick_hits": [
+    {
+      "shape": "stat",
+      "lede": "249,560 packages.",
+      "text": "Figure AI's Figure 03 humanoid completed a 200-hour continuous autonomous run at the company's Sunnyvale HQ on Helix-02 — sorting that many packages with zero hardware failures. The metric that matters is the zero."
+    },
+    {
+      "shape": "verdict",
+      "lede": "The \"unlimited\" era of AI coding tools just ended.",
+      "text": "GitHub Copilot transitioned from a flat subscription to AI-credit billing on June 1 ($0.01 per credit). Microsoft said escalating inference costs made the unlimited model unsustainable. The first major AI tool to admit its pricing was broken."
+    },
+    {
+      "shape": "money",
+      "lede": "$650 million",
+      "text": "— Groq is raising at this size to build Groq 2.0 as a pure AI-inference cloud, with no hardware business. The bet: hardware is commodity, inference economics is where the margin lives."
+    },
+    {
+      "shape": "question",
+      "lede": "What if you didn't have to wait for the AI to \"think\"?",
+      "text": "Sesame, the conversational AI startup from Oculus founders, shipped its iOS app this week with a design where the conversation keeps flowing while the model reasons in the background. Three years in, the chatbot UX may finally get reshaped."
+    },
+    {
+      "shape": "named",
+      "lede": "OpenAI built a 97%-accurate tax system.",
+      "text": "Working with Thrive Holdings (announced May 27), OpenAI used Codex to build a self-improving AI tax filing system. Niche application, telling signal — the most valuable AI work is increasingly building production systems, not selling raw model access."
+    }
+  ],
+  "fun_fact": {
+    "title": "A humanoid robot just worked a 200-hour shift. No coffee, no failures, 249,560 packages.",
+    "body": "Figure AI's Figure 03 ran continuously for 200 hours at the company's Sunnyvale headquarters this week, sorting 249,560 packages on the Helix-02 AI system with not a single hardware failure. The eye-catching number isn't the package count — it's the zero in \"zero failures.\" The \"humanoids look great in demos but break under real use\" critique is getting harder to defend.",
+    "link": null
+  },
+  "sources_count": 3,
+  "reply_to": "christienabrhm94@gmail.com",
+  "archive_url": "index.html"
+}

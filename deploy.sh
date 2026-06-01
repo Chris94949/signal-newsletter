@@ -3,11 +3,12 @@
 # deploy.sh — one-command Signal deployment helper
 #
 # Usage:
-#   bash deploy.sh                          # local commit only (run this first)
-#   bash deploy.sh <github-repo-url>        # local commit + set remote + push
+#   bash deploy.sh                          # smart default — pushes to saved remote, or local commit only if no remote yet
+#   bash deploy.sh <github-repo-url>        # set/update remote URL, then commit + push
 #
 # Example:
-#   bash deploy.sh https://github.com/yourname/signal-newsletter.git
+#   First time:  bash deploy.sh https://github.com/Chris94949/signal-newsletter.git
+#   Every week:  bash deploy.sh
 #
 # What it does:
 #   1. Verifies git is installed.
@@ -15,7 +16,7 @@
 #   3. Stages all files (respecting .gitignore).
 #   4. Commits with a sensible default message.
 #   5. Sets branch to 'main'.
-#   6. If a remote URL is provided, sets origin and pushes.
+#   6. If a remote URL is provided OR an origin remote already exists, sets/uses it and pushes.
 
 set -e
 
@@ -63,31 +64,41 @@ fi
 # 5. Branch to main
 git branch -M main
 
-# 6. Remote + push (only if URL provided)
+# 6. Remote + push
+HAS_ORIGIN=0
+if git remote | grep -q '^origin$'; then HAS_ORIGIN=1; fi
+
 if [ -n "$REPO_URL" ]; then
   echo "→ Setting origin to $REPO_URL"
-  if git remote | grep -q '^origin$'; then
+  if [ "$HAS_ORIGIN" = "1" ]; then
     git remote set-url origin "$REPO_URL"
   else
     git remote add origin "$REPO_URL"
   fi
+  HAS_ORIGIN=1
+fi
 
-  echo "→ Pushing to origin/main (browser auth may pop up)..."
+if [ "$HAS_ORIGIN" = "1" ]; then
+  CURRENT_URL=$(git remote get-url origin)
+  echo "→ Pushing to $CURRENT_URL (browser auth may pop up on first push)..."
   git push -u origin main
   echo ""
   echo "✓ Pushed successfully."
   echo ""
-  echo "Next:"
-  echo "  1. Visit your repo on GitHub."
-  echo "  2. Settings → Pages → Source: Deploy from a branch → Branch: main → Folder: / (root) → Save"
-  echo "  3. Wait 30-90 seconds, then visit the green URL it shows you."
-  echo "  4. Tell Claude that URL, and they'll set base_url and re-render."
+  if [ -z "$REPO_URL" ]; then
+    echo "Live URL should update at https://chris94949.github.io/signal-newsletter/ in ~30 seconds."
+  else
+    echo "Next:"
+    echo "  1. Visit your repo on GitHub."
+    echo "  2. Settings → Pages → Source: Deploy from a branch → Branch: main → Folder: / (root) → Save"
+    echo "  3. Wait 30-90 seconds, then visit the green URL it shows you."
+  fi
 else
   echo ""
-  echo "✓ Local commit ready."
+  echo "✓ Local commit ready (no remote configured yet)."
   echo ""
   echo "Next:"
-  echo "  1. Create a public repo at https://github.com/new (name it whatever — e.g. 'signal-newsletter')."
+  echo "  1. Create a public repo at https://github.com/new (e.g. 'signal-newsletter')."
   echo "     Do NOT initialize with README/license/gitignore — yours already exist."
   echo "  2. Copy the HTTPS clone URL GitHub shows you (ends in .git)."
   echo "  3. Re-run: bash deploy.sh <that-url>"
