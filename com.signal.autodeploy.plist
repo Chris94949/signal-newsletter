@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!--
+        Signal · auto-deploy LaunchAgent
+
+        Watches index.html for changes. When it's modified (i.e. when render.js
+        finishes writing a new or updated archive), runs bash deploy.sh, which
+        stages + commits + pushes to GitHub. GitHub Pages rebuilds in ~30s.
+
+        Install:   bash install-autodeploy.sh
+        Logs:      .autodeploy.log (gitignored)
+        Uninstall: launchctl unload ~/Library/LaunchAgents/com.signal.autodeploy.plist
+    -->
+    <key>Label</key>
+    <string>com.signal.autodeploy</string>
+
+    <key>WatchPaths</key>
+    <array>
+        <string>/Users/christienabraham/Documents/Claude/Projects/Interactive Newsletter/index.html</string>
+    </array>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/christienabraham/Documents/Claude/Projects/Interactive Newsletter/deploy.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/christienabraham/Documents/Claude/Projects/Interactive Newsletter</string>
+
+    <!-- Throttle: wait at least 60 seconds between firings so multi-file
+         render writes don't trigger overlapping deploys. -->
+    <key>ThrottleInterval</key>
+    <integer>60</integer>
+
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>/Users/christienabraham/Documents/Claude/Projects/Interactive Newsletter/.autodeploy.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/christienabraham/Documents/Claude/Projects/Interactive Newsletter/.autodeploy.log</string>
+
+    <!-- Pass through PATH so git, node, ssh-agent are resolvable -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+</dict>
+</plist>

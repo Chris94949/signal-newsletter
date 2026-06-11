@@ -2,20 +2,57 @@
 
 A weekly interactive newsletter on what actually moved in AI — three stories, five quick-hits, one fun fact, three sources. Friendly explainer voice.
 
-Ships every Monday via a scheduled Claude task that researches the past 7 days, writes the issue content as JSON, and runs `render.js` to produce the interactive page, the email-safe twin, and an updated archive.
+Ships every Monday automatically: a scheduled Claude task researches the past 7 days, writes the issue content as JSON, and runs `render.js`. A macOS LaunchAgent watches the output and pushes to GitHub Pages within ~60 seconds. The only manual step left is optionally pasting the Markdown version into Medium.
+
+## The full automation pipeline
+
+```
+ Monday 7am ─ Scheduled Claude task
+              │
+              ├─ Step 1: List existing signal-issue-*.json files → next issue number
+              ├─ Step 2: WebSearch the past 7 days of AI/tech news
+              ├─ Step 3: Curate to 3 headlines + 5 quick-hits + 1 fun fact + 1 chart
+              ├─ Step 4: Write signal-issue-NNN.json
+              ├─ Step 5: Run `node render.js`
+              │           ↓
+              │   Writes:  signal-issue-NNN.html       (interactive page)
+              │            signal-issue-NNN.email.html (email-safe twin)
+              │            signal-issue-NNN.md         (Medium-ready Markdown)
+              │            index.html                  (regenerated archive)  ←┐
+              │                                                                │
+              ├─ Step 6: Verify outputs                                        │
+              └─ Step 7: Notify Chris with live URL                            │
+                                                                               │
+ macOS LaunchAgent (com.signal.autodeploy) ───── watches ─────────────────────┘
+              │
+              └─ index.html changes → fires `bash deploy.sh`
+                 ↓
+                 git add + commit + push origin main
+                 ↓
+ GitHub Pages rebuilds (~30s)
+              │
+              └─ https://chris94949.github.io/signal-newsletter/signal-issue-NNN.html  goes live
+```
+
+Total Chris action on a normal Monday: zero. The optional Medium paste takes 3-5 minutes; everything else is hands-off.
 
 ## File structure
 
 ```
 .
 ├── README.md                      ← this file
+├── SYNDICATION.md                 ← how to publish each issue to Medium
 ├── signal.config.json             ← publish-time settings (base_url)
-├── render.js                      ← build script: JSON → page + email + archive
+├── render.js                      ← build script: JSON → page + email + Markdown + archive
+├── deploy.sh                      ← git stage/commit/push (called by LaunchAgent)
+├── install-autodeploy.sh          ← one-time installer for the macOS auto-deploy
+├── com.signal.autodeploy.plist    ← LaunchAgent definition (installed to ~/Library/LaunchAgents/)
 ├── signal-issue-001-v2.html       ← page template (do not edit by hand)
 │
 ├── signal-issue-NNN.json          ← content for issue NNN (the source of truth)
 ├── signal-issue-NNN.html          ← rendered interactive page (output)
 ├── signal-issue-NNN.email.html    ← rendered email-safe twin (output)
+├── signal-issue-NNN.md            ← rendered Markdown for Medium / Substack (output)
 │
 └── index.html                     ← archive page, regenerated on every render
 ```
@@ -45,6 +82,30 @@ node render.js ./signal-issue-002.json
 ```
 
 After editing any `signal-issue-NNN.json`, run `node render.js NNN` to regenerate.
+
+## One-time setup for full automation
+
+After the first manual `bash deploy.sh <repo-url>` push has stored your GitHub credentials in the macOS keychain, install the auto-deploy LaunchAgent:
+
+```bash
+cd "/Users/christienabraham/Documents/Claude/Projects/Interactive Newsletter"
+bash install-autodeploy.sh
+```
+
+This copies `com.signal.autodeploy.plist` into `~/Library/LaunchAgents/` and loads it via `launchctl`. From that point onward, every time `render.js` writes a new `index.html`, the LaunchAgent fires `bash deploy.sh` within ~60 seconds — including the weekly Monday-morning task run.
+
+Verify it's active:
+
+```bash
+launchctl list | grep com.signal.autodeploy
+tail -f .autodeploy.log
+```
+
+Uninstall:
+
+```bash
+bash install-autodeploy.sh --uninstall
+```
 
 ## Publishing
 

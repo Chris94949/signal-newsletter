@@ -28,12 +28,18 @@ const path = require('path');
 const DIR = __dirname;
 const PAGE_TEMPLATE = path.join(DIR, 'signal-issue-001-v2.html');
 const CONFIG_PATH = path.join(DIR, 'signal.config.json');
+const SECRETS_PATH = path.join(DIR, 'signal.secrets.json');
 
 // ---------- config (publish-time settings) ----------
 function loadConfig() {
   if (!fs.existsSync(CONFIG_PATH)) return {};
   try { return JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8')); }
   catch (e) { console.warn('Warning: signal.config.json is invalid:', e.message); return {}; }
+}
+function loadSecrets() {
+  if (!fs.existsSync(SECRETS_PATH)) return {};
+  try { return JSON.parse(fs.readFileSync(SECRETS_PATH, 'utf8')); }
+  catch (e) { console.warn('Warning: signal.secrets.json is invalid:', e.message); return {}; }
 }
 function normalizeBaseUrl(u) {
   if (!u) return '';
@@ -255,7 +261,19 @@ ${storyBlocks}
 }
 
 // ---------- ARCHIVE rendering ----------
-function renderIndex(issues) {
+function renderIndex(issues, opts) {
+  opts = opts || {};
+  const buttondownUsername = opts.buttondown_username || (issues[0] && issues[0].buttondown_username) || '';
+  const subscribeBlock = buttondownUsername ? `
+  <section class="subscribe">
+    <h2>📩 Get Signal in your inbox</h2>
+    <p>Three stories, five quick hits, one fun fact. Every Monday. No spam.</p>
+    <form action="https://buttondown.email/api/emails/embed-subscribe/${esc(buttondownUsername)}" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.email/${esc(buttondownUsername)}', 'popupwindow')" class="bd-form">
+      <input type="email" name="email" id="bd-email" placeholder="you@example.com" required aria-label="Email address">
+      <button type="submit">Subscribe</button>
+    </form>
+    <p class="fineprint">Free. Unsubscribe anytime. Hosted by Buttondown.</p>
+  </section>` : '';
   const rows = issues.map(d => {
     const issueStr = String(d.issue).padStart(3, '0');
     const previewStr = d.preview.map(p => `${p.emoji} ${p.title}`).join(' · ');
@@ -300,6 +318,15 @@ function renderIndex(issues) {
   .row .date{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-mute);}
   .row .preview{font-size:14px;color:var(--ink-soft);line-height:1.5;}
   .empty{background:var(--card);border-radius:14px;padding:24px;text-align:center;color:var(--ink-mute);font-style:italic;box-shadow:var(--shadow);}
+  .subscribe{background:linear-gradient(135deg,#FFC857,#FF6B35);color:#FFF;border-radius:20px;padding:28px 26px;margin:28px 0 12px;box-shadow:var(--shadow);text-align:center;}
+  .subscribe h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:24px;margin:0 0 8px;color:#FFF;}
+  .subscribe p{font-size:14px;margin:0 0 14px;opacity:0.95;}
+  .subscribe .bd-form{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+  .subscribe input[type=email]{flex:1;min-width:200px;max-width:300px;padding:11px 14px;border-radius:10px;border:none;font-family:"Inter",sans-serif;font-size:14px;color:#2A1F1A;}
+  .subscribe input[type=email]:focus{outline:2px solid #FFF;}
+  .subscribe button{padding:11px 20px;border-radius:10px;border:none;background:#2A1F1A;color:#FFF;font-family:"Inter",sans-serif;font-weight:600;font-size:14px;cursor:pointer;}
+  .subscribe button:hover{background:#000;}
+  .subscribe .fineprint{font-size:11px;margin-top:12px;opacity:0.8;}
   footer{margin-top:32px;text-align:center;font-size:12px;color:var(--ink-mute);}
 </style>
 </head>
@@ -308,7 +335,7 @@ function renderIndex(issues) {
   <header class="header">
     <div class="mark">Signal<span>.</span></div>
     <div class="sub">The archive — every issue, newest first.</div>
-  </header>
+  </header>${subscribeBlock}
   <h2 class="section">— Past issues</h2>
   <div class="list">${rows || '<div class="empty">No issues yet. Monday’s coming.</div>'}</div>
   <footer>Signal · A friendly weekly read on what actually moved in AI.</footer>
@@ -415,15 +442,60 @@ ${inlineHtmlToMd(d.fun_fact.body)}
 `;
 }
 
+// ---------- BUTTONDOWN integration ----------
+// Sends each issue's Markdown to Buttondown for distribution to subscribers.
+// Skipped silently when no API key is configured (signal.secrets.json).
+async function sendToButtondown(data, mdContent, apiKey) {
+  if (!apiKey || apiKey.trim() === '' || apiKey.includes('YOUR_BUTTONDOWN_API_KEY')) {
+    console.log('  buttondown: send skipped (no API key in signal.secrets.json — set it to enable)');
+    return { skipped: true };
+  }
+  const issueStr = String(data.issue).padStart(3, '0');
+  const headline = data.preview && data.preview[0] ? data.preview[0].title : `Issue ${issueStr}`;
+  const subject = `Signal · Issue ${issueStr} — ${headline}`;
+
+  // Trim the syndication footer note from the .md before sending — subscribers
+  // don't need the "set canonical URL" reminder; that's for the writer.
+  const cleanBody = mdContent.replace(/\n---\n+> \*\*For syndication:\*\*[\s\S]*$/, '\n').trim();
+
+  try {
+    const res = await fetch('https://api.buttondown.email/v1/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Token ${apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        subject,
+        body: cleanBody,
+        email_type: 'public'
+      })
+    });
+    if (res.ok) {
+      const result = await res.json();
+      console.log(`  ✓ buttondown: queued for send (id: ${result.id || 'unknown'})`);
+      return { ok: true, id: result.id };
+    }
+    const text = await res.text();
+    console.log(`  ✗ buttondown send failed: ${res.status} — ${text.slice(0, 200)}`);
+    return { ok: false, status: res.status };
+  } catch (e) {
+    console.log(`  ✗ buttondown send error: ${e.message}`);
+    return { ok: false, error: e.message };
+  }
+}
+
 // ---------- main ----------
-function main() {
+async function main() {
   const arg = process.argv[2];
   const jsonPath = resolveJsonPath(arg);
   const data = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
 
-  // Merge publish-time config (currently: base_url for absolute email links)
+  // Merge publish-time config
   const config = loadConfig();
+  const secrets = loadSecrets();
   data.base_url = normalizeBaseUrl(data.base_url || config.base_url || '');
+  data.buttondown_username = config.buttondown_username || '';
 
   const issueStr = String(data.issue).padStart(3, '0');
 
@@ -432,27 +504,33 @@ function main() {
   const mdOut = path.join(DIR, `signal-issue-${issueStr}.md`);
   const indexOut = path.join(DIR, 'index.html');
 
+  const mdContent = renderMarkdown(data);
+
   fs.writeFileSync(pageOut, renderPage(data));
   fs.writeFileSync(emailOut, renderEmail(data));
-  fs.writeFileSync(mdOut, renderMarkdown(data));
+  fs.writeFileSync(mdOut, mdContent);
 
   // Regenerate archive from all known issues
   const issues = fs.readdirSync(DIR)
     .filter(f => /^signal-issue-\d{3}\.json$/.test(f))
     .map(f => JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8')))
     .sort((a, b) => b.issue - a.issue);
-  fs.writeFileSync(indexOut, renderIndex(issues));
+  // Pass buttondown_username to renderIndex so it can include the subscribe form
+  issues.forEach(i => { i.buttondown_username = data.buttondown_username; });
+  fs.writeFileSync(indexOut, renderIndex(issues, { buttondown_username: data.buttondown_username }));
 
   console.log(`✓ Rendered Issue ${issueStr}` + (data.base_url ? ` (links → ${data.base_url})` : ' (relative links — set base_url in signal.config.json after hosting)'));
   console.log(`  ${path.basename(pageOut)}`);
   console.log(`  ${path.basename(emailOut)}`);
-  console.log(`  ${path.basename(mdOut)} (paste this into Medium / Substack / Dev.to)`);
+  console.log(`  ${path.basename(mdOut)} (paste into Medium / Substack / Dev.to if not auto-sending)`);
   console.log(`  ${path.basename(indexOut)} (${issues.length} issue${issues.length===1?'':'s'} archived)`);
+
+  // Send to Buttondown (no-op if no API key)
+  await sendToButtondown(data, mdContent, secrets.buttondown_api_key);
 }
 
 if (require.main === module) {
-  try { main(); }
-  catch (e) { console.error('✗ render.js failed:', e.message); process.exit(1); }
+  main().catch(e => { console.error('✗ render.js failed:', e.message); process.exit(1); });
 }
 
-module.exports = { renderPage, renderEmail, renderMarkdown, renderIndex };
+module.exports = { renderPage, renderEmail, renderMarkdown, renderIndex, sendToButtondown };

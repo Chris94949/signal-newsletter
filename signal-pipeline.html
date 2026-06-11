@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Signal · The Pipeline — how an issue ships itself</title>
+<meta name="description" content="How Signal, a weekly AI newsletter, researches, writes, renders, and publishes itself every Monday for $0 — and the free-tier plan to scale it." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFF6E9;
+    --bg-card: #FFFFFF;
+    --ink: #2A1F1A;
+    --ink-soft: #5B4A40;
+    --ink-mute: #8C7D72;
+    --orange: #E65525;
+    --orange-deep: #B83E12;
+    --orange-soft: #FFE0CF;
+    --orange-tint: #FFF1E6;
+    --sage: #4F8A5F;
+    --sage-deep: #38684A;
+    --sage-soft: #DAEBDF;
+    --sage-tint: #EFF7F1;
+    --pink: #D86A82;
+    --pink-deep: #B04258;
+    --pink-soft: #FBE3E8;
+    --pink-tint: #FDF1F4;
+    --yolk: #F6B83F;
+    --teal: #2C7A7E;
+    --dash: #F0E2CF;
+    --shadow: 0 10px 24px -16px rgba(60, 30, 10, 0.18), 0 2px 6px -2px rgba(60, 30, 10, 0.06);
+    --shadow-soft: 0 4px 12px -8px rgba(60, 30, 10, 0.14);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 22px 64px; }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.vis { opacity: 1; transform: none; }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: linear-gradient(135deg, #E65525 0%, #D14418 100%);
+    color: #FFF;
+    border-radius: 24px;
+    padding: 30px 30px 28px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -34px;
+    bottom: -34px;
+    width: 160px;
+    height: 160px;
+    background: var(--yolk);
+    border-radius: 50%;
+    opacity: 0.92;
+    z-index: 0;
+    animation: floaty 6s ease-in-out infinite;
+  }
+  @keyframes floaty {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-8px, -10px) scale(1.05); }
+  }
+  .header .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    z-index: 1;
+  }
+  .header .mark {
+    font-family: "DM Serif Display", serif;
+    font-size: 50px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .header .mark span { color: var(--yolk); }
+  .header .meta {
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: right;
+    opacity: 0.96;
+  }
+  .header .tagline {
+    margin-top: 14px;
+    font-size: 16px;
+    font-weight: 500;
+    opacity: 0.94;
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+  }
+  .header .tagline em { font-family: "DM Serif Display", serif; font-size: 17px; }
+
+  /* ===== EDITOR NOTE ===== */
+  .editor {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin-top: 14px;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .editor .avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), var(--yolk));
+    color: #FFF;
+    font-family: "DM Serif Display", serif;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .editor .text { font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; }
+  .editor .text .from {
+    font-weight: 700; color: var(--ink); font-size: 12px;
+    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px;
+  }
+
+  /* ===== STAT STRIP ===== */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .stat {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 18px 14px 14px;
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+  }
+  .stat .num {
+    font-family: "DM Serif Display", serif;
+    font-size: 34px;
+    line-height: 1.1;
+    color: var(--orange-deep);
+  }
+  .stat:nth-child(2) .num { color: var(--sage-deep); }
+  .stat:nth-child(3) .num { color: var(--teal); }
+  .stat:nth-child(4) .num { color: var(--pink-deep); }
+  .stat .lbl {
+    margin-top: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  /* ===== PREVIEW STRIP ===== */
+  .preview {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 18px 22px 16px;
+    margin-top: 14px;
+    box-shadow: var(--shadow-soft);
+  }
+  .preview .label {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--orange-deep);
+    margin-bottom: 10px;
+  }
+  .preview ol { margin: 0; padding: 0; list-style: none; }
+  .preview li {
+    padding: 7px 0;
+    font-size: 14.5px;
+    display: flex; gap: 10px; align-items: baseline;
+    border-bottom: 1px dashed var(--dash);
+  }
+  .preview li:last-of-type { border-bottom: none; }
+  .preview li .emoji { font-size: 16px; line-height: 1; flex-shrink: 0; }
+  .preview li .tag {
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--ink-mute); margin-right: 2px;
+  }
+  .preview li .title { font-weight: 500; }
+  .preview li a { text-decoration: none; }
+
+  /* ===== KICKER ===== */
+  .kicker {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--orange-deep);
+    margin: 38px 0 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .kicker::after { content: ""; flex: 1; height: 1px; background: var(--orange-soft); }
+
+  /* ===== TIMELINE ===== */
+  .runbox {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 22px;
+    box-shadow: var(--shadow);
+  }
+  .run-head {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 10px; margin-bottom: 18px;
+  }
+  .run-head h3 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400; font-size: 24px; margin: 0;
+  }
+  .play {
+    border: 1px solid var(--orange-soft);
+    background: var(--orange-tint);
+    color: var(--orange-deep);
+    font-family: "Inter", sans-serif;
+    font-size: 13px; font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+  .play:hover { background: var(--orange-soft); transform: translateY(-1px); }
+
+  .steps { list-style: none; margin: 0; padding: 0; position: relative; }
+  .steps::before {
+    content: "";
+    position: absolute;
+    left: 75px; top: 8px; bottom: 8px;
+    width: 2px;
+    background: var(--dash);
+    border-radius: 2px;
+  }
+  .steps .progress {
+    position: absolute;
+    left: 75px; top: 8px;
+    width: 2px; height: 0;
+    background: linear-gradient(to bottom, var(--orange), var(--sage), var(--pink));
+    border-radius: 2px;
+    transition: height 0.6s ease;
+    z-index: 1;
+  }
+  .step {
+    display: flex;
+    gap: 16px;
+    padding: 9px 0;
+    position: relative;
+    transition: opacity 0.4s ease;
+  }
+  .playing .step { opacity: 0.22; }
+  .playing .step.lit { opacity: 1; }
+  .step .when {
+    width: 56px; flex-shrink: 0;
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-mute);
+    text-align: right;
+    padding-top: 12px;
+  }
+  .step .dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 3px solid var(--orange);
+    flex-shrink: 0;
+    margin-top: 15px;
+    margin-left: 8px;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  .step.lit .dot { transform: scale(1.25); }
+  .step[data-lane="sage"] .dot { border-color: var(--sage); }
+  .step[data-lane="pink"] .dot { border-color: var(--pink); }
+  .step.pulse .dot { animation: pulse 1.6s ease-out infinite; }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(79, 138, 95, 0.45); }
+    70% { box-shadow: 0 0 0 12px rgba(79, 138, 95, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(79, 138, 95, 0); }
+  }
+  .step .card {
+    flex: 1;
+    background: var(--bg);
+    border-radius: 14px;
+    border-left: 4px solid var(--orange);
+    padding: 12px 16px;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .step .card:hover { box-shadow: var(--shadow-soft); transform: translateX(2px); }
+  .step[data-lane="sage"] .card { border-left-color: var(--sage); }
+  .step[data-lane="pink"] .card { border-left-color: var(--pink); }
+  .step .tag {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 3px;
+  }
+  .step[data-lane="sage"] .tag { color: var(--sage); }
+  .step[data-lane="pink"] .tag { color: var(--pink); }
+  .step h4 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 17.5px;
+    margin: 0 0 4px;
+  }
+  .step p { font-size: 13.5px; color: var(--ink-soft); margin: 0; line-height: 1.55; }
+
+  details.more { margin-top: 8px; border-top: 1px dashed var(--dash); padding-top: 8px; }
+  details.more summary {
+    font-size: 12px; font-weight: 600; color: var(--orange-deep);
+    cursor: pointer; list-style: none;
+    display: inline-flex; align-items: center; gap: 7px;
+  }
+  .step[data-lane="sage"] details.more summary { color: var(--sage); }
+  .step[data-lane="pink"] details.more summary { color: var(--pink); }
+  details.more summary::-webkit-details-marker { display: none; }
+  details.more summary::after { content: "↓"; transition: transform 0.2s ease; }
+  details.more[open] summary::after { transform: rotate(180deg); }
+  details.more .body-deep { margin-top: 8px; font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+
+  /* ===== ROLE STORY CARDS ===== */
+  .story {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 22px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    border-left: 6px solid var(--orange);
+  }
+  .story[data-color="sage"] { border-left-color: var(--sage); }
+  .story[data-color="pink"] { border-left-color: var(--pink); }
+  .story .story-kicker {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 8px;
+  }
+  .story[data-color="sage"] .story-kicker { color: var(--sage); }
+  .story[data-color="pink"] .story-kicker { color: var(--pink); }
+  .story h2 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400; font-size: 25px; line-height: 1.2;
+    margin: 0 0 12px;
+  }
+  .story .why {
+    background: var(--orange-tint);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-size: 14.5px; line-height: 1.5; font-weight: 500;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .story[data-color="sage"] .why { background: var(--sage-soft); }
+  .story[data-color="pink"] .why { background: var(--pink-soft); }
+  .story .why .stamp {
+    font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--orange-deep);
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .story[data-color="sage"] .why .stamp { color: var(--sage-deep); }
+  .story[data-color="pink"] .why .stamp { color: var(--pink-deep); }
+  .story ul { margin: 0; padding: 0 0 0 2px; list-style: none; }
+  .story ul li {
+    font-size: 14.5px; color: var(--ink-soft); line-height: 1.6;
+    padding: 7px 0 7px 22px;
+    border-bottom: 1px dashed var(--dash);
+    position: relative;
+  }
+  .story ul li:last-child { border-bottom: none; }
+  .story ul li::before {
+    content: "→";
+    position: absolute; left: 0;
+    color: var(--orange);
+    font-weight: 600;
+  }
+  .story[data-color="sage"] ul li::before { color: var(--sage); }
+  .story[data-color="pink"] ul li::before { color: var(--pink); }
+  .story code {
+    font-size: 13px;
+    background: var(--orange-tint);
+    border-radius: 5px;
+    padding: 1px 6px;
+  }
+  .story[data-color="sage"] code { background: var(--sage-tint); }
+  .story[data-color="pink"] code { background: var(--pink-tint); }
+
+  /* ===== BUILT LIST (quick-hits style) ===== */
+  .qh {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 20px;
+    box-shadow: var(--shadow);
+  }
+  .qh .item {
+    display: flex; gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--dash);
+    align-items: flex-start;
+  }
+  .qh .item:last-child { border-bottom: none; }
+  .qh .item .num {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    color: var(--orange);
+    font-size: 16px; line-height: 1.5;
+    flex-shrink: 0; width: 26px;
+  }
+  .qh .item .text { font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+  .qh .item .lede { font-weight: 700; color: var(--ink); }
+  .qh code {
+    font-size: 13px;
+    background: var(--orange-tint);
+    border-radius: 5px;
+    padding: 1px 6px;
+    color: var(--ink);
+  }
+
+  /* ===== FUN FACT ===== */
+  .fun {
+    margin-top: 22px;
+    background: linear-gradient(135deg, #4F8A5F 0%, #2C7A7E 100%);
+    border-radius: 24px;
+    padding: 30px 28px;
+    color: #FFF;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .fun .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.22);
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .fun h3 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400; font-size: 26px;
+    margin: 0 0 10px; line-height: 1.25;
+  }
+  .fun p { font-size: 15px; line-height: 1.55; margin: 0; opacity: 0.97; }
+
+  /* ===== ROADMAP ===== */
+  .roadmap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .ro {
+    background: var(--bg-card);
+    border-radius: 18px;
+    padding: 20px 22px 18px;
+    box-shadow: var(--shadow-soft);
+    border-top: 4px solid var(--orange);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex; flex-direction: column;
+  }
+  .ro:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .ro[data-phase="2"] { border-top-color: var(--sage); }
+  .ro[data-phase="3"] { border-top-color: var(--pink); }
+  .ro .phase {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 6px;
+  }
+  .ro[data-phase="2"] .phase { color: var(--sage); }
+  .ro[data-phase="3"] .phase { color: var(--pink); }
+  .ro h4 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400; font-size: 20px;
+    margin: 0 0 8px;
+  }
+  .ro p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; margin: 0 0 14px; flex: 1; }
+  .ro .cost {
+    align-self: flex-start;
+    font-size: 11.5px; font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--sage-deep);
+    background: var(--sage-soft);
+    border-radius: 999px;
+    padding: 4px 12px;
+  }
+
+  /* ===== FOOTER ===== */
+  footer.loop {
+    margin-top: 26px;
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 22px;
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+  }
+  footer.loop .signoff {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 18px;
+    margin: 0 0 14px;
+  }
+  footer.loop .actions {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    justify-content: center; margin-bottom: 14px;
+  }
+  footer.loop .action {
+    display: inline-block;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: var(--orange-tint);
+    color: var(--orange-deep);
+    font-size: 13px; font-weight: 600;
+    text-decoration: none;
+    border: 1px solid var(--orange-soft);
+    transition: background 0.2s ease;
+  }
+  footer.loop .action:hover { background: var(--orange-soft); }
+  footer.loop .colophon {
+    margin-top: 10px; padding-top: 14px;
+    border-top: 1px dashed var(--dash);
+    font-size: 12px; color: var(--ink-mute); line-height: 1.55;
+  }
+
+  @media (max-width: 560px) {
+    .wrap { padding: 22px 14px 50px; }
+    .header { padding: 22px 22px 20px; border-radius: 18px; }
+    .header .mark { font-size: 40px; }
+    .header .row { flex-direction: column; gap: 8px; align-items: flex-start; }
+    .header .meta { text-align: left; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .roadmap { grid-template-columns: 1fr; }
+    .steps::before, .steps .progress { left: 14px; }
+    .step .when { display: none; }
+    .step .dot { margin-left: 9px; }
+    .story h2, .fun h3 { font-size: 22px; }
+    .story, .qh, footer.loop, .runbox { padding: 20px 18px; border-radius: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .header::after { animation: none; }
+    .step.pulse .dot { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="header reveal">
+    <div class="row">
+      <div class="mark">Signal<span>·</span></div>
+      <div class="meta">The pipeline<br/>June 2026 · Issue ∞</div>
+    </div>
+    <p class="tagline">How a newsletter <em>researches, writes, builds, and ships itself</em> — every Monday morning, for $0.</p>
+  </header>
+
+  <div class="editor reveal">
+    <div class="avatar">S</div>
+    <div class="text">
+      <div class="from">From the build —</div>
+      Every Monday at 7am, a scheduled Claude agent reads the week in AI, writes the issue, and renders it. A macOS watcher pushes it live within ~60 seconds. The human's job on a normal Monday: <strong>nothing</strong>. This page walks through exactly how — and what's next.
+    </div>
+  </div>
+
+  <div class="stats reveal">
+    <div class="stat"><div class="num"><span data-count="0" data-from="12">12</span></div><div class="lbl">Manual steps on a Monday</div></div>
+    <div class="stat"><div class="num">~<span data-count="90" data-from="0">0</span>s</div><div class="lbl">Render → live</div></div>
+    <div class="stat"><div class="num">$<span data-count="0" data-from="49">49</span></div><div class="lbl">Monthly infrastructure</div></div>
+    <div class="stat"><div class="num"><span data-count="4" data-from="0">0</span></div><div class="lbl">Issues shipped</div></div>
+  </div>
+
+  <div class="preview reveal">
+    <div class="label">In this walkthrough…</div>
+    <ol>
+      <li><span class="emoji">⏱</span><a href="#run"><span class="tag">The run</span> <span class="title">A Monday morning, minute by minute</span></a></li>
+      <li><span class="emoji">🧭</span><a href="#roles"><span class="tag">Roles</span> <span class="title">What the agent, the machinery, and the human each own</span></a></li>
+      <li><span class="emoji">🧱</span><a href="#built"><span class="tag">Built</span> <span class="title">The six pieces that make it work</span></a></li>
+      <li><span class="emoji">📈</span><a href="#next"><span class="tag">Next</span> <span class="title">Scaling on free tiers — subscribers, feedback, reach</span></a></li>
+    </ol>
+  </div>
+
+  <div class="kicker" id="run">⏱ The Monday run</div>
+
+  <section class="runbox reveal">
+    <div class="run-head">
+      <h3>One issue, end to end</h3>
+      <button class="play" id="playBtn">▶&nbsp; Play the Monday run</button>
+    </div>
+    <ol class="steps" id="steps">
+      <div class="progress" id="progress"></div>
+
+      <li class="step" data-lane="orange">
+        <div class="when">7:00</div><div class="dot"></div>
+        <div class="card">
+          <div class="tag">Agent · wake</div>
+          <h4>The scheduled task fires</h4>
+          <p>A fresh Claude agent starts with zero memory of past weeks. Its entire brief — sources, editorial bar, voice, schema — lives in one prompt file, <code>SKILL.md</code>.</p>
+        </div>
+      </li>
+
+      <li class="step" data-lane="orange">
+        <div class="when">7:01</div><div class="dot"></div>
+        <div class="card">
+          <div class="tag">Agent · setup</div>
+          <h4>Picks the issue number</h4>
+          <p>Lists the existing <code>signal-issue-NNN.json</code> files and takes max + 1. No database, no state — the folder is the system of record.</p>
+        </div>
+      </li>
+
+      <li class="step" data-lane="orange">
+        <div class="when">7:02</div><div class="dot"></div>
+        <div class="card">
+          <div class="tag">Agent · research</div>
+          <h4>Reads the week in AI</h4>
+          <p>Web-searches the past 7 days across arXiv, lab blogs (Anthropic, DeepMind, OpenAI, Meta AI), and top tech press. Skips press-release recycling and vendor noise.</p>
+          <details class="more"><summary>More on this</summary>
+            <div class="body-deep">On thin news weeks it widens to 10 days and prefers under-the-radar tooling over forced "breaking news." Hard rule: never fabricate numbers — ballpark figures get labeled <em>(illustrative)</em>.</div>
+          </details>
+        </div>
+      </li>
+
+      <li class="step" data-lane="orange">
+        <div class="when">7:08</div><div class="dot"></div>
+        <div class="card">
+          <div class="tag">Agent · curate</div>
+          <h4>Curates to the Signal shape</h4>
+          <p>3 headline stories · 5 quick-hits · 1 fun fact · 1 chart · at most 3 outbound links. Every story leads with one plain-English "why you'd care" sentence.</p>
+          <details class="more"><summary>More on this</summary>
+            <div class="body-deep">The five quick-hits deliberately vary in shape — a big number, a question, a verdict, a money line, an observation. Stories get the house colors in order: orange, sage, pink. The chart must carry real signal or it gets swapped for a different story.</div>
+          </details>
+        </div>
+      </li>
+
+      <li class="step" data-lane="orange">
+        <div class="when">7:11</div><div class="dot"></div>
+        <div class="card">
+          <div class="tag">Agent · build</div>
+          <h4>Writes the JSON, runs render.js</h4>
+          <p>One JSON file is the source of truth. <code>render.js</code> turns it into four outputs: the interactive page, an email-safe twin, Medium-ready Markdown, and a regenerated archive.</p>
+          <details class="more"><summary>More on this</summary>
+            <div class="body-deep">Voice rules are baked into the prompt: friendly explainer (Morning Brew DNA, but smarter), inline jargon glosses, no hot takes, no vendor cheerleading. Writing the new <code>index.html</code> is the tripwire that sets publishing in motion.</div>
+          </details>
+        </div>
+      </li>
+
+      <li class="step" data-lane="sage">
+        <div class="when">7:12</div><div class="dot"></div>
+        <div class="card">
+          <div class="tag">Machine · trigger</div>
+          <h4>The LaunchAgent notices</h4>
+          <p>A macOS LaunchAgent (<code>com.signal.autodeploy</code>) watches <code>index.html</code>. Within ~60 seconds of the render finishing, it fires <code>deploy.sh</code> — no human, no cron babysitting.</p>
+        </div>
+      </li>
+
+      <li class="step" data-lane="sage">
+        <div class="when">7:13</div><div class="dot"></div>
+        <div class="card">
+          <div class="tag">Machine · publish</div>
+          <h4>Push, then Pages rebuild</h4>
+          <p><code>deploy.sh</code> commits and pushes to GitHub using keychain credentials. GitHub Pages rebuilds the site in about 30 seconds.</p>
+        </div>
+      </li>
+
+      <li class="step pulse" data-lane="sage">
+        <div class="when">7:14</div><div class="dot"></div>
+        <div class="card">
+          <div class="tag">Machine · live</div>
+          <h4>The issue is live 🎉</h4>
+          <p>New issue page + refreshed archive, served free from GitHub Pages. Total infrastructure bill for the entire stack: $0.</p>
+        </div>
+      </li>
+
+      <li class="step" data-lane="pink">
+        <div class="when">7:15</div><div class="dot"></div>
+        <div class="card">
+          <div class="tag">Human · enjoy</div>
+          <h4>Chris reads the report</h4>
+          <p>The agent's sub-250-word report lands: story teasers, local file links, the live URL. Nothing to approve, nothing to run.</p>
+          <details class="more"><summary>More on this</summary>
+            <div class="body-deep">The one optional step, whenever convenient: paste the Markdown version into Medium and set the canonical URL (3–5 minutes). Medium's API can't set canonicals programmatically, so this stays human — and it keeps all SEO credit pointed at the archive.</div>
+          </details>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <div class="kicker" id="roles">🧭 Who owns what</div>
+
+  <article class="story reveal" data-color="orange">
+    <div class="story-kicker">🤖 The agent · editorial</div>
+    <h2>A full newsroom in one scheduled task</h2>
+    <div class="why"><span class="stamp">Why it matters</span>Research, curation, writing, and rendering — the entire editorial process — happen with no human in the loop, to a consistent quality bar, every single week.</div>
+    <ul>
+      <li>Fresh agent every Monday 7am; the whole job is specified in <code>SKILL.md</code> — sources, editorial bar, JSON schema, voice rules</li>
+      <li>Wide-net research: primary sources first (arXiv, lab blogs), top press second, recycled PR never</li>
+      <li>Fixed shape every week: 3 stories, 5 quick-hits, 1 fun fact, 1 chart, ≤3 links — constraints keep quality high</li>
+      <li>Self-verifies the outputs, then reports back with the live URL</li>
+    </ul>
+  </article>
+
+  <article class="story reveal" data-color="sage">
+    <div class="story-kicker">⚙️ The machinery · publishing</div>
+    <h2>Publishing is a reflex, not a task</h2>
+    <div class="why"><span class="stamp">Why it matters</span>There is no deploy step to remember and no pipeline to maintain — the operating system itself watches for a new issue and ships it.</div>
+    <ul>
+      <li>macOS LaunchAgent watches <code>index.html</code> and fires <code>deploy.sh</code> within ~60 seconds of a render</li>
+      <li><code>deploy.sh</code>: stage → commit → push, with credentials from the macOS keychain</li>
+      <li>GitHub Pages rebuilds in ~30s — free static hosting, zero servers</li>
+      <li>Everything logs to <code>.autodeploy.log</code>; manual <code>bash deploy.sh</code> is the fallback</li>
+    </ul>
+  </article>
+
+  <article class="story reveal" data-color="pink">
+    <div class="story-kicker">🙋 The human · taste</div>
+    <h2>Chris is the editor-in-chief, not the operator</h2>
+    <div class="why"><span class="stamp">Why it matters</span>Human time on a normal Monday is zero — effort goes into tuning the editorial bar in the prompt, not into running the machine.</div>
+    <ul>
+      <li>One-time setup, already done: first push to store credentials, install the LaunchAgent, enable Pages, set <code>base_url</code></li>
+      <li>Monday: read the report, click the live link — that's it</li>
+      <li>Optional 3–5 min: paste the Markdown into Medium with a canonical URL (the only step Medium's API won't automate)</li>
+      <li>To change the voice or sources, edit one prompt file — the next issue follows</li>
+    </ul>
+  </article>
+
+  <div class="kicker" id="built">🧱 What's built — six pieces</div>
+
+  <section class="qh reveal">
+    <div class="item"><div class="num">01</div><div class="text"><span class="lede">render.js</span> — one build script: issue JSON in → interactive page, email-safe twin, Medium Markdown, and the archive index out.</div></div>
+    <div class="item"><div class="num">02</div><div class="text"><span class="lede">SKILL.md</span> — the agent's entire job in one prompt: source classes, the Signal bar, the schema, the voice, the edge cases.</div></div>
+    <div class="item"><div class="num">03</div><div class="text"><span class="lede">com.signal.autodeploy</span> — the LaunchAgent that turns "file changed" into "site published" with no human present.</div></div>
+    <div class="item"><div class="num">04</div><div class="text"><span class="lede">deploy.sh</span> — stage, commit, push. Boring on purpose; boring is what you want at 7am with nobody watching.</div></div>
+    <div class="item"><div class="num">05</div><div class="text"><span class="lede">GitHub Pages</span> — free hosting for every issue plus the always-current archive. Four issues live so far.</div></div>
+    <div class="item"><div class="num">06</div><div class="text"><span class="lede">SYNDICATION.md</span> — the Medium runbook: paste, set canonical URL, keep all SEO credit at home.</div></div>
+  </section>
+
+  <div class="fun reveal">
+    <div class="badge">The one manual step</div>
+    <h3>Medium won't let robots set canonical URLs</h3>
+    <p>So the single remaining human touch is a 3-minute paste — which conveniently keeps every search-engine point aimed at Signal's own archive. Everything else ships itself.</p>
+  </div>
+
+  <div class="kicker" id="next">📈 Scale next — the $0 stack</div>
+
+  <section class="roadmap reveal">
+    <div class="ro" data-phase="1">
+      <div class="phase">Phase 1 · audience</div>
+      <h4>Email subscriptions</h4>
+      <p>Embed a Buttondown signup form in the page template — it works on static GitHub Pages with no backend. The weekly send already exists: the rendered email-safe twin. MailerLite's free 1,000-subscriber tier is the upgrade path.</p>
+      <span class="cost">Free to 100–1,000 subs</span>
+    </div>
+    <div class="ro" data-phase="1">
+      <div class="phase">Phase 1 · audience</div>
+      <h4>Reader feedback</h4>
+      <p>A reply-to address already ships in every issue. Add a one-question Tally form per issue — "was this worth your time?" — rendered into both page and email by render.js. Responses land in the inbox.</p>
+      <span class="cost">Tally · free, unlimited</span>
+    </div>
+    <div class="ro" data-phase="2">
+      <div class="phase">Phase 2 · signal</div>
+      <h4>Analytics</h4>
+      <p>One script tag in the template: GoatCounter or Cloudflare Web Analytics. Pageviews, referrers, and which stories actually get read — privacy-friendly, so no cookie banner.</p>
+      <span class="cost">GoatCounter · free</span>
+    </div>
+    <div class="ro" data-phase="2">
+      <div class="phase">Phase 2 · signal</div>
+      <h4>RSS feed</h4>
+      <p>Teach render.js to also write <em>feed.xml</em> — a static file that rides the existing auto-deploy. Unlocks RSS readers plus auto-import on Substack and dev.to.</p>
+      <span class="cost">Static file · $0</span>
+    </div>
+    <div class="ro" data-phase="3">
+      <div class="phase">Phase 3 · reach</div>
+      <h4>Wider syndication</h4>
+      <p>dev.to takes the same Markdown with proper canonical URLs (free). A LinkedIn teaser — the three "why you'd care" lines — drives clicks home. Optional Substack mirror adds its discovery network.</p>
+      <span class="cost">All free tiers</span>
+    </div>
+    <div class="ro" data-phase="3">
+      <div class="phase">Phase 3 · reach</div>
+      <h4>Archive SEO</h4>
+      <p>Have render.js emit a sitemap and per-issue meta descriptions. Canonical discipline is already in place, so search equity compounds at the archive week after week.</p>
+      <span class="cost">$0</span>
+    </div>
+  </section>
+
+  <footer class="loop reveal">
+    <p class="signoff">That's the whole machine. See you Monday. ☀️</p>
+    <div class="actions">
+      <a class="action" href="https://chris94949.github.io/signal-newsletter/" target="_blank" rel="noopener">Browse the live archive →</a>
+      <a class="action" href="https://chris94949.github.io/signal-newsletter/signal-issue-004.html" target="_blank" rel="noopener">Read the latest issue →</a>
+    </div>
+    <div class="colophon">
+      Signal · a weekly interactive AI newsletter that publishes itself.<br/>
+      Written by a scheduled Claude agent · built by render.js · deployed by launchd · hosted free on GitHub Pages.
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("vis"); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+
+  function countUp(el) {
+    var to = parseInt(el.getAttribute("data-count"), 10);
+    var from = parseInt(el.getAttribute("data-from"), 10);
+    if (reduced) { el.textContent = to; return; }
+    var dur = 1400, t0 = null;
+    function tick(t) {
+      if (!t0) t0 = t;
+      var p = Math.min((t - t0) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(from + (to - from) * eased);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var statsIo = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll("[data-count]").forEach(countUp);
+        statsIo.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  var statsEl = document.querySelector(".stats");
+  if (statsEl) statsIo.observe(statsEl);
+
+  var playBtn = document.getElementById("playBtn");
+  var stepsBox = document.getElementById("steps");
+  var progress = document.getElementById("progress");
+  var steps = Array.prototype.slice.call(stepsBox.querySelectorAll(".step"));
+  var timers = [];
+
+  function resetRun() {
+    timers.forEach(clearTimeout); timers = [];
+    steps.forEach(function (s) { s.classList.remove("lit"); });
+    progress.style.height = "0px";
+  }
+
+  playBtn.addEventListener("click", function () {
+    resetRun();
+    stepsBox.classList.add("playing");
+    playBtn.textContent = "↻  Replay the run";
+    var boxTop = stepsBox.getBoundingClientRect().top;
+    var gap = reduced ? 0 : 700;
+    steps.forEach(function (step, i) {
+      timers.push(setTimeout(function () {
+        step.classList.add("lit");
+        var dot = step.querySelector(".dot");
+        var h = dot.getBoundingClientRect().top - stepsBox.getBoundingClientRect().top + 6;
+        progress.style.height = h + "px";
+        if (i === steps.length - 1) {
+          timers.push(setTimeout(function () { stepsBox.classList.remove("playing"); }, 900));
+        }
+      }, gap * i + 50));
+    });
+  });
+</script>
+</body>
+</html>

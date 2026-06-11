@@ -22,3 +22,10 @@ yarn-error.log
 *.tmp
 *.bak
 .cache/
+
+# Auto-deploy LaunchAgent runtime
+.autodeploy.log
+
+# Secrets — never commit
+signal.secrets.json
+!signal.secrets.example.json
