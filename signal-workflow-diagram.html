@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Signal · Workflow diagram — what is built, who does what</title>
+<meta name="description" content="Interactive flow diagram of the Signal newsletter pipeline: the Claude agent, the auto-deploy machinery, the human, the readers — and the free-tier scaling plan." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFF6E9;
+    --card: #FFFFFF;
+    --ink: #2A1F1A;
+    --ink-soft: #5B4A40;
+    --ink-mute: #8C7D72;
+    --dash: #E3D4BE;
+    --orange: #E65525;
+    --orange-deep: #9C3410;
+    --orange-tint: #FFF1E6;
+    --sage: #4F8A5F;
+    --sage-deep: #2F5A3E;
+    --sage-tint: #EFF7F1;
+    --pink: #D86A82;
+    --pink-deep: #8D3349;
+    --pink-tint: #FDF1F4;
+    --gray-stroke: #A89A8C;
+    --gray-tint: #F8F3EA;
+    --shadow: 0 10px 24px -16px rgba(60, 30, 10, 0.18), 0 2px 6px -2px rgba(60, 30, 10, 0.06);
+    --shadow-soft: 0 4px 12px -8px rgba(60, 30, 10, 0.14);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 32px 22px 64px; }
+
+  .pagehead { text-align: center; margin-bottom: 22px; }
+  .pagehead .mark {
+    font-family: "DM Serif Display", serif;
+    font-size: 40px;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .pagehead .mark span { color: #F6B83F; }
+  .pagehead .sub {
+    margin-top: 6px;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+  }
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    margin-top: 14px;
+  }
+  .legend .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 12px; font-weight: 600; color: var(--ink-soft);
+    background: var(--card);
+    border: 1px solid var(--dash);
+    border-radius: 999px;
+    padding: 5px 13px;
+  }
+  .legend .swatch { width: 11px; height: 11px; border-radius: 3px; }
+
+  .board {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 20px 18px 14px;
+    box-shadow: var(--shadow);
+  }
+  svg { width: 100%; height: auto; display: block; }
+  svg text { font-family: "Inter", sans-serif; }
+  .lane-title { font-size: 14px; font-weight: 600; fill: var(--ink); }
+  .bt { font-size: 14px; font-weight: 600; }
+  .bs { font-size: 12px; font-weight: 400; }
+  .alabel { font-size: 12px; fill: var(--ink-mute); }
+  .node { cursor: pointer; }
+  .node rect { transition: stroke-width 0.15s ease, filter 0.15s ease; }
+  .node:hover rect { filter: brightness(0.97); }
+  .node.sel rect { stroke-width: 2.5; }
+  .arr { stroke: #A89A8C; stroke-width: 1.5; fill: none; }
+
+  .detail {
+    background: var(--bg);
+    border: 1px dashed var(--dash);
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-top: 14px;
+    min-height: 64px;
+  }
+  .detail .dt {
+    font-family: "DM Serif Display", serif;
+    font-size: 18px;
+    margin: 0 0 4px;
+  }
+  .detail .db { font-size: 13.5px; color: var(--ink-soft); margin: 0; line-height: 1.6; }
+
+  .kicker {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--orange-deep);
+    margin: 34px 0 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .kicker::after { content: ""; flex: 1; height: 1px; background: #FFE0CF; }
+
+  .roadmap { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .ro {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 18px 20px 16px;
+    box-shadow: var(--shadow-soft);
+    border-top: 4px solid var(--orange);
+    display: flex; flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .ro:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .ro[data-phase="2"] { border-top-color: var(--sage); }
+  .ro[data-phase="3"] { border-top-color: var(--pink); }
+  .ro .phase {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 5px;
+  }
+  .ro[data-phase="2"] .phase { color: var(--sage); }
+  .ro[data-phase="3"] .phase { color: var(--pink); }
+  .ro h4 { font-family: "DM Serif Display", serif; font-weight: 400; font-size: 19px; margin: 0 0 7px; }
+  .ro p { font-size: 13px; color: var(--ink-soft); line-height: 1.6; margin: 0 0 12px; flex: 1; }
+  .ro .cost {
+    align-self: flex-start;
+    font-size: 11.5px; font-weight: 700;
+    color: var(--sage-deep);
+    background: var(--sage-tint);
+    border: 1px solid #CDE4D4;
+    border-radius: 999px;
+    padding: 3px 11px;
+  }
+
+  footer { margin-top: 28px; text-align: center; font-size: 12px; color: var(--ink-mute); line-height: 1.6; }
+
+  @media (max-width: 560px) {
+    .wrap { padding: 22px 12px 48px; }
+    .roadmap { grid-template-columns: 1fr; }
+    .board { padding: 12px 8px 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="pagehead">
+    <div class="mark">Signal<span>·</span> workflow</div>
+    <div class="sub">What is built, what the agent does, what the human does — click any box for details.</div>
+    <div class="legend">
+      <span class="chip"><span class="swatch" style="background:var(--orange)"></span>Claude agent</span>
+      <span class="chip"><span class="swatch" style="background:var(--sage)"></span>Auto-deploy machinery</span>
+      <span class="chip"><span class="swatch" style="background:var(--pink)"></span>Chris — the human</span>
+      <span class="chip"><span class="swatch" style="background:var(--gray-stroke)"></span>Readers</span>
+    </div>
+  </div>
+
+  <div class="board">
+  <svg viewBox="0 0 680 680" role="img" aria-label="Signal newsletter workflow diagram">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+
+    <rect x="40" y="20" width="600" height="190" rx="14" fill="none" stroke="var(--dash)" stroke-width="1.5" stroke-dasharray="5 5"/>
+    <text class="lane-title" x="60" y="44">Claude agent — scheduled task, Mondays 7am</text>
+
+    <g class="node" data-d="a1">
+      <rect x="60" y="58" width="173" height="56" rx="9" fill="var(--orange-tint)" stroke="var(--orange)" stroke-width="1"/>
+      <text class="bt" x="146.5" y="77" text-anchor="middle" dominant-baseline="central" fill="var(--orange-deep)">Pick issue number</text>
+      <text class="bs" x="146.5" y="96" text-anchor="middle" dominant-baseline="central" fill="var(--orange)">max(NNN) + 1</text>
+    </g>
+    <g class="node" data-d="a2">
+      <rect x="253" y="58" width="173" height="56" rx="9" fill="var(--orange-tint)" stroke="var(--orange)" stroke-width="1"/>
+      <text class="bt" x="339.5" y="77" text-anchor="middle" dominant-baseline="central" fill="var(--orange-deep)">Research the week</text>
+      <text class="bs" x="339.5" y="96" text-anchor="middle" dominant-baseline="central" fill="var(--orange)">web search · 7 days</text>
+    </g>
+    <g class="node" data-d="a3">
+      <rect x="446" y="58" width="173" height="56" rx="9" fill="var(--orange-tint)" stroke="var(--orange)" stroke-width="1"/>
+      <text class="bt" x="532.5" y="77" text-anchor="middle" dominant-baseline="central" fill="var(--orange-deep)">Curate the issue</text>
+      <text class="bs" x="532.5" y="96" text-anchor="middle" dominant-baseline="central" fill="var(--orange)">3 stories · 5 hits</text>
+    </g>
+    <g class="node" data-d="a4">
+      <rect x="446" y="134" width="173" height="56" rx="9" fill="var(--orange-tint)" stroke="var(--orange)" stroke-width="1"/>
+      <text class="bt" x="532.5" y="153" text-anchor="middle" dominant-baseline="central" fill="var(--orange-deep)">Write issue JSON</text>
+      <text class="bs" x="532.5" y="172" text-anchor="middle" dominant-baseline="central" fill="var(--orange)">the source of truth</text>
+    </g>
+    <g class="node" data-d="a5">
+      <rect x="253" y="134" width="173" height="56" rx="9" fill="var(--orange-tint)" stroke="var(--orange)" stroke-width="1"/>
+      <text class="bt" x="339.5" y="153" text-anchor="middle" dominant-baseline="central" fill="var(--orange-deep)">Run render.js</text>
+      <text class="bs" x="339.5" y="172" text-anchor="middle" dominant-baseline="central" fill="var(--orange)">page · email · md</text>
+    </g>
+    <g class="node" data-d="a6">
+      <rect x="60" y="134" width="173" height="56" rx="9" fill="var(--orange-tint)" stroke="var(--orange)" stroke-width="1"/>
+      <text class="bt" x="146.5" y="153" text-anchor="middle" dominant-baseline="central" fill="var(--orange-deep)">Verify and notify</text>
+      <text class="bs" x="146.5" y="172" text-anchor="middle" dominant-baseline="central" fill="var(--orange)">report + live URL</text>
+    </g>
+    <line x1="235" y1="86" x2="249" y2="86" class="arr" marker-end="url(#arrow)"/>
+    <line x1="428" y1="86" x2="442" y2="86" class="arr" marker-end="url(#arrow)"/>
+    <line x1="532.5" y1="116" x2="532.5" y2="130" class="arr" marker-end="url(#arrow)"/>
+    <line x1="444" y1="162" x2="430" y2="162" class="arr" marker-end="url(#arrow)"/>
+    <line x1="251" y1="162" x2="237" y2="162" class="arr" marker-end="url(#arrow)"/>
+
+    <text class="alabel" x="231" y="222" text-anchor="middle">writes index.html</text>
+    <path d="M339.5 190 L339.5 230 L122.5 230 L122.5 276" class="arr" marker-end="url(#arrow)"/>
+
+    <rect x="40" y="240" width="600" height="114" rx="14" fill="none" stroke="var(--dash)" stroke-width="1.5" stroke-dasharray="5 5"/>
+    <text class="lane-title" x="620" y="264" text-anchor="end">Auto-deploy — zero-touch publishing</text>
+
+    <g class="node" data-d="b1">
+      <rect x="60" y="278" width="125" height="56" rx="9" fill="var(--sage-tint)" stroke="var(--sage)" stroke-width="1"/>
+      <text class="bt" x="122.5" y="297" text-anchor="middle" dominant-baseline="central" fill="var(--sage-deep)">LaunchAgent</text>
+      <text class="bs" x="122.5" y="316" text-anchor="middle" dominant-baseline="central" fill="var(--sage)">fires in ~60s</text>
+    </g>
+    <g class="node" data-d="b2">
+      <rect x="205" y="278" width="125" height="56" rx="9" fill="var(--sage-tint)" stroke="var(--sage)" stroke-width="1"/>
+      <text class="bt" x="267.5" y="297" text-anchor="middle" dominant-baseline="central" fill="var(--sage-deep)">deploy.sh</text>
+      <text class="bs" x="267.5" y="316" text-anchor="middle" dominant-baseline="central" fill="var(--sage)">commit + push</text>
+    </g>
+    <g class="node" data-d="b3">
+      <rect x="350" y="278" width="125" height="56" rx="9" fill="var(--sage-tint)" stroke="var(--sage)" stroke-width="1"/>
+      <text class="bt" x="412.5" y="297" text-anchor="middle" dominant-baseline="central" fill="var(--sage-deep)">GitHub Pages</text>
+      <text class="bs" x="412.5" y="316" text-anchor="middle" dominant-baseline="central" fill="var(--sage)">rebuilds ~30s</text>
+    </g>
+    <g class="node" data-d="b4">
+      <rect x="495" y="278" width="125" height="56" rx="9" fill="var(--sage-tint)" stroke="var(--sage)" stroke-width="1"/>
+      <text class="bt" x="557.5" y="297" text-anchor="middle" dominant-baseline="central" fill="var(--sage-deep)">Live site</text>
+      <text class="bs" x="557.5" y="316" text-anchor="middle" dominant-baseline="central" fill="var(--sage)">$0 hosting</text>
+    </g>
+    <line x1="187" y1="306" x2="201" y2="306" class="arr" marker-end="url(#arrow)"/>
+    <line x1="332" y1="306" x2="346" y2="306" class="arr" marker-end="url(#arrow)"/>
+    <line x1="477" y1="306" x2="491" y2="306" class="arr" marker-end="url(#arrow)"/>
+
+    <path d="M557.5 334 L557.5 368 L495 368 L495 420" class="arr" marker-end="url(#arrow)"/>
+
+    <rect x="40" y="384" width="290" height="266" rx="14" fill="none" stroke="var(--dash)" stroke-width="1.5" stroke-dasharray="5 5"/>
+    <text class="lane-title" x="60" y="408">Chris — the human</text>
+    <g class="node" data-d="c1">
+      <rect x="60" y="422" width="250" height="56" rx="9" fill="var(--pink-tint)" stroke="var(--pink)" stroke-width="1"/>
+      <text class="bt" x="185" y="441" text-anchor="middle" dominant-baseline="central" fill="var(--pink-deep)">Monday: zero action</text>
+      <text class="bs" x="185" y="460" text-anchor="middle" dominant-baseline="central" fill="var(--pink)">report just arrives</text>
+    </g>
+    <g class="node" data-d="c2">
+      <rect x="60" y="498" width="250" height="56" rx="9" fill="var(--pink-tint)" stroke="var(--pink)" stroke-width="1"/>
+      <text class="bt" x="185" y="517" text-anchor="middle" dominant-baseline="central" fill="var(--pink-deep)">One-time setup — done</text>
+      <text class="bs" x="185" y="536" text-anchor="middle" dominant-baseline="central" fill="var(--pink)">Pages · LaunchAgent · creds</text>
+    </g>
+    <g class="node" data-d="c3">
+      <rect x="60" y="574" width="250" height="56" rx="9" fill="var(--pink-tint)" stroke="var(--pink)" stroke-width="1"/>
+      <text class="bt" x="185" y="593" text-anchor="middle" dominant-baseline="central" fill="var(--pink-deep)">Optional: Medium paste</text>
+      <text class="bs" x="185" y="612" text-anchor="middle" dominant-baseline="central" fill="var(--pink)">canonical URL · 3 to 5 min</text>
+    </g>
+
+    <rect x="350" y="384" width="290" height="266" rx="14" fill="none" stroke="var(--dash)" stroke-width="1.5" stroke-dasharray="5 5"/>
+    <text class="lane-title" x="370" y="408">Readers</text>
+    <g class="node" data-d="r1">
+      <rect x="370" y="422" width="250" height="56" rx="9" fill="var(--gray-tint)" stroke="var(--gray-stroke)" stroke-width="1"/>
+      <text class="bt" x="495" y="441" text-anchor="middle" dominant-baseline="central" fill="var(--ink)">Interactive page + archive</text>
+      <text class="bs" x="495" y="460" text-anchor="middle" dominant-baseline="central" fill="var(--ink-mute)">GitHub Pages · free</text>
+    </g>
+    <g class="node" data-d="r2">
+      <rect x="370" y="498" width="250" height="56" rx="9" fill="var(--gray-tint)" stroke="var(--gray-stroke)" stroke-width="1"/>
+      <text class="bt" x="495" y="517" text-anchor="middle" dominant-baseline="central" fill="var(--ink)">Email-safe twin</text>
+      <text class="bs" x="495" y="536" text-anchor="middle" dominant-baseline="central" fill="var(--ink-mute)">rendered, not yet sent</text>
+    </g>
+    <g class="node" data-d="r3">
+      <rect x="370" y="574" width="250" height="56" rx="9" fill="var(--gray-tint)" stroke="var(--gray-stroke)" stroke-width="1"/>
+      <text class="bt" x="495" y="593" text-anchor="middle" dominant-baseline="central" fill="var(--ink)">Medium readers</text>
+      <text class="bs" x="495" y="612" text-anchor="middle" dominant-baseline="central" fill="var(--ink-mute)">SEO-safe canonical</text>
+    </g>
+    <line x1="312" y1="602" x2="366" y2="602" class="arr" marker-end="url(#arrow)"/>
+  </svg>
+
+  <div class="detail" id="detail">
+    <p class="dt" id="dt">Click any step</p>
+    <p class="db" id="db">Every box in the diagram is clickable — details from the README, the agent's SKILL.md prompt, and the deploy scripts appear here.</p>
+  </div>
+  </div>
+
+  <div class="kicker">📈 Scale next — everything on free tiers</div>
+
+  <section class="roadmap">
+    <div class="ro" data-phase="1">
+      <div class="phase">Phase 1 · audience</div>
+      <h4>Email subscriptions</h4>
+      <p>Embed a Buttondown signup form in the page template — works on static GitHub Pages, no backend. The weekly send is the already-rendered email-safe twin. MailerLite (free to 1,000 subs) is the upgrade path.</p>
+      <span class="cost">Free to 100–1,000 subs</span>
+    </div>
+    <div class="ro" data-phase="1">
+      <div class="phase">Phase 1 · audience</div>
+      <h4>Reader feedback</h4>
+      <p>A reply-to address already ships in every issue. Add a one-question Tally form per issue — rendered into both page and email by render.js — and responses land in the inbox.</p>
+      <span class="cost">Tally · free, unlimited</span>
+    </div>
+    <div class="ro" data-phase="2">
+      <div class="phase">Phase 2 · signal</div>
+      <h4>Analytics</h4>
+      <p>One script tag in the template: GoatCounter or Cloudflare Web Analytics. Pageviews, referrers, and which stories get read — privacy-friendly, so no cookie banner.</p>
+      <span class="cost">GoatCounter · free</span>
+    </div>
+    <div class="ro" data-phase="2">
+      <div class="phase">Phase 2 · signal</div>
+      <h4>RSS feed</h4>
+      <p>Teach render.js to also write feed.xml — a static file that rides the existing auto-deploy. Unlocks RSS readers plus auto-import on Substack and dev.to.</p>
+      <span class="cost">Static file · $0</span>
+    </div>
+    <div class="ro" data-phase="3">
+      <div class="phase">Phase 3 · reach</div>
+      <h4>Wider syndication</h4>
+      <p>dev.to takes the same Markdown with proper canonical URLs (free). A LinkedIn teaser drives clicks home. An optional Substack mirror adds its discovery network.</p>
+      <span class="cost">All free tiers</span>
+    </div>
+    <div class="ro" data-phase="3">
+      <div class="phase">Phase 3 · reach</div>
+      <h4>Archive SEO</h4>
+      <p>Have render.js emit a sitemap and per-issue meta descriptions. Canonical discipline is already in place, so search equity compounds at the archive week after week.</p>
+      <span class="cost">$0</span>
+    </div>
+  </section>
+
+  <footer>
+    Signal · a weekly interactive AI newsletter that publishes itself.<br/>
+    Agent: scheduled Claude task · Build: render.js · Deploy: launchd + deploy.sh · Host: GitHub Pages.
+  </footer>
+
+</div>
+
+<script>
+  var D = {
+    a1: ["Pick issue number", "Fresh agent every run, no memory of past weeks. It lists the existing signal-issue-NNN.json files and takes max + 1. Everything it needs lives in the SKILL.md task prompt."],
+    a2: ["Research the week", "Web search across arXiv, lab blogs (Anthropic, DeepMind, OpenAI, Meta AI), and top tech press, strictly the past 7 days. Widens to 10 days on thin weeks. Skips press-release recycling and never fabricates numbers."],
+    a3: ["Curate the issue", "Curates to the fixed Signal shape: 3 headline stories (orange, sage, pink), 5 quick-hits in 5 different structural shapes, 1 fun fact, 1 chart with a highlighted data point, and at most 3 outbound links total."],
+    a4: ["Write issue JSON", "Writes signal-issue-NNN.json — the single source of truth — against the exact schema in SKILL.md. Friendly explainer voice, inline jargon glosses, a why-you-care line leads every story."],
+    a5: ["Run render.js", "Runs node render.js, producing four outputs: the interactive page, the email-safe twin, Medium-ready Markdown, and a regenerated archive index.html. Writing index.html is what triggers the auto-deploy."],
+    a6: ["Verify and notify", "Confirms all four outputs were written today and the new JSON is embedded in the page, then sends Chris a sub-250-word report: story teasers, local file links, the live URL, and the Medium reminder."],
+    b1: ["LaunchAgent", "The macOS LaunchAgent com.signal.autodeploy watches index.html. Within about 60 seconds of render.js finishing, it fires bash deploy.sh. Activity logs to .autodeploy.log. Installed once via install-autodeploy.sh."],
+    b2: ["deploy.sh", "Stages everything, commits as a dated Signal update, and pushes to origin main using GitHub credentials stored in the macOS keychain from the first manual push."],
+    b3: ["GitHub Pages", "GitHub Pages rebuilds the site from the main branch root in roughly 30 seconds. Free static hosting — the entire publishing stack costs nothing."],
+    b4: ["Live site", "The new issue and the updated archive go live at chris94949.github.io/signal-newsletter. End to end, a normal Monday publishes itself with zero human action."],
+    c1: ["Monday: zero action", "On a normal Monday Chris does nothing. The agent report arrives with teasers and the live URL while auto-deploy is already pushing the issue live."],
+    c2: ["One-time setup — done", "Already completed: a first manual deploy.sh push to store credentials, install-autodeploy.sh to load the LaunchAgent, enabling GitHub Pages, and setting base_url in signal.config.json."],
+    c3: ["Optional: Medium paste", "The one remaining manual step, about 3 to 5 minutes: paste signal-issue-NNN.md into Medium and set the canonical URL so GitHub Pages keeps the SEO credit. Medium's API cannot set canonicals, so this stays manual."],
+    r1: ["Interactive page + archive", "Each issue is an interactive page with expanders and a chart; index.html is the always-current archive. Four issues shipped so far, all served free from GitHub Pages."],
+    r2: ["Email-safe twin", "An inbox-safe HTML twin is rendered every week — but nothing sends it yet. This is exactly the gap the subscriptions card below closes: a free email service turns this file into a weekly send."],
+    r3: ["Medium readers", "Readers on Medium (and later Substack or dev.to) get the Markdown version. Canonical URLs point back home, so search credit stays with the GitHub Pages site."]
+  };
+  document.querySelectorAll(".node").forEach(function (n) {
+    n.addEventListener("click", function () {
+      document.querySelectorAll(".node.sel").forEach(function (s) { s.classList.remove("sel"); });
+      n.classList.add("sel");
+      var d = D[n.getAttribute("data-d")];
+      document.getElementById("dt").textContent = d[0];
+      document.getElementById("db").textContent = d[1];
+      document.getElementById("detail").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+  });
+</script>
+</body>
+</html>

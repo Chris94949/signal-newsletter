@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__visualize__read_me",
+      "mcp__visualize__show_widget",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(cp '/Users/christienabraham/Documents/Claude/Projects/Interactive Newsletter/signal-pipeline.html' /Users/christienabraham/Downloads/signal-pipeline.html)",
+      "Read(//Users/christienabraham/Downloads/**)",
+      "Bash(open -R /Users/christienabraham/Downloads/signal-pipeline.html)",
+      "Bash(cp '/Users/christienabraham/Documents/Claude/Projects/Interactive Newsletter/signal-workflow-diagram.html' /Users/christienabraham/Downloads/signal-workflow-diagram.html)",
+      "Bash(open -R /Users/christienabraham/Downloads/signal-workflow-diagram.html)"
+    ]
+  }
+}
