@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Signal · Issue 007</title>
+<!--[if mso]>
+<xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>
+<![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#FFF6E9;font-family:Helvetica,Arial,sans-serif;color:#2A1F1A;-webkit-font-smoothing:antialiased;">
+<div style="display:none;font-size:1px;color:#FFF6E9;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">OpenAI unveils Jalapeño, its first custom AI chip · Anthropic accuses Alibaba of copying Claude · GPT-5.6 launches behind a government velvet rope</div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FFF6E9;">
+  <tr>
+    <td align="center" style="padding:24px 12px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;max-width:600px;">
+
+        <tr>
+          <td style="background-color:#E65525;background-image:linear-gradient(135deg,#E65525 0%,#D14418 100%);border-radius:18px;padding:24px 26px;color:#FFFFFF;" bgcolor="#E65525">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td style="vertical-align:bottom;">
+                  <div style="font-family:Georgia,'Times New Roman',serif;font-size:40px;line-height:1;font-weight:400;color:#FFFFFF;letter-spacing:-1px;">Signal<span style="color:#F6B83F;">.</span></div>
+                </td>
+                <td align="right" style="vertical-align:bottom;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#FFFFFF;opacity:0.95;line-height:1.6;">
+                  Issue 007<br/>Monday · June 29 · 2026<br/>5-min read
+                </td>
+              </tr>
+            </table>
+            <div style="margin-top:14px;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#FFFFFF;opacity:0.95;">A friendly weekly read on what actually moved in AI.</div>
+          </td>
+        </tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:18px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td width="50" style="vertical-align:top;padding-right:14px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                    <tr><td width="38" height="38" align="center" valign="middle" bgcolor="#E65525" style="background-color:#E65525;border-radius:19px;font-family:Georgia,serif;font-size:18px;color:#FFFFFF;">C</td></tr>
+                  </table>
+                </td>
+                <td style="vertical-align:top;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#5B4A40;">
+                  <div style="font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#2A1F1A;margin-bottom:4px;">From Chris</div>
+                  Issue seven, and the theme was AI&#39;s economics getting real. OpenAI stopped renting Nvidia&#39;s chips and designed its own, Anthropic accused Alibaba of quietly copying Claude, and a new flagship model shipped locked behind a government velvet rope. Underneath it all, the price of intelligence keeps falling off a cliff. Plus a humanoid robot that&#39;s learning to play tennis. 🎾
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:18px 22px;">
+            <div style="font-family:Georgia,serif;font-style:italic;font-size:14px;color:#B83E12;margin-bottom:10px;">— In this issue</div>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family:Helvetica,Arial,sans-serif;">
+              <tr>
+                <td style="padding:6px 0;border-bottom:1px dashed #F0E2CF;font-size:14px;color:#2A1F1A;">
+                  🌶️ &nbsp; <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8C7D72;">Industry · 01</span> &nbsp; OpenAI unveils Jalapeño, its first custom AI chip
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 0;border-bottom:1px dashed #F0E2CF;font-size:14px;color:#2A1F1A;">
+                  🛡️ &nbsp; <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8C7D72;">Security · 02</span> &nbsp; Anthropic accuses Alibaba of copying Claude
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 0;font-size:14px;color:#2A1F1A;">
+                  🤖 &nbsp; <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8C7D72;">Frontier · 03</span> &nbsp; GPT-5.6 launches behind a government velvet rope
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-top:10px;font-size:12.5px;font-style:italic;color:#8C7D72;border-top:1px dashed #F0E2CF;">+ 5 quick hits, one chart, and one fun thing involving a robot.</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td style="height:24px;line-height:24px;font-size:0;">&nbsp;</td></tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:20px 24px;border-left:5px solid #E65525;">
+            <div style="font-family:Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#E65525;margin-bottom:6px;">🌶️ Industry · story 01</div>
+            <h2 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.25;margin:0 0 12px;color:#2A1F1A;">OpenAI unveils Jalapeño, its first custom AI chip</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FFF1E6;border-radius:8px;margin-bottom:12px;">
+              <tr>
+                <td style="padding:10px 14px;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.5;color:#2A1F1A;">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#B83E12;">Why you'd care &nbsp;·&nbsp;</span>
+                  The company that made AI expensive is now trying to make it cheap — by designing its own silicon instead of renting Nvidia&#39;s.
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#5B4A40;">On June 24, OpenAI and Broadcom unveiled Jalapeño, OpenAI's first custom chip, built specifically for inference <em>(running trained models to answer your prompts, as opposed to training new ones)</em>. Early results show meaningfully better performance-per-watt than today's best alternatives, and the companies plan an initial deployment by the end of 2026. It's the first in a multi-generation platform aimed squarely at loosening Nvidia's grip on AI compute.</p>
+            <a href="https://chris94949.github.io/signal-newsletter/signal-issue-007.html#s1" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#B83E12;text-decoration:none;border-bottom:2px solid #FFE0CF;">Read the full story →</a>
+          </td>
+        </tr>
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:20px 24px;border-left:5px solid #4F8A5F;">
+            <div style="font-family:Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#4F8A5F;margin-bottom:6px;">🛡️ Security · story 02</div>
+            <h2 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.25;margin:0 0 12px;color:#2A1F1A;">Anthropic accuses Alibaba of copying Claude</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#DAEBDF;border-radius:8px;margin-bottom:12px;">
+              <tr>
+                <td style="padding:10px 14px;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.5;color:#2A1F1A;">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#3A6648;">Why you'd care &nbsp;·&nbsp;</span>
+                  The next front in the AI race may be less about who trains the best model and more about who can quietly copy one.
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#5B4A40;">On June 24, Anthropic wrote to the White House alleging that operators tied to Alibaba's Qwen lab ran 28.8 million exchanges through roughly 25,000 fraudulent accounts between April 22 and June 5 to 'distill' Claude <em>(distillation — training a cheaper model on a stronger model's answers to copy its skills)</em>. The alleged targets were Claude's software-engineering, agentic reasoning, and cybersecurity abilities. Alibaba denies wrongdoing, and the figures are Anthropic's allegation — not independently verified.</p>
+            <a href="https://chris94949.github.io/signal-newsletter/signal-issue-007.html#s2" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#3A6648;text-decoration:none;border-bottom:2px solid #DAEBDF;">Read the full story →</a>
+          </td>
+        </tr>
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:20px 24px;border-left:5px solid #D86A82;">
+            <div style="font-family:Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#D86A82;margin-bottom:6px;">🤖 Frontier · story 03</div>
+            <h2 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.25;margin:0 0 12px;color:#2A1F1A;">GPT-5.6 launches behind a government velvet rope</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FBE3E8;border-radius:8px;margin-bottom:12px;">
+              <tr>
+                <td style="padding:10px 14px;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.5;color:#2A1F1A;">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#A4506A;">Why you'd care &nbsp;·&nbsp;</span>
+                  For the first time, a major AI model shipped with the US government helping decide who gets to use it first.
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#5B4A40;">On June 26, OpenAI previewed GPT-5.6 as a family of three models — Sol (flagship), Terra (balanced), and Luna (fast and cheap) — but rolled it out as a limited preview to only about 20 pre-approved organizations, saying it did so at the request of the US government. OpenAI cited stronger safeguards around higher-risk cyber and misuse cases, and says broader general availability <em>(GA — open to everyone)</em> will follow 'in the coming weeks.'</p>
+            <a href="https://chris94949.github.io/signal-newsletter/signal-issue-007.html#s3" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#A4506A;text-decoration:none;border-bottom:2px solid #FBE3E8;">Read the full story →</a>
+          </td>
+        </tr>
+        <tr><td style="height:24px;line-height:24px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:22px 24px;">
+            <h3 style="font-family:Georgia,serif;font-weight:400;font-size:20px;margin:0 0 12px;color:#2A1F1A;">Worth knowing in one sentence</h3>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#5B4A40;">
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">9 months.</strong> That's how fast Jalapeño went from first design to manufacturing tape-out — possibly the fastest cycle ever for a high-performance chip — and OpenAI's own AI models helped design it, a loop where AI is now building the hardware that runs AI.</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">Is bigger still better?</strong> CNBC reports enterprises shifting from 'tokenmaxxing' — chasing the largest model — toward efficiency, buying the cheapest model that clears the bar, as falling prices make raw size a weaker selling point.</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">Talent is the real moat.</strong> Four senior Gemini researchers announced departures from Google for Anthropic in six days, and Google's Gemini 3.5 Pro slipped to July — a reminder that people, not just GPUs, decide who ships next.</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">$50 billion.</strong> UAE investment firm MGX raised a fresh war chest aimed at AI infrastructure and deals, the kind of sovereign-scale capital that makes today's multi-billion-dollar AI acquisitions look routine.</td></tr>
+              <tr><td style="padding:10px 0;"><strong style="color:#2A1F1A;">Qualcomm bought a CUDA challenger.</strong> Its roughly $4 billion all-stock deal for Modular — the AI-software startup from LLVM and Swift creator Chris Lattner — targets Nvidia's stickiest advantage: the CUDA software that locks developers to Nvidia chips.</td></tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td bgcolor="#4F8A5F" style="background-color:#4F8A5F;background-image:linear-gradient(135deg,#4F8A5F 0%,#2C7A7E 100%);border-radius:18px;padding:24px 26px;color:#FFFFFF;text-align:center;">
+            <div style="display:inline-block;background-color:rgba(255,255,255,0.22);padding:5px 12px;border-radius:999px;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">🏓 One fun thing</div>
+            <h3 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.3;margin:0 0 10px;color:#FFFFFF;">Humanoid robots are now learning to play tennis by watching people swing.</h3>
+            <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;margin:0;color:#FFFFFF;opacity:0.95;">A wave of 2026 robotics research is teaching two-legged robots racket sports — tennis, badminton — by feeding them imperfect recordings of human motion and letting them figure out the rest. The hard part isn&#39;t the swing; it&#39;s staying balanced on two legs while lunging for a ball, the same full-body coordination that makes a backhand look easy for us and nearly impossible for a machine. We taught computers chess decades ago; teaching them to chase a fuzzy yellow ball turned out to be the harder game. 🎾</p>
+          </td>
+        </tr>
+
+        <tr><td style="height:18px;line-height:18px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:22px 24px;text-align:center;">
+            <div style="font-family:Georgia,serif;font-style:italic;font-size:16px;color:#2A1F1A;margin-bottom:14px;">— Chris 👋 &nbsp; See you next Monday.</div>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
+              <tr>
+                <td style="padding:4px;"><a href="mailto:christienabrhm94@gmail.com?subject=Signal%20%23007%20%E2%80%94%20one%20word%20reply&body=One%20word%20on%20this%20week%27s%20issue%3A%20" style="display:inline-block;padding:9px 14px;border-radius:999px;background-color:#FFF1E6;color:#B83E12;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid #FFE0CF;">Reply with one word</a></td>
+                <td style="padding:4px;"><a href="https://chris94949.github.io/signal-newsletter/index.html" style="display:inline-block;padding:9px 14px;border-radius:999px;background-color:#FFF1E6;color:#B83E12;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid #FFE0CF;">📰 Past issues</a></td>
+                <td style="padding:4px;"><a href="mailto:?subject=You%20might%20like%20Signal&body=I%27ve%20been%20reading%20this%20weekly%20AI%20newsletter%20%E2%80%94%20you%27d%20probably%20like%20it." style="display:inline-block;padding:9px 14px;border-radius:999px;background-color:#FFF1E6;color:#B83E12;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid #FFE0CF;">↗ Forward</a></td>
+              </tr>
+            </table>
+            <div style="margin-top:14px;padding-top:14px;border-top:1px dashed #F0E2CF;font-family:Helvetica,Arial,sans-serif;font-size:11.5px;color:#8C7D72;line-height:1.55;">
+              <strong style="color:#2A1F1A;">Signal</strong> · Issue 007 · Monday · June 29 · 2026 · 3 sources this week<br/>
+              Built with care, served warm.
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

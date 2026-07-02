@@ -1,0 +1,88 @@
+{
+  "issue": 7,
+  "date": "2026-06-29",
+  "date_display": "Monday · June 29 · 2026",
+  "read_minutes": 5,
+  "tagline": "A friendly weekly read on what actually moved in AI.",
+  "editor_name": "Chris",
+  "editor_note": "Issue seven, and the theme was AI's economics getting real. OpenAI stopped renting Nvidia's chips and designed its own, Anthropic accused Alibaba of quietly copying Claude, and a new flagship model shipped locked behind a government velvet rope. Underneath it all, the price of intelligence keeps falling off a cliff. Plus a humanoid robot that's learning to play tennis. 🎾",
+  "preview": [
+    { "emoji": "🌶️", "label": "Industry", "title": "OpenAI unveils Jalapeño, its first custom AI chip" },
+    { "emoji": "🛡️", "label": "Security", "title": "Anthropic accuses Alibaba of copying Claude" },
+    { "emoji": "🤖", "label": "Frontier", "title": "GPT-5.6 launches behind a government velvet rope" }
+  ],
+  "chart": {
+    "title": "The price of intelligence is falling off a cliff",
+    "caption": "Epoch AI · approx. price per million tokens to match GPT-3.5-level quality · illustrative milestone points, intermediate values approximate.",
+    "labels": ["Nov 2022", "Late 2023", "Oct 2024", "2026"],
+    "values": [20, 2, 0.07, 0.06],
+    "highlight_index": 3
+  },
+  "stories": [
+    {
+      "id": "s1",
+      "kicker": "🌶️ Industry · story 01",
+      "color": "orange",
+      "title": "OpenAI unveils Jalapeño, its first custom AI chip",
+      "why_you_care": "The company that made AI expensive is now trying to make it cheap — by designing its own silicon instead of renting Nvidia's.",
+      "body": "On June 24, OpenAI and Broadcom unveiled Jalapeño, OpenAI's first custom chip, built specifically for inference <em>(running trained models to answer your prompts, as opposed to training new ones)</em>. Early results show meaningfully better performance-per-watt than today's best alternatives, and the companies plan an initial deployment by the end of 2026. It's the first in a multi-generation platform aimed squarely at loosening Nvidia's grip on AI compute.",
+      "more": "This is about owning your costs. Inference is the bill that never stops — every ChatGPT reply burns power and rented GPUs — so a chip tuned only for that workload is a direct lever on OpenAI's margins. Google (TPU), Amazon (Trainium), and Meta (MTIA) already design their own; OpenAI joining means the biggest AI buyers are all trying to route around Nvidia. Watch whether Jalapeño actually ships on time and whether the performance-per-watt claims survive contact with a real data center.",
+      "link": { "label": "TechCrunch", "url": "https://techcrunch.com/2026/06/24/openai-unveils-its-first-custom-chip-built-by-broadcom/" }
+    },
+    {
+      "id": "s2",
+      "kicker": "🛡️ Security · story 02",
+      "color": "sage",
+      "title": "Anthropic accuses Alibaba of copying Claude",
+      "why_you_care": "The next front in the AI race may be less about who trains the best model and more about who can quietly copy one.",
+      "body": "On June 24, Anthropic wrote to the White House alleging that operators tied to Alibaba's Qwen lab ran 28.8 million exchanges through roughly 25,000 fraudulent accounts between April 22 and June 5 to 'distill' Claude <em>(distillation — training a cheaper model on a stronger model's answers to copy its skills)</em>. The alleged targets were Claude's software-engineering, agentic reasoning, and cybersecurity abilities. Alibaba denies wrongdoing, and the figures are Anthropic's allegation — not independently verified.",
+      "more": "Distillation is hard to prove and easy to deny, which is exactly why this is a policy fight, not just a lawsuit — Anthropic took it to the White House, framing model capabilities as national IP worth protecting. If regulators agree, expect tighter identity checks, rate limits, and terms-of-service enforcement on frontier APIs, which quietly raises the cost of building with them. The uncomfortable irony: the whole industry was itself trained on scraped public data, so 'who copied whom' is a slippery line to draw.",
+      "link": { "label": "CNBC", "url": "https://www.cnbc.com/2026/06/24/anthropic-alibaba-distillation-campaign.html" }
+    },
+    {
+      "id": "s3",
+      "kicker": "🤖 Frontier · story 03",
+      "color": "pink",
+      "title": "GPT-5.6 launches behind a government velvet rope",
+      "why_you_care": "For the first time, a major AI model shipped with the US government helping decide who gets to use it first.",
+      "body": "On June 26, OpenAI previewed GPT-5.6 as a family of three models — Sol (flagship), Terra (balanced), and Luna (fast and cheap) — but rolled it out as a limited preview to only about 20 pre-approved organizations, saying it did so at the request of the US government. OpenAI cited stronger safeguards around higher-risk cyber and misuse cases, and says broader general availability <em>(GA — open to everyone)</em> will follow 'in the coming weeks.'",
+      "more": "The capability jump matters, but the access model matters more: a gated, government-coordinated launch is a new template for how frontier AI reaches the public. It signals that the most capable systems may increasingly ship to vetted users first and everyone else later — closer to how controlled technologies are released than how software normally ships. Watch how long the 'coming weeks' actually takes, and whether rivals adopt the same staged, permissioned rollout.",
+      "link": { "label": "Axios", "url": "https://www.axios.com/2026/06/26/openai-gpt-sol-terra-luna-trump" }
+    }
+  ],
+  "quick_hits": [
+    {
+      "shape": "stat",
+      "lede": "9 months.",
+      "text": "That's how fast Jalapeño went from first design to manufacturing tape-out — possibly the fastest cycle ever for a high-performance chip — and OpenAI's own AI models helped design it, a loop where AI is now building the hardware that runs AI."
+    },
+    {
+      "shape": "question",
+      "lede": "Is bigger still better?",
+      "text": "CNBC reports enterprises shifting from 'tokenmaxxing' — chasing the largest model — toward efficiency, buying the cheapest model that clears the bar, as falling prices make raw size a weaker selling point."
+    },
+    {
+      "shape": "verdict",
+      "lede": "Talent is the real moat.",
+      "text": "Four senior Gemini researchers announced departures from Google for Anthropic in six days, and Google's Gemini 3.5 Pro slipped to July — a reminder that people, not just GPUs, decide who ships next."
+    },
+    {
+      "shape": "money",
+      "lede": "$50 billion.",
+      "text": "UAE investment firm MGX raised a fresh war chest aimed at AI infrastructure and deals, the kind of sovereign-scale capital that makes today's multi-billion-dollar AI acquisitions look routine."
+    },
+    {
+      "shape": "observation",
+      "lede": "Qualcomm bought a CUDA challenger.",
+      "text": "Its roughly $4 billion all-stock deal for Modular — the AI-software startup from LLVM and Swift creator Chris Lattner — targets Nvidia's stickiest advantage: the CUDA software that locks developers to Nvidia chips."
+    }
+  ],
+  "fun_fact": {
+    "title": "Humanoid robots are now learning to play tennis by watching people swing.",
+    "body": "A wave of 2026 robotics research is teaching two-legged robots racket sports — tennis, badminton — by feeding them imperfect recordings of human motion and letting them figure out the rest. The hard part isn't the swing; it's staying balanced on two legs while lunging for a ball, the same full-body coordination that makes a backhand look easy for us and nearly impossible for a machine. We taught computers chess decades ago; teaching them to chase a fuzzy yellow ball turned out to be the harder game. 🎾",
+    "link": null
+  },
+  "sources_count": 3,
+  "reply_to": "christienabrhm94@gmail.com",
+  "archive_url": "index.html"
+}
