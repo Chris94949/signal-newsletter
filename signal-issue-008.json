@@ -1,0 +1,88 @@
+{
+  "issue": 8,
+  "date": "2026-07-06",
+  "date_display": "Monday · July 6 · 2026",
+  "read_minutes": 5,
+  "tagline": "A friendly weekly read on what actually moved in AI.",
+  "editor_name": "Chris",
+  "editor_note": "Last week we watched Washington step into the AI release process; this week the handshake got formal. The models the government benched came back online, a voluntary standards deal for frontier launches is reportedly days away, and California became the first state to roll AI out to every agency. Also: a robot just outran the fastest human alive. 🏃",
+  "preview": [
+    { "emoji": "🛡️", "label": "Security", "title": "Fable 5 is back: the 19-day AI blackout ends" },
+    { "emoji": "🌐", "label": "Industry", "title": "Washington and the big labs near a release-standards deal" },
+    { "emoji": "🏛️", "label": "Tools", "title": "California puts Claude in every state agency — at half price" }
+  ],
+  "chart": {
+    "title": "A robot just ran 13.1 miles faster than any human ever has",
+    "caption": "Race results · half-marathon finish times in minutes · 'everyday racer' bar is illustrative; records as reported at each event.",
+    "labels": ["Robot best · Apr 2025", "Everyday racer (typical)", "Human world record", "Lightning the robot · Jun 2026"],
+    "values": [161, 105, 57, 50],
+    "highlight_index": 3
+  },
+  "stories": [
+    {
+      "id": "s1",
+      "kicker": "🛡️ Security · story 01",
+      "color": "orange",
+      "title": "Fable 5 is back: the 19-day AI blackout ends",
+      "why_you_care": "For nearly three weeks, the US government could switch off access to a frontier AI model — and now we know what it takes to switch it back on.",
+      "body": "On June 30, the Commerce Department lifted the export controls it had slapped on Anthropic's Claude Fable 5 and Mythos 5 in mid-June, after Amazon researchers found a jailbreak <em>(a prompt that tricks a model into ignoring its safety rules)</em> serious enough to raise national-security concerns. Access was restored globally on July 1 across Claude's apps and API. To get there, Anthropic agreed to a new jailbreak-blocking classifier, a public bug-bounty program for reporting new exploits, and earlier government access to test future frontier models before release.",
+      "more": "The precedent is the story: a top commercial AI model was treated like a controlled export — suspended, remediated, and reinstated — in 19 days. Enterprises that built workflows on one model spent those weeks learning what 'AI as infrastructure' means when the infrastructure has an off switch, and multi-model fallback plans just moved from nice-to-have to procurement checklist. The concessions Anthropic made (pre-release government testing, coordinated launches) also preview the standards framework in story 02 — this episode was effectively its stress test.",
+      "link": { "label": "CNBC", "url": "https://www.cnbc.com/2026/06/30/anthropic-says-trump-admin-has-lifted-export-controls-on-claude-fable-5-and-mythos-5.html" }
+    },
+    {
+      "id": "s2",
+      "kicker": "🌐 Industry · story 02",
+      "color": "sage",
+      "title": "Washington and the big labs near a release-standards deal",
+      "why_you_care": "The rules for how the most powerful AI models reach the public are being written right now — and they're arriving as a handshake, not a law.",
+      "body": "The Financial Times reported last week that the White House is in advanced talks with Anthropic, OpenAI, Google, Microsoft, and Amazon on voluntary standards for releasing frontier models, with an announcement possible within days. The framework — stemming from a June 2 executive order — would give federal agencies including the NSA and CISA up to 30 days of pre-release access to any model deemed a 'covered frontier model,' plus shared benchmarks and a common scale for rating jailbreak severity from informational to critical.",
+      "more": "Voluntary is doing a lot of work in that sentence: there's no statute, just an executive order and five companies choosing to sign. That makes the deal fast to strike but easy to bend — and it hands the biggest labs a seat at the table writing rules that smaller rivals didn't get to negotiate. The recent pattern (GPT-5.6's gated launch, the Fable 5 suspension) suggests the practical effect is already here: frontier models now ship on Washington's clock. Watch whether the August 1 target holds and whether open-source releases get pulled into scope.",
+      "link": { "label": "Financial Times (via Yahoo Finance)", "url": "https://finance.yahoo.com/technology/ai/articles/us-talks-ai-companies-voluntary-001646707.html" }
+    },
+    {
+      "id": "s3",
+      "kicker": "🏛️ Tools · story 03",
+      "color": "pink",
+      "title": "California puts Claude in every state agency — at half price",
+      "why_you_care": "The largest state in the country just made an AI assistant standard-issue for government workers, which means your DMV visit may be about to change.",
+      "body": "On June 29, Governor Newsom announced a first-of-its-kind deal giving every California state agency — plus any city or county that opts in — access to Anthropic's Claude at a 50% discount, with training and support included. It's the largest US state-government AI deployment to date. Agencies like the DMV and the Department of Health Care Services were already piloting Claude, and Poppy, the state's own AI assistant <em>(named after California's state flower)</em>, has been tested by 2,800+ employees across 67 departments ahead of a statewide rollout this month.",
+      "more": "Government is a famously slow, high-stakes software market, and this deal skips the usual multi-year procurement grind by making one tool the default through a shared-services portal. If it works — shorter DMV queues, faster benefits processing — it becomes the template other states copy, and a durable revenue base that doesn't churn like consumer subscriptions. The risks are the usual public-sector ones: sensitive data handling, accountability when an AI-assisted decision goes wrong, and whether a 50% intro discount survives contract renewal.",
+      "link": { "label": "TechCrunch", "url": "https://techcrunch.com/2026/06/29/anthropic-and-gov-newsom-forge-deal-allowing-california-government-to-use-claude-at-half-price/" }
+    }
+  ],
+  "quick_hits": [
+    {
+      "shape": "stat",
+      "lede": "61% accuracy.",
+      "text": "Meta's Brain2Qwerty v2 turns brain activity into typed text with no surgery required — using a magnetic brain scanner plus a language model to clean up the noisy signal, a big jump for non-invasive brain-computer interfaces."
+    },
+    {
+      "shape": "question",
+      "lede": "Where's Gemini 3.5 Pro?",
+      "text": "Google's next flagship — 2 million tokens of context and a Deep Think reasoning mode — slipped past its June target while Google refines coding and long-task performance; prediction markets that bet on a June launch paid out the skeptics, and July is the new promise."
+    },
+    {
+      "shape": "verdict",
+      "lede": "The mid-tier is the new frontier.",
+      "text": "Claude Sonnet 5 launched July 1 approaching Opus-class performance at $2 per million input tokens (an introductory price through August 31) with a 1M-token context window — more evidence that last year's flagship is this year's budget option."
+    },
+    {
+      "shape": "money",
+      "lede": "$500 million.",
+      "text": "Voice-AI company ElevenLabs raised a Series D at an $11 billion valuation, a bet that synthetic voices — dubbing, audiobooks, customer service — are becoming their own platform layer rather than a feature."
+    },
+    {
+      "shape": "observation",
+      "lede": "Grok 4.5 is already in private beta.",
+      "text": "Barely a month after Grok 4.4 shipped, xAI's next model — reportedly a 1.5-trillion-parameter system being field-tested inside SpaceX and Tesla — shows the release treadmill speeding up even as Washington tries to slow it down."
+    }
+  ],
+  "fun_fact": {
+    "title": "A two-legged robot just won a half-marathon — beating the human world record by almost seven minutes.",
+    "body": "Honor's autonomous humanoid 'Lightning' won the Beijing E-Town Half-Marathon in 50 minutes 26 seconds, faster than any human has ever covered 13.1 miles. Just over a year ago, the best robot half-marathoner needed 2 hours 40 minutes and a support crew hovering nervously nearby. Robots don't get shin splints, but staying upright at that pace for 21 kilometers is a balance problem researchers called impossible not long ago. The runners' consolation: it still can't feel the runner's high. 🏅",
+    "link": null
+  },
+  "sources_count": 3,
+  "reply_to": "christienabrhm94@gmail.com",
+  "archive_url": "index.html"
+}
