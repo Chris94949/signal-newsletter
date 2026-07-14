@@ -1,0 +1,88 @@
+{
+  "issue": 9,
+  "date": "2026-07-14",
+  "date_display": "Monday · July 14 · 2026",
+  "read_minutes": 5,
+  "tagline": "A friendly weekly read on what actually moved in AI.",
+  "editor_name": "Chris",
+  "editor_note": "Two weeks ago we covered the handshake between Washington and the labs; this week we saw what it produces: GPT-5.6 shipped through the government's new review lane and went wide anyway. Meanwhile Apple took OpenAI to court over hardware secrets, and a quiet stat — Chinese models now carry up to 46% of US enterprise AI traffic — might be the most consequential number of the month. ⚡",
+  "preview": [
+    { "emoji": "🤖", "label": "Frontier", "title": "GPT-5.6 lands: the first Washington-gated launch goes wide" },
+    { "emoji": "⚖️", "label": "Industry", "title": "Apple sues OpenAI over hardware trade secrets" },
+    { "emoji": "🌏", "label": "Industry", "title": "Chinese models now carry up to 46% of US enterprise AI traffic" }
+  ],
+  "chart": {
+    "title": "Chinese AI models went from rounding error to a third of US enterprise traffic",
+    "caption": "Developer-platform routing data via CNBC · share of US enterprise API tokens routed to Chinese-origin models · figures as reported.",
+    "labels": ["H1 2025", "Trailing 12-mo average", "Weekly floor since Feb 2026", "2026 peak week"],
+    "values": [4.5, 11, 30, 46],
+    "highlight_index": 3
+  },
+  "stories": [
+    {
+      "id": "s1",
+      "kicker": "🤖 Frontier · story 01",
+      "color": "orange",
+      "title": "GPT-5.6 lands: the first Washington-gated launch goes wide",
+      "why_you_care": "The most-used AI product in the world just got its biggest upgrade of the year — and it arrived on the government's schedule, not OpenAI's.",
+      "body": "On July 9, OpenAI released GPT-5.6 to all ChatGPT users and API developers as a three-model family: Sol <em>(the flagship)</em>, Terra <em>(the everyday workhorse, roughly GPT-5.5 performance at half the price)</em>, and Luna <em>(the budget tier at $1 per million input tokens)</em>. The launch had been held to a 'small group of trusted partners' since late June at the Trump administration's request; the wide release came only after additional government testing — the first frontier launch to run through the new pre-release review lane end to end.",
+      "more": "Two things are worth separating. The product story: Sol claims state-of-the-art results in coding, knowledge work, and science while using fewer tokens, which matters more than raw benchmark wins now that inference costs drive enterprise decisions. The process story: a two-week government hold delayed but didn't derail the launch, which is exactly what the voluntary standards framework promised — oversight without a hard stop. Every future frontier release will now be read against this template. Watch whether Google's Gemini 3.5 Pro, reportedly days away, runs the same gauntlet.",
+      "link": { "label": "TechCrunch", "url": "https://techcrunch.com/2026/07/09/openai-launches-its-new-family-of-models-with-gpt-5-6/" }
+    },
+    {
+      "id": "s2",
+      "kicker": "⚖️ Industry · story 02",
+      "color": "sage",
+      "title": "Apple sues OpenAI over hardware trade secrets",
+      "why_you_care": "The fight over who builds the next iPhone-class AI device just moved from the talent market to a federal courtroom.",
+      "body": "On July 10, Apple sued OpenAI and two former Apple employees in federal court in Northern California, alleging a coordinated effort — 'at every level' — to take product designs, manufacturing processes, and supply-chain strategies for OpenAI's consumer hardware push. The complaint names OpenAI hardware chief Tang Yew Tan, a 24-year Apple veteran, and alleges he asked Apple candidates to bring 'actual parts' to interviews for show-and-tell; a second defendant allegedly kept access to Apple's internal file servers after leaving.",
+      "more": "OpenAI has hired dozens of Apple hardware veterans since acquiring Jony Ive's io Products, and Apple watched quietly — until now. Trade-secret suits rarely kill products, but discovery is the real weapon: Apple gets to depose OpenAI's hardware team about exactly what its device is, before it ships. Elon Musk and Sam Altman spending the weekend trading shots about it on X was noise; the signal is that Apple views OpenAI's device as a genuine iPhone threat, which is itself the strongest endorsement the project has received.",
+      "link": { "label": "CNBC", "url": "https://www.cnbc.com/2026/07/10/apple-openai-lawsuit-trade-secrets.html" }
+    },
+    {
+      "id": "s3",
+      "kicker": "🌏 Industry · story 03",
+      "color": "pink",
+      "title": "Chinese models now carry up to 46% of US enterprise AI traffic",
+      "why_you_care": "The AI price war has a winner nobody in Washington planned for: Chinese open-weights models are quietly becoming the default budget option inside US companies.",
+      "body": "Chinese-origin models have held above 30% of tokens routed by US companies on developer platforms every week since early February, peaking at 46% — up from 4.5% in the first half of 2025. The breakout is Z.ai's GLM-5.2, an open-weights <em>(the model file is free to download and run yourself)</em> coding model released in June that sits within a point of top US models on agentic benchmarks at roughly one-fifth the cost. It logged the fastest adoption of any model tracked in 2026: daily token volume up ~27x in its first full week.",
+      "more": "The driver is boring and powerful: cost. As US frontier pricing climbs, startups like Lindy have moved entire workloads to Chinese models and projected millions in savings. The second-order effect is strategic — export controls were designed to keep US chips out of China, but nothing stops Chinese model weights from flowing the other way, and every enterprise that standardizes on GLM or DeepSeek weakens the US labs' pricing power. Watch whether the voluntary-standards framework tries to pull open-weights imports into scope.",
+      "link": { "label": "CNBC", "url": "https://www.cnbc.com/2026/07/07/chinese-ai-models-costs-us-openai-anthropic.html" }
+    }
+  ],
+  "quick_hits": [
+    {
+      "shape": "stat",
+      "lede": "31 seconds.",
+      "text": "That's how long 'JadePuffer' — the first documented fully autonomous AI ransomware, analyzed by Sysdig — took to go from a failed login to a working fix mid-attack, reasoning through reconnaissance, credential theft, and database extortion with no human at the keyboard."
+    },
+    {
+      "shape": "question",
+      "lede": "Is Anthropic bigger than OpenAI now?",
+      "text": "By revenue, reportedly yes — a $47 billion run rate against OpenAI's self-reported $25–33 billion, a gap built on enterprise contracts rather than consumer subscriptions, and the clearest sign yet that the two labs are running different businesses."
+    },
+    {
+      "shape": "verdict",
+      "lede": "The reorg isn't working — yet.",
+      "text": "Five weeks after laying off 8,000 people to fund its AI push, Mark Zuckerberg told a Meta town hall that agent development 'hasn't really accelerated in the way that we expected' — a rare public admission that restructuring around AI is easier to announce than to execute."
+    },
+    {
+      "shape": "money",
+      "lede": "$880 billion.",
+      "text": "South Korea unveiled a 10-year national investment plan spanning semiconductors, AI infrastructure, and robotics — a country-sized bet that the next decade's industrial base is compute."
+    },
+    {
+      "shape": "observation",
+      "lede": "ChatGPT can now say 'mhmm.'",
+      "text": "OpenAI's new GPT-Live voice models use a full-duplex architecture <em>(listening and speaking at the same time, like a person)</em> — so it can murmur acknowledgments, handle interruptions, or just stay quiet while you think, instead of the walkie-talkie turn-taking every voice assistant has used since Siri."
+    }
+  ],
+  "fun_fact": {
+    "title": "A humanoid robot just made its debut at the World Cup — on the pitch, during a live match environment.",
+    "body": "Hyundai brought the production version of Boston Dynamics' Atlas to the FIFA World Cup 2026, the first time a humanoid robot has been integrated into a live match environment. There's even a documentary-style film, 'The Training Ground,' about Atlas prepping for its big day — yes, the robot got a training montage. It didn't take a penalty kick, but give it a season. ⚽",
+    "link": null
+  },
+  "sources_count": 3,
+  "reply_to": "christienabrhm94@gmail.com",
+  "archive_url": "index.html"
+}
