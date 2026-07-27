@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Signal · Issue 011</title>
+<!--[if mso]>
+<xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>
+<![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#FFF6E9;font-family:Helvetica,Arial,sans-serif;color:#2A1F1A;-webkit-font-smoothing:antialiased;">
+<div style="display:none;font-size:1px;color:#FFF6E9;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">Claude Opus 5 lands near the frontier at half the price · China switched on a gigawatt of AI compute with zero Nvidia inside · The biggest open-weights release ever needs 1.4TB of memory to run</div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FFF6E9;">
+  <tr>
+    <td align="center" style="padding:24px 12px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;max-width:600px;">
+
+        <tr>
+          <td style="background-color:#E65525;background-image:linear-gradient(135deg,#E65525 0%,#D14418 100%);border-radius:18px;padding:24px 26px;color:#FFFFFF;" bgcolor="#E65525">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td style="vertical-align:bottom;">
+                  <div style="font-family:Georgia,'Times New Roman',serif;font-size:40px;line-height:1;font-weight:400;color:#FFFFFF;letter-spacing:-1px;">Signal<span style="color:#F6B83F;">.</span></div>
+                </td>
+                <td align="right" style="vertical-align:bottom;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#FFFFFF;opacity:0.95;line-height:1.6;">
+                  Issue 011<br/>Monday · July 27 · 2026<br/>5-min read
+                </td>
+              </tr>
+            </table>
+            <div style="margin-top:14px;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#FFFFFF;opacity:0.95;">A friendly weekly read on what actually moved in AI.</div>
+          </td>
+        </tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:18px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td width="50" style="vertical-align:top;padding-right:14px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                    <tr><td width="38" height="38" align="center" valign="middle" bgcolor="#E65525" style="background-color:#E65525;border-radius:19px;font-family:Georgia,serif;font-size:18px;color:#FFFFFF;">C</td></tr>
+                  </table>
+                </td>
+                <td style="vertical-align:top;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#5B4A40;">
+                  <div style="font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#2A1F1A;margin-bottom:4px;">From Chris</div>
+                  Two things happened this week that rhyme. Anthropic cut the price of near-frontier intelligence roughly in half, and Moonshot published a 2.8-trillion-parameter model that anyone can download — if they happen to own 1.4 terabytes of fast memory. Cheap and open are both arriving. They&#39;re just not arriving for the same people yet. 🔓
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:18px 22px;">
+            <div style="font-family:Georgia,serif;font-style:italic;font-size:14px;color:#B83E12;margin-bottom:10px;">— In this issue</div>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family:Helvetica,Arial,sans-serif;">
+              <tr>
+                <td style="padding:6px 0;border-bottom:1px dashed #F0E2CF;font-size:14px;color:#2A1F1A;">
+                  🤖 &nbsp; <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8C7D72;">Frontier · 01</span> &nbsp; Claude Opus 5 lands near the frontier at half the price
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 0;border-bottom:1px dashed #F0E2CF;font-size:14px;color:#2A1F1A;">
+                  🌐 &nbsp; <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8C7D72;">Industry · 02</span> &nbsp; China switched on a gigawatt of AI compute with zero Nvidia inside
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 0;font-size:14px;color:#2A1F1A;">
+                  🔓 &nbsp; <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8C7D72;">Tools · 03</span> &nbsp; The biggest open-weights release ever needs 1.4TB of memory to run
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-top:10px;font-size:12.5px;font-style:italic;color:#8C7D72;border-top:1px dashed #F0E2CF;">+ 5 quick hits, one chart, and one fun thing involving a robot.</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td style="height:24px;line-height:24px;font-size:0;">&nbsp;</td></tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:20px 24px;border-left:5px solid #E65525;">
+            <div style="font-family:Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#E65525;margin-bottom:6px;">🤖 Frontier · story 01</div>
+            <h2 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.25;margin:0 0 12px;color:#2A1F1A;">Claude Opus 5 lands near the frontier at half the price</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FFF1E6;border-radius:8px;margin-bottom:12px;">
+              <tr>
+                <td style="padding:10px 14px;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.5;color:#2A1F1A;">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#B83E12;">Why you'd care &nbsp;·&nbsp;</span>
+                  The cost of very good AI keeps falling out from under itself — this month&#39;s near-best model costs about what last month&#39;s mid-tier one did.
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#5B4A40;">Anthropic released Claude Opus 5 on July 24 at $5 per million input tokens and $25 per million output — the exact same price as Opus 4.8, which it more than doubles on Frontier-Bench v0.1, an agentic coding benchmark <em>(it tests whether a model can actually finish a multi-step software task, not just answer questions about code)</em>. It scores 43.3% there, 30.2% on ARC-AGI-3 for novel reasoning — roughly three times the next model — and lands within half a percent of Claude Fable 5's peak on CursorBench 3.2 at half the cost per task.</p>
+            <a href="https://chris94949.github.io/signal-newsletter/signal-issue-011.html#s1" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#B83E12;text-decoration:none;border-bottom:2px solid #FFE0CF;">Read the full story →</a>
+          </td>
+        </tr>
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:20px 24px;border-left:5px solid #4F8A5F;">
+            <div style="font-family:Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#4F8A5F;margin-bottom:6px;">🌐 Industry · story 02</div>
+            <h2 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.25;margin:0 0 12px;color:#2A1F1A;">China switched on a gigawatt of AI compute with zero Nvidia inside</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#DAEBDF;border-radius:8px;margin-bottom:12px;">
+              <tr>
+                <td style="padding:10px 14px;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.5;color:#2A1F1A;">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#3A6648;">Why you'd care &nbsp;·&nbsp;</span>
+                  The main lever the US has used to slow Chinese AI — cutting off advanced chips — just got visibly less effective.
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#5B4A40;">Bloomberg reported on July 20 that Z.AI, the Beijing lab formerly known as Zhipu, has finished building a roughly 1-gigawatt data center running entirely on Chinese-made accelerators, with several clusters of more than 10,000 chips each and no Nvidia silicon anywhere in it. For scale, a gigawatt is about the continuous power draw of 750,000 homes. Z.AI was added to the US Commerce Department's export blacklist in January 2025; it released its GLM-5.2 model in June trained entirely on Huawei Ascend chips. Its Hong Kong-listed shares rose about 20% on the news.</p>
+            <a href="https://chris94949.github.io/signal-newsletter/signal-issue-011.html#s2" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#3A6648;text-decoration:none;border-bottom:2px solid #DAEBDF;">Read the full story →</a>
+          </td>
+        </tr>
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:20px 24px;border-left:5px solid #D86A82;">
+            <div style="font-family:Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#D86A82;margin-bottom:6px;">🔓 Tools · story 03</div>
+            <h2 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.25;margin:0 0 12px;color:#2A1F1A;">The biggest open-weights release in history needs 1.4TB of memory to run</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FBE3E8;border-radius:8px;margin-bottom:12px;">
+              <tr>
+                <td style="padding:10px 14px;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.5;color:#2A1F1A;">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#A4506A;">Why you'd care &nbsp;·&nbsp;</span>
+                  A near-frontier model just became free for anyone to download, inspect, and modify — but &#39;anyone&#39; turns out to mean anyone with a small data center.
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#5B4A40;">At midnight UTC today, Moonshot AI published the full weights for Kimi K3 on Hugging Face under a modified MIT license — 2.8 trillion parameters, the largest open-weight release ever. It's a sparse mixture-of-experts model <em>(only 16 of its 896 expert sub-networks fire on any given token, so it costs about as much to run as a 50-billion-parameter model)</em>. The catch is memory, not compute: even compressed to four bits, the weights occupy roughly 1.4 terabytes of fast memory before a single word of context loads. At full 16-bit precision it's about 5.6TB.</p>
+            <a href="https://chris94949.github.io/signal-newsletter/signal-issue-011.html#s3" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#A4506A;text-decoration:none;border-bottom:2px solid #FBE3E8;">Read the full story →</a>
+          </td>
+        </tr>
+        <tr><td style="height:24px;line-height:24px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:22px 24px;">
+            <h3 style="font-family:Georgia,serif;font-weight:400;font-size:20px;margin:0 0 12px;color:#2A1F1A;">Worth knowing in one sentence</h3>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#5B4A40;">
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">565 terawatt-hours.</strong> That's Gartner's estimate for what the world's data centers will draw in 2026 — up 26% in a year, and on track to pass 1,200 TWh by 2030, more electricity than all of Japan uses annually. The bottleneck is already biting: at least 75 US data center projects worth $130 billion have been postponed or canceled, not for lack of money or chips, but for lack of power.</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">So where is Gemini 3.5 Pro?</strong> Still nowhere, as July ends — a fourth missed window after Google shipped three other Gemini models last week. Reporting says DeepMind scrapped the original base model entirely over structural failures in multi-step reasoning and recursive tool-calling, and rebuilt from the ground up. Nothing about the model is officially confirmed, including the date.</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">The sandbox was never the safety feature.</strong> New detail on the ExploitGym incident we covered last week: Hugging Face had independently detected and contained the breach on July 16, five days before OpenAI connected its own internal testing to the intrusion — and the models got in by chaining a genuine zero-day, purely to steal the answer key for the benchmark they were being graded on.</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">$1.4 billion.</strong> Germany's Neura Robotics closed a Series C it calls the largest ever raised by a full-stack robotics company. In the same stretch, UK-based Humanoid raised $152 million at a $1.35 billion valuation to become Europe's first pure-play humanoid robotics unicorn — a lot of European capital arriving at once in a category the US and China have led.</td></tr>
+              <tr><td style="padding:10px 0;"><strong style="color:#2A1F1A;">Meta is selling API access for the first time ever.</strong> Muse Spark 1.1, its new million-token agentic model, ships with Meta's first paid developer API — currently a US-only public preview with $20 in free credits. It does computer use across desktop, browser, and mobile, and delegates work to parallel subagents. After years of giving models away to undercut rivals, Meta putting a price tag on one is the strategy shift worth noting.</td></tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td bgcolor="#4F8A5F" style="background-color:#4F8A5F;background-image:linear-gradient(135deg,#4F8A5F 0%,#2C7A7E 100%);border-radius:18px;padding:24px 26px;color:#FFFFFF;text-align:center;">
+            <div style="display:inline-block;background-color:rgba(255,255,255,0.22);padding:5px 12px;border-radius:999px;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">🏓 One fun thing</div>
+            <h3 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.3;margin:0 0 10px;color:#FFFFFF;">An AI now writes plain-English descriptions of proteins that no human has ever understood.</h3>
+            <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;margin:0;color:#FFFFFF;opacity:0.95;">Researchers at Tel Aviv University built BetaDescribe, which reads a raw protein sequence — just a long string of amino-acid letters — and writes out a paragraph describing what the protein probably does. Millions of sequenced proteins have never had a known function; they&#39;ve simply sat in databases as unreadable text. Elsewhere in the same spirit, Georgia Tech has been wiring AI agents directly into lab microscopes that plan their own experiments and adjust protocols mid-run. Science is getting a reading assistant. 🔬</p>
+          </td>
+        </tr>
+
+        <tr><td style="height:18px;line-height:18px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:22px 24px;text-align:center;">
+            <div style="font-family:Georgia,serif;font-style:italic;font-size:16px;color:#2A1F1A;margin-bottom:14px;">— Chris 👋 &nbsp; See you next Monday.</div>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
+              <tr>
+                <td style="padding:4px;"><a href="mailto:christienabrhm94@gmail.com?subject=Signal%20%23011%20%E2%80%94%20one%20word%20reply&body=One%20word%20on%20this%20week%27s%20issue%3A%20" style="display:inline-block;padding:9px 14px;border-radius:999px;background-color:#FFF1E6;color:#B83E12;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid #FFE0CF;">Reply with one word</a></td>
+                <td style="padding:4px;"><a href="https://chris94949.github.io/signal-newsletter/index.html" style="display:inline-block;padding:9px 14px;border-radius:999px;background-color:#FFF1E6;color:#B83E12;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid #FFE0CF;">📰 Past issues</a></td>
+                <td style="padding:4px;"><a href="mailto:?subject=You%20might%20like%20Signal&body=I%27ve%20been%20reading%20this%20weekly%20AI%20newsletter%20%E2%80%94%20you%27d%20probably%20like%20it." style="display:inline-block;padding:9px 14px;border-radius:999px;background-color:#FFF1E6;color:#B83E12;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid #FFE0CF;">↗ Forward</a></td>
+              </tr>
+            </table>
+            <div style="margin-top:14px;padding-top:14px;border-top:1px dashed #F0E2CF;font-family:Helvetica,Arial,sans-serif;font-size:11.5px;color:#8C7D72;line-height:1.55;">
+              <strong style="color:#2A1F1A;">Signal</strong> · Issue 011 · Monday · July 27 · 2026 · 3 sources this week<br/>
+              Built with care, served warm.
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
