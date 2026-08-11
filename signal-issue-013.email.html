@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Signal · Issue 013</title>
+<!--[if mso]>
+<xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>
+<![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#FFF6E9;font-family:Helvetica,Arial,sans-serif;color:#2A1F1A;-webkit-font-smoothing:antialiased;">
+<div style="display:none;font-size:1px;color:#FFF6E9;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">OpenAI claimed ten math breakthroughs. Mathematicians found the footnotes missing. · Meta released a 30B agent model that runs on your laptop · In Europe, chatbots now have to tell you they&#39;re chatbots</div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FFF6E9;">
+  <tr>
+    <td align="center" style="padding:24px 12px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;max-width:600px;">
+
+        <tr>
+          <td style="background-color:#E65525;background-image:linear-gradient(135deg,#E65525 0%,#D14418 100%);border-radius:18px;padding:24px 26px;color:#FFFFFF;" bgcolor="#E65525">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td style="vertical-align:bottom;">
+                  <div style="font-family:Georgia,'Times New Roman',serif;font-size:40px;line-height:1;font-weight:400;color:#FFFFFF;letter-spacing:-1px;">Signal<span style="color:#F6B83F;">.</span></div>
+                </td>
+                <td align="right" style="vertical-align:bottom;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#FFFFFF;opacity:0.95;line-height:1.6;">
+                  Issue 013<br/>Tuesday · August 11 · 2026<br/>5-min read
+                </td>
+              </tr>
+            </table>
+            <div style="margin-top:14px;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#FFFFFF;opacity:0.95;">A friendly weekly read on what actually moved in AI.</div>
+          </td>
+        </tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:18px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td width="50" style="vertical-align:top;padding-right:14px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                    <tr><td width="38" height="38" align="center" valign="middle" bgcolor="#E65525" style="background-color:#E65525;border-radius:19px;font-family:Georgia,serif;font-size:18px;color:#FFFFFF;">C</td></tr>
+                  </table>
+                </td>
+                <td style="vertical-align:top;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#5B4A40;">
+                  <div style="font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#2A1F1A;margin-bottom:4px;">From Chris</div>
+                  Three different stories this week are all secretly about the same thing: who gets to check the work. A model claims a math breakthrough and mathematicians go looking for the footnotes; Europe starts requiring chatbots to admit what they are; Meta hands out weights so you can inspect them yourself. Verification is having a moment. 🔍
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:18px 22px;">
+            <div style="font-family:Georgia,serif;font-style:italic;font-size:14px;color:#B83E12;margin-bottom:10px;">— In this issue</div>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family:Helvetica,Arial,sans-serif;">
+              <tr>
+                <td style="padding:6px 0;border-bottom:1px dashed #F0E2CF;font-size:14px;color:#2A1F1A;">
+                  🧮 &nbsp; <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8C7D72;">Research · 01</span> &nbsp; OpenAI claimed ten math breakthroughs. Mathematicians found the footnotes missing.
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 0;border-bottom:1px dashed #F0E2CF;font-size:14px;color:#2A1F1A;">
+                  💻 &nbsp; <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8C7D72;">Tools · 02</span> &nbsp; Meta released a 30B agent model that runs on your laptop
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 0;font-size:14px;color:#2A1F1A;">
+                  🛡️ &nbsp; <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8C7D72;">Policy · 03</span> &nbsp; In Europe, chatbots now have to tell you they&#39;re chatbots
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-top:10px;font-size:12.5px;font-style:italic;color:#8C7D72;border-top:1px dashed #F0E2CF;">+ 5 quick hits, one chart, and one fun thing involving a robot.</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td style="height:24px;line-height:24px;font-size:0;">&nbsp;</td></tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:20px 24px;border-left:5px solid #E65525;">
+            <div style="font-family:Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#E65525;margin-bottom:6px;">🧮 Research · story 01</div>
+            <h2 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.25;margin:0 0 12px;color:#2A1F1A;">OpenAI claimed ten math breakthroughs. Mathematicians found the footnotes missing.</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FFF1E6;border-radius:8px;margin-bottom:12px;">
+              <tr>
+                <td style="padding:10px 14px;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.5;color:#2A1F1A;">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#B83E12;">Why you'd care &nbsp;·&nbsp;</span>
+                  The question of whether AI can do original research now turns on something unglamorous — whether it can tell you where its ideas came from.
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#5B4A40;">On August 1, OpenAI published a 249-page manuscript claiming ten new results in pure mathematics and theoretical computer science, produced by an internal model the company then named its next family after: Astra. It shipped with a public repository of Lean proofs <em>(machine-checkable, so a computer can confirm each logical step)</em> and a companion document reconstructing how the model searched. Within days, named mathematicians pushed back. Steven Miller of Yeshiva University says the flagship sphere-packing result leans on an argument from his own 2016 paper without crediting it, and Francesco Fournier-Facio of Cambridge flagged the same pattern in the non-sofic groups result.</p>
+            <a href="https://chris94949.github.io/signal-newsletter/signal-issue-013.html#s1" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#B83E12;text-decoration:none;border-bottom:2px solid #FFE0CF;">Read the full story →</a>
+          </td>
+        </tr>
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:20px 24px;border-left:5px solid #4F8A5F;">
+            <div style="font-family:Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#4F8A5F;margin-bottom:6px;">💻 Tools · story 02</div>
+            <h2 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.25;margin:0 0 12px;color:#2A1F1A;">Meta released a 30B agent model that runs on your laptop</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#DAEBDF;border-radius:8px;margin-bottom:12px;">
+              <tr>
+                <td style="padding:10px 14px;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.5;color:#2A1F1A;">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#3A6648;">Why you'd care &nbsp;·&nbsp;</span>
+                  An AI agent that lives on your own machine can work on your files without any of them leaving it — which changes what you&#39;re willing to point it at.
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#5B4A40;">Meta released Muse Glimmer on August 10: a 30-billion-parameter model built specifically for agent work, free under Apache 2.0, with weights on Hugging Face. It's essentially an open version of Muse Spark, the closed model Meta debuted in April. The target is a single consumer GPU or a decent Mac — Meta measured roughly 3.1× faster inference on an NVIDIA RTX 5090, 1.8× on an Apple M5 Max and 1.5× on an M4 Max versus its own prior local models. The intended jobs are function calling, local coding, and LLM-as-a-judge evaluation <em>(using one model to grade another model's output, which is cheap to run constantly if it's running on your own hardware)</em>.</p>
+            <a href="https://chris94949.github.io/signal-newsletter/signal-issue-013.html#s2" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#3A6648;text-decoration:none;border-bottom:2px solid #DAEBDF;">Read the full story →</a>
+          </td>
+        </tr>
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:20px 24px;border-left:5px solid #D86A82;">
+            <div style="font-family:Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#D86A82;margin-bottom:6px;">🛡️ Policy · story 03</div>
+            <h2 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.25;margin:0 0 12px;color:#2A1F1A;">In Europe, chatbots now have to tell you they&#39;re chatbots</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FBE3E8;border-radius:8px;margin-bottom:12px;">
+              <tr>
+                <td style="padding:10px 14px;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.5;color:#2A1F1A;">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#A4506A;">Why you'd care &nbsp;·&nbsp;</span>
+                  If you ship anything with a chat box or an image generator to European users, you now have disclosure duties whether or not your product is considered risky.
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#5B4A40;">Article 50 of the EU AI Act took effect on August 2. It requires that people be told when they're talking to an AI system rather than a person, that AI-generated or manipulated content be machine-readably marked, that deepfakes be disclosed, and that emotion-recognition and biometric-categorisation systems announce themselves to the people they're pointed at. Enforcement runs through national market surveillance authorities, with fines up to €15 million or 3% of worldwide annual turnover, whichever is larger. There's a grace period only for the marking-and-detection duty on generative systems already in market — those have until December 2, 2026.</p>
+            <a href="https://chris94949.github.io/signal-newsletter/signal-issue-013.html#s3" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#A4506A;text-decoration:none;border-bottom:2px solid #FBE3E8;">Read the full story →</a>
+          </td>
+        </tr>
+        <tr><td style="height:24px;line-height:24px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:22px 24px;">
+            <h3 style="font-family:Georgia,serif;font-weight:400;font-size:20px;margin:0 0 12px;color:#2A1F1A;">Worth knowing in one sentence</h3>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#5B4A40;">
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">89% more AI-enabled attacks.</strong> CrowdStrike's latest threat reporting logs an 89% year-over-year jump in AI-assisted threat activity, alongside a finding that 88% of vulnerability attacks now begin within 48 hours of proof-of-concept code going public. The defenders' window used to be measured in weeks.</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">Do you actually know when your model&#39;s knowledge ends?</strong> Independent researcher Shrivu Shankar published a method on August 10 for inferring a model's real training cutoff from historical-fact quizzes and self-identification rather than trusting the published date. His finding: the dates cluster by training run, not by release, and at least one flagship model shows a knowledge state noticeably older than its stated cutoff.</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">The bottleneck is power, not chips.</strong> Across Q2 earnings calls, Microsoft, Alphabet and Meta all shifted the metric they talk about from total capex to 'time-to-energy' — how fast a signed power contract becomes revenue-generating compute. Five data centers of a gigawatt or more are expected online this year, each run by a different hyperscaler, and Meta committed over $9 billion to a 1 GW campus in Alberta.</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">$510 billion.</strong> Global venture funding in the first half of 2026, per Crunchbase — more than the $440 billion invested across all of 2025. AI took more than 70% of Q2's dollars, up from just under 50% a year earlier, and OpenAI and Anthropic between them absorbed over 40% of every venture dollar deployed worldwide.</td></tr>
+              <tr><td style="padding:10px 0;"><strong style="color:#2A1F1A;">The plumbing that connects AI agents to your systems just got rebuilt.</strong> The Model Context Protocol shipped its 2026-07-28 specification, the largest revision since launch: the transport is now stateless, protocol-level sessions and the Mcp-Session-Id header are gone, authorization aligns properly with OAuth and OpenID Connect, and Tasks and MCP Apps are promoted to first-class extensions. If you built an MCP server last year, some of it breaks.</td></tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td bgcolor="#4F8A5F" style="background-color:#4F8A5F;background-image:linear-gradient(135deg,#4F8A5F 0%,#2C7A7E 100%);border-radius:18px;padding:24px 26px;color:#FFFFFF;text-align:center;">
+            <div style="display:inline-block;background-color:rgba(255,255,255,0.22);padding:5px 12px;border-radius:999px;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">🏓 One fun thing</div>
+            <h3 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.3;margin:0 0 10px;color:#FFFFFF;">People bonded more with a robot when it made mistakes — and their hormones proved it.</h3>
+            <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;margin:0;color:#FFFFFF;opacity:0.95;">Drexel researchers ran what appears to be the first study measuring brain activity, hormone levels, self-reported attitudes and actual behavior all at once during interactions with a humanoid robot. Oxytocin — the hormone associated with bonding to friends and family — went &lt;em&gt;up&lt;/em&gt; when the expressive robot fumbled. Stated trust, meanwhile, went down. So the participants said they trusted it less while their bodies quietly warmed to it, which is a very human way to feel about a machine. 🤖</p>
+          </td>
+        </tr>
+
+        <tr><td style="height:18px;line-height:18px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:22px 24px;text-align:center;">
+            <div style="font-family:Georgia,serif;font-style:italic;font-size:16px;color:#2A1F1A;margin-bottom:14px;">— Chris 👋 &nbsp; See you next Monday.</div>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
+              <tr>
+                <td style="padding:4px;"><a href="mailto:christienabrhm94@gmail.com?subject=Signal%20%23013%20%E2%80%94%20one%20word%20reply&body=One%20word%20on%20this%20week%27s%20issue%3A%20" style="display:inline-block;padding:9px 14px;border-radius:999px;background-color:#FFF1E6;color:#B83E12;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid #FFE0CF;">Reply with one word</a></td>
+                <td style="padding:4px;"><a href="https://chris94949.github.io/signal-newsletter/index.html" style="display:inline-block;padding:9px 14px;border-radius:999px;background-color:#FFF1E6;color:#B83E12;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid #FFE0CF;">📰 Past issues</a></td>
+                <td style="padding:4px;"><a href="mailto:?subject=You%20might%20like%20Signal&body=I%27ve%20been%20reading%20this%20weekly%20AI%20newsletter%20%E2%80%94%20you%27d%20probably%20like%20it." style="display:inline-block;padding:9px 14px;border-radius:999px;background-color:#FFF1E6;color:#B83E12;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid #FFE0CF;">↗ Forward</a></td>
+              </tr>
+            </table>
+            <div style="margin-top:14px;padding-top:14px;border-top:1px dashed #F0E2CF;font-family:Helvetica,Arial,sans-serif;font-size:11.5px;color:#8C7D72;line-height:1.55;">
+              <strong style="color:#2A1F1A;">Signal</strong> · Issue 013 · Tuesday · August 11 · 2026 · 3 sources this week<br/>
+              Built with care, served warm.
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
