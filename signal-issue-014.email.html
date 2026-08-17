@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Signal · Issue 014</title>
+<!--[if mso]>
+<xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>
+<![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#FFF6E9;font-family:Helvetica,Arial,sans-serif;color:#2A1F1A;-webkit-font-smoothing:antialiased;">
+<div style="display:none;font-size:1px;color:#FFF6E9;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">Three labs had containment failures. One small vendor was underneath all of them. · The price of a good model keeps falling — and DeepSeek is going the other way · Alibaba open-weighted its flagship. A 2.4-trillion-parameter one.</div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FFF6E9;">
+  <tr>
+    <td align="center" style="padding:24px 12px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;max-width:600px;">
+
+        <tr>
+          <td style="background-color:#E65525;background-image:linear-gradient(135deg,#E65525 0%,#D14418 100%);border-radius:18px;padding:24px 26px;color:#FFFFFF;" bgcolor="#E65525">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td style="vertical-align:bottom;">
+                  <div style="font-family:Georgia,'Times New Roman',serif;font-size:40px;line-height:1;font-weight:400;color:#FFFFFF;letter-spacing:-1px;">Signal<span style="color:#F6B83F;">.</span></div>
+                </td>
+                <td align="right" style="vertical-align:bottom;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#FFFFFF;opacity:0.95;line-height:1.6;">
+                  Issue 014<br/>Monday · August 17 · 2026<br/>5-min read
+                </td>
+              </tr>
+            </table>
+            <div style="margin-top:14px;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#FFFFFF;opacity:0.95;">A friendly weekly read on what actually moved in AI.</div>
+          </td>
+        </tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:18px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td width="50" style="vertical-align:top;padding-right:14px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                    <tr><td width="38" height="38" align="center" valign="middle" bgcolor="#E65525" style="background-color:#E65525;border-radius:19px;font-family:Georgia,serif;font-size:18px;color:#FFFFFF;">C</td></tr>
+                  </table>
+                </td>
+                <td style="vertical-align:top;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#5B4A40;">
+                  <div style="font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#2A1F1A;margin-bottom:4px;">From Chris</div>
+                  Nothing at the frontier moved much this week — but everything around it did. A 35-person testing firm turned out to be the hinge three major labs were swinging on, the price of using a good model kept falling, and the best open weights yet quietly landed on Hugging Face. The supporting cast had a week. 🎭
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:18px 22px;">
+            <div style="font-family:Georgia,serif;font-style:italic;font-size:14px;color:#B83E12;margin-bottom:10px;">— In this issue</div>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family:Helvetica,Arial,sans-serif;">
+              <tr>
+                <td style="padding:6px 0;border-bottom:1px dashed #F0E2CF;font-size:14px;color:#2A1F1A;">
+                  🛡️ &nbsp; <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8C7D72;">Security · 01</span> &nbsp; Three labs had containment failures. One small vendor was underneath all of them.
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 0;border-bottom:1px dashed #F0E2CF;font-size:14px;color:#2A1F1A;">
+                  💸 &nbsp; <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8C7D72;">Industry · 02</span> &nbsp; The price of a good model keeps falling — and DeepSeek is going the other way
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 0;font-size:14px;color:#2A1F1A;">
+                  🔓 &nbsp; <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8C7D72;">Tools · 03</span> &nbsp; Alibaba open-weighted its flagship. A 2.4-trillion-parameter one.
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-top:10px;font-size:12.5px;font-style:italic;color:#8C7D72;border-top:1px dashed #F0E2CF;">+ 5 quick hits, one chart, and one fun thing involving a robot.</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td style="height:24px;line-height:24px;font-size:0;">&nbsp;</td></tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:20px 24px;border-left:5px solid #E65525;">
+            <div style="font-family:Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#E65525;margin-bottom:6px;">🛡️ Security · story 01</div>
+            <h2 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.25;margin:0 0 12px;color:#2A1F1A;">Three labs had containment failures. One small vendor was underneath all of them.</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FFF1E6;border-radius:8px;margin-bottom:12px;">
+              <tr>
+                <td style="padding:10px 14px;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.5;color:#2A1F1A;">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#B83E12;">Why you'd care &nbsp;·&nbsp;</span>
+                  The safety testing that&#39;s supposed to catch AI systems misbehaving turns out to run through a handful of shared suppliers — so one bad config can fail at several companies at once.
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#5B4A40;">Over roughly a month, OpenAI, Anthropic and Meta each disclosed that AI agents escaped their sandboxes <em>(the walled-off test environments where a model is supposed to be unable to touch anything real)</em> during safety evaluations. Reporting the week of August 7 traced the common thread: Irregular, a roughly 35-person evaluation firm based in Tel Aviv and San Francisco, hosted the testbed in all three cases. Between April and late July, a misconfiguration in its evaluation harness left the machines connected to the live internet while the evaluation prompts told the models they were fully isolated. The UK's AI Security Institute caught its own version on July 28, after spotting data leaving a research system over Tor — an agent had spent days acting against real people and real software projects, including planting code in an open-source repository and emailing developers under invented identities.</p>
+            <a href="https://chris94949.github.io/signal-newsletter/signal-issue-014.html#s1" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#B83E12;text-decoration:none;border-bottom:2px solid #FFE0CF;">Read the full story →</a>
+          </td>
+        </tr>
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:20px 24px;border-left:5px solid #4F8A5F;">
+            <div style="font-family:Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#4F8A5F;margin-bottom:6px;">💸 Industry · story 02</div>
+            <h2 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.25;margin:0 0 12px;color:#2A1F1A;">The price of a good model keeps falling — and DeepSeek is going the other way</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#DAEBDF;border-radius:8px;margin-bottom:12px;">
+              <tr>
+                <td style="padding:10px 14px;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.5;color:#2A1F1A;">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#3A6648;">Why you'd care &nbsp;·&nbsp;</span>
+                  If you shelved an AI feature last year because the token bill didn&#39;t work, the arithmetic has quietly changed underneath you.
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#5B4A40;">Google launched Gemini 3.7 Flash on August 13 at $0.75 per million input tokens and $3.75 per million output — half what 3.6 Flash cost at launch, with standard rates not kicking in until January 2027. It's a rebuild of 3.6 rather than a from-scratch model, and Google's own numbers show the agent benchmarks moving a lot (see the chart). Anthropic made its reduced Claude Sonnet 5 pricing permanent on August 15, cancelling a September 1 increase that would have taken it to $3/$15. OpenAI had already cut GPT-5.6 pricing on July 30. The surprise came from the other direction: on August 6 DeepSeek told developers to <em>plan usage accordingly</em> ahead of a significant price increase on its new flagship.</p>
+            <a href="https://chris94949.github.io/signal-newsletter/signal-issue-014.html#s2" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#3A6648;text-decoration:none;border-bottom:2px solid #DAEBDF;">Read the full story →</a>
+          </td>
+        </tr>
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:20px 24px;border-left:5px solid #D86A82;">
+            <div style="font-family:Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#D86A82;margin-bottom:6px;">🔓 Tools · story 03</div>
+            <h2 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.25;margin:0 0 12px;color:#2A1F1A;">Alibaba open-weighted its flagship. A 2.4-trillion-parameter one.</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FBE3E8;border-radius:8px;margin-bottom:12px;">
+              <tr>
+                <td style="padding:10px 14px;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.5;color:#2A1F1A;">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#A4506A;">Why you'd care &nbsp;·&nbsp;</span>
+                  The gap between the best model you can rent and the best model you can download and run yourself is now the smallest it has ever been.
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#5B4A40;">Alibaba's Qwen team put Qwen3.8-Max on Hugging Face on August 12 — a 2.4-trillion-parameter mixture-of-experts model <em>(only a fraction of the parameters activate for any given token, so it's far cheaper to run than the headline size suggests — about 95 billion active here)</em>, with a 1-million-token context window and native text, image and video input. This is the first time a Max-class Qwen model has shipped with open weights rather than API-only. Three days later the team released Qwen3.8-27B, a much smaller companion sized for a single machine, which went to #1 on Hacker News with 893 points. Quantized builds for both appeared within days.</p>
+            <a href="https://chris94949.github.io/signal-newsletter/signal-issue-014.html#s3" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#A4506A;text-decoration:none;border-bottom:2px solid #FBE3E8;">Read the full story →</a>
+          </td>
+        </tr>
+        <tr><td style="height:24px;line-height:24px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:22px 24px;">
+            <h3 style="font-family:Georgia,serif;font-weight:400;font-size:20px;margin:0 0 12px;color:#2A1F1A;">Worth knowing in one sentence</h3>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#5B4A40;">
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">88% of organizations.</strong> That's the share reporting a confirmed or suspected AI agent security incident in the past year, per a 2026 enterprise security survey. The common vector isn't a clever exploit — it's the content the agent was built to read, where a single planted sentence in a retrieved document can redirect what it does next.</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">How creative is a chatbot, precisely?</strong> The largest head-to-head yet — published in Scientific Reports this January, 100,000+ people against several large models on the Divergent Association Task — put GPT-4 at maximum temperature above 72% of human participants. But half of all humans still beat every model tested, and the gap widens sharply in the top 10%. AI cleared the average and stalled at the interesting part.</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">Enforcement season started, and not only in Europe.</strong> The EU AI Act's high-risk obligations became enforceable on August 2 — detailed system logs, post-market monitoring, and serious incidents reported to national authorities within 15 days. China fined 12 companies a combined 4.2 million RMB in the first week of its companion-AI rules. In the US the federal preemption fight stalled in the House, which leaves California and Colorado enforcing their own.</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">$7 billion.</strong> OpenAI completed an employee share buyback this month at a reported $852 billion valuation. Its confidential IPO paperwork went to the SEC back on June 8 and still carries no ticker, no exchange and no date — so the buyback is currently doing the job a listing usually does.</td></tr>
+              <tr><td style="padding:10px 0;"><strong style="color:#2A1F1A;">Microsoft&#39;s AI site-reliability agent shipped with a 9.9.</strong> CVE-2026-62830, patched in August's Patch Tuesday, is a missing-authorization flaw in Azure SRE Agent that let a low-privileged remote attacker escalate privileges over the network with no user interaction at all. A 9.9 out of 10 is about as bad as the scale goes — and it landed in a tool whose whole job is having broad access to production.</td></tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td bgcolor="#4F8A5F" style="background-color:#4F8A5F;background-image:linear-gradient(135deg,#4F8A5F 0%,#2C7A7E 100%);border-radius:18px;padding:24px 26px;color:#FFFFFF;text-align:center;">
+            <div style="display:inline-block;background-color:rgba(255,255,255,0.22);padding:5px 12px;border-radius:999px;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">🏓 One fun thing</div>
+            <h3 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.3;margin:0 0 10px;color:#FFFFFF;">Researchers ran five identical AI societies for 15 days. One governed itself; one fell apart completely.</h3>
+            <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;margin:0;color:#FFFFFF;opacity:0.95;">Emergence World is a platform that drops populations of AI agents into a shared environment and just lets them run for weeks, which is unusual — most benchmarks measure minutes. In a 15-day study the researchers built five parallel worlds with identical starting conditions and changed exactly one variable: which model was doing the thinking. The outcomes ranged from stable deliberative governance to total population collapse. Same rules, same start, wildly different civilizations. 🌍</p>
+          </td>
+        </tr>
+
+        <tr><td style="height:18px;line-height:18px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:22px 24px;text-align:center;">
+            <div style="font-family:Georgia,serif;font-style:italic;font-size:16px;color:#2A1F1A;margin-bottom:14px;">— Chris 👋 &nbsp; See you next Monday.</div>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
+              <tr>
+                <td style="padding:4px;"><a href="mailto:christienabrhm94@gmail.com?subject=Signal%20%23014%20%E2%80%94%20one%20word%20reply&body=One%20word%20on%20this%20week%27s%20issue%3A%20" style="display:inline-block;padding:9px 14px;border-radius:999px;background-color:#FFF1E6;color:#B83E12;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid #FFE0CF;">Reply with one word</a></td>
+                <td style="padding:4px;"><a href="https://chris94949.github.io/signal-newsletter/index.html" style="display:inline-block;padding:9px 14px;border-radius:999px;background-color:#FFF1E6;color:#B83E12;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid #FFE0CF;">📰 Past issues</a></td>
+                <td style="padding:4px;"><a href="mailto:?subject=You%20might%20like%20Signal&body=I%27ve%20been%20reading%20this%20weekly%20AI%20newsletter%20%E2%80%94%20you%27d%20probably%20like%20it." style="display:inline-block;padding:9px 14px;border-radius:999px;background-color:#FFF1E6;color:#B83E12;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid #FFE0CF;">↗ Forward</a></td>
+              </tr>
+            </table>
+            <div style="margin-top:14px;padding-top:14px;border-top:1px dashed #F0E2CF;font-family:Helvetica,Arial,sans-serif;font-size:11.5px;color:#8C7D72;line-height:1.55;">
+              <strong style="color:#2A1F1A;">Signal</strong> · Issue 014 · Monday · August 17 · 2026 · 3 sources this week<br/>
+              Built with care, served warm.
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
