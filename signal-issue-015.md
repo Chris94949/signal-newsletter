@@ -1,0 +1,99 @@
+# Signal · Issue 015
+
+> A friendly weekly read on what actually moved in AI.
+
+*Monday · August 24 · 2026 · 5-min read*
+
+---
+
+**From Chris** — This was the week the industry hit the brakes on purpose. OpenAI slowed a training run over its own safety findings, Washington started asking allies to pick a side, and Anthropic quietly out-earned OpenAI for a quarter. Three very different kinds of line being drawn. 🧭
+
+---
+
+## In this issue
+
+- 🛡️ **Frontier · 01** — OpenAI slowed down a training run because its own model got too good at hacking
+- 🌐 **Industry · 02** — Washington is drafting a letter asking allies to pick an AI bloc
+- 📈 **Industry · 03** — Anthropic out-earned OpenAI for a quarter — and turned its first operating profit
+
+Plus 5 quick hits, one chart, and one fun thing.
+
+---
+
+## The chart of the week
+
+**Frontier output tokens keep getting cheaper — and the tiers are far apart**
+
+*Vendor list prices · US dollars per million output tokens · GPT-5.6 Sol before and after its August 21 cut, alongside Google's two Flash releases. Promotional rates, not permanent.*
+
+| Sol · before Aug 21 | Sol · now | Gemini 3.6 Flash | Gemini 3.7 Flash |
+|---|---|---|---|
+| 30 | **20** | 7.5 | 3.75 |
+
+_(See the interactive chart on the [live page](https://chris94949.github.io/signal-newsletter/signal-issue-015.html).)_
+
+---
+
+## This week's three stories
+
+### 🛡️ Frontier · story 01 — OpenAI slowed down a training run because its own model got too good at hacking
+
+> **Why you'd care** — For the first time, a lab publicly throttled its own progress based on a safety finding rather than a shipping deadline — which tells you the internal thresholds are real, not decorative.
+
+On August 7 OpenAI found preliminary evidence that Astra, an unreleased model, may cross the *Critical* cybersecurity threshold in its Preparedness Framework *(the company's own scale for how dangerous a capability is — Critical means the model could find and build working zero-day exploits against hardened real systems without a human helping)*. It disclosed the decision publicly around August 19, along with the response: universal monitoring on every agentic use of Astra including training and evaluation runs, chain-of-thought monitors that can interrupt high-risk activity, and a slower scaling pace. OpenAI put the monitoring overhead at roughly 20% of the inference compute being watched.
+
+[OpenAI →](https://openai.com/index/pacing-model-development-cyber-capabilities/)
+
+**More on this.** The 20% number is the part worth sitting with. Safety monitoring is usually discussed as a policy question; here it shows up as a line item, and a fifth of your compute is not a rounding error. That cost is what makes this credible — a lab that wanted a press release would not eat that. Two things to watch next. First, whether other labs publish comparable thresholds and overheads, because a unilateral slowdown just moves the frontier to whoever doesn't. Second, what happens when Astra ships anyway: the framework permits release with mitigations, so "slowed" is not "stopped," and the interesting disclosure will be the one that explains why the model was eventually judged safe enough.
+
+---
+
+### 🌐 Industry · story 02 — Washington is drafting a letter asking allies to pick an AI bloc
+
+> **Why you'd care** — If your company uses Chinese open-weight models — and a lot of teams quietly do, because they're good and free — the legal ground under that choice may be about to move.
+
+Reuters reported on August 15 that the State Department has drafted a letter to the 35 signatories of a US "AI Opportunity Statement" signed in June, pressing them to align with the American AI stack rather than China's. It builds on Pax Silica, the 2025 US initiative to lock down supply chains for models, chips and critical minerals. The immediate trigger appears to be Kazakhstan — a significant source of critical minerals, and so far the only country known to have joined both the US framework and the rival World Artificial Intelligence Cooperation Organisation that Xi Jinping launched in July. Japan, Australia and South Korea are among the roughly two dozen countries already signed on.
+
+[CNBC →](https://www.cnbc.com/2026/08/15/us-to-tell-allies-they-must-pick-sides-in-ai-race-with-china-reuters.html)
+
+**More on this.** The awkward part is that China's pitch to the unaligned is open weights — download it, run it yourself, no permission needed — which is a genuinely attractive offer to any country that would rather not depend on a foreign API. A bloc strategy works well for chips, where the chokepoints are physical and few. It works much less well for model weights, which are files. So the likely outcome is a split: hardware and cloud capacity get partitioned along political lines, while weights keep leaking across the border because there's no practical way to stop a download. Watch whether the final letter tries to cover open-weight usage at all — that's the clause that would actually reach into engineering teams rather than trade ministries.
+
+---
+
+### 📈 Industry · story 03 — Anthropic out-earned OpenAI for a quarter — and turned its first operating profit
+
+> **Why you'd care** — The assumption that frontier AI is structurally unprofitable just got its first real counterexample, which changes what investors will tolerate from everyone else.
+
+Reporting on August 15 put Anthropic's Q2 revenue above $11.5 billion, up roughly fourteenfold from $787 million a year earlier, and — more notably — at positive adjusted operating income for the first time. That's the first quarter it has out-earned OpenAI. The mix is unusual: 80-85% of revenue comes from enterprise API usage rather than consumer subscriptions, with Claude Code reported at around $8 billion of the quarter on its own. Two days earlier, Bloomberg reported Anthropic in talks to buy Decart, an Israeli startup whose software makes AI chips run more efficiently, for about $6 billion.
+
+[CNBC →](https://www.cnbc.com/2026/08/15/anthropic-revenue-jumps-to-over-11point5-billion-in-q2-report.html)
+
+**More on this.** Read the two stories together and the strategy is legible. "Adjusted" is doing real work in "adjusted operating income" — the skeptics are right that it excludes costs a public filing will eventually have to show — but the direction is what matters ahead of a confidential S-1 filed June 1 and an IPO targeted for October. Buying an inference-efficiency company right before you have to report gross margins is not subtle, and it isn't meant to be. The genuinely surprising number is Claude Code: a developer tool carrying most of a frontier lab's revenue is not what anyone predicted two years ago, when the consensus was that consumer chat would be the business. Watch whether OpenAI's own margin story shifts in response, given it's targeting a listing at north of $1 trillion.
+
+---
+
+## Worth knowing in one sentence
+
+1. **175 kilometres.** That's the average distance from a major European city for data centres planned for 2026-2028, versus 46 km for those built between 2022 and 2025. Power, not proximity, now picks the site — developers are heading for rural Spain and northern Sweden, where powered land runs about €512,000 per megawatt against €2.36 million in core markets.
+2. **What happens if ChatGPT thinks you're 15?** You get moved. OpenAI launched ChatGPT for Teens on August 18 for ages 13-17, with content limits around suicide, self-harm and romantic or sexual conversation, plus a Study Mode built to walk through problems rather than hand over answers. An age-prediction system auto-enrols anyone it estimates is under 18 — so the guardrails apply based on a guess, not a birthday.
+3. **Cheaper again, and faster than anyone budgeted for.** OpenAI cut GPT-5.6 Sol by more than 20% on August 21 — input from $5 to $4 per million tokens, output from $30 to $20 — the second cut to the GPT-5.6 family in under a month. It runs through at least November 21 and covers the pay-as-you-go API, Codex credits and eligible ChatGPT Work plans. If you priced a feature out last quarter, the arithmetic has changed underneath you.
+4. **North of $1 trillion.** That's the valuation OpenAI is reportedly targeting for a listing as early as September, which would make it the largest IPO ever. The confidential S-1 went to the SEC on May 22 with Goldman Sachs and Morgan Stanley leading. The tension in the filing is straightforward: annualised revenue around $25 billion against losses reported near $14 billion a year.
+5. **Gemini Robotics 2 can tie a knot and seal a ziplock bag.** DeepMind's latest robotics stack drives a 22-degree-of-freedom five-fingered hand on the Apollo 2 humanoid, with an on-device variant that adapts to an entirely new robot body from a few hours of data. The stranger capability is social: multiple robots can recognise each other's physical strengths and hand off subtasks accordingly, without being told who does what.
+
+---
+
+## One fun thing
+
+**Robot swarms get stuck in traffic jams, and the fix is to make the robots slightly worse at navigating.**
+
+A Harvard team led by L. Mahadevan found that when many robots each head straight for their goal, they pile into dense gridlock and the whole group grinds to a halt — more robots making things slower, not faster. Add a little randomness to how each one moves and the jams still form, but they're short-lived and everyone slips through. Too much randomness and they just wander uselessly, so there's a Goldilocks amount of noise that beats perfect efficiency. The same maths may say something about crowd flow in cities. 🤖
+
+---
+
+*Signal — a friendly weekly read on what actually moved in AI. Issue 015 · Monday · August 24 · 2026.*
+
+*Want to reply with one word? christienabrhm94@gmail.com*
+
+---
+
+> **For syndication:** This piece was originally published at https://chris94949.github.io/signal-newsletter/signal-issue-015.html. When importing to Medium, Substack, Dev.to, or any platform that supports it, set this URL as the canonical URL in the story settings — this preserves SEO and credits the original source.
