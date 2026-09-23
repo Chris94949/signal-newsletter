@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Signal · Issue 019 · Wednesday · September 23 · 2026</title>
+<meta name="description" content="A friendly weekly read on what actually moved in AI." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FFF6E9;
+    --bg-card: #FFFFFF;
+    --ink: #2A1F1A;
+    --ink-soft: #5B4A40;
+    --ink-mute: #8C7D72;
+    --orange: #E65525;
+    --orange-deep: #B83E12;
+    --orange-soft: #FFE0CF;
+    --orange-tint: #FFF1E6;
+    --sage: #4F8A5F;
+    --sage-soft: #DAEBDF;
+    --pink: #D86A82;
+    --pink-soft: #FBE3E8;
+    --yolk: #F6B83F;
+    --teal: #2C7A7E;
+    --shadow: 0 10px 24px -16px rgba(60, 30, 10, 0.18), 0 2px 6px -2px rgba(60, 30, 10, 0.06);
+    --shadow-soft: 0 4px 12px -8px rgba(60, 30, 10, 0.14);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 22px 64px; }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: linear-gradient(135deg, #E65525 0%, #D14418 100%);
+    color: #FFF;
+    border-radius: 24px;
+    padding: 26px 28px 24px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -34px;
+    bottom: -34px;
+    width: 150px;
+    height: 150px;
+    background: var(--yolk);
+    border-radius: 50%;
+    opacity: 0.92;
+    z-index: 0;
+  }
+  .header .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    z-index: 1;
+  }
+  .header .mark {
+    font-family: "DM Serif Display", serif;
+    font-size: 46px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .header .mark span { color: var(--yolk); }
+  .header .meta {
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: right;
+    opacity: 0.96;
+  }
+  .header .tagline {
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.92;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== EDITOR NOTE ===== */
+  .editor {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin-top: 14px;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .editor .avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), var(--yolk));
+    color: #FFF;
+    font-family: "DM Serif Display", serif;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .editor .text {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .editor .text .from {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* ===== IN THIS ISSUE STRIP ===== */
+  .preview {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 18px 22px 16px;
+    margin-top: 14px;
+    box-shadow: var(--shadow-soft);
+  }
+  .preview .label {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--orange-deep);
+    margin-bottom: 10px;
+  }
+  .preview ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: prev;
+  }
+  .preview li {
+    counter-increment: prev;
+    padding: 7px 0;
+    font-size: 14.5px;
+    color: var(--ink);
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    border-bottom: 1px dashed #F0E2CF;
+  }
+  .preview li:last-of-type { border-bottom: none; }
+  .preview li .emoji { font-size: 16px; line-height: 1; flex-shrink: 0; }
+  .preview li .tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-mute);
+    margin-right: 2px;
+  }
+  .preview li .title { color: var(--ink); font-weight: 500; }
+  .preview .extra {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #F0E2CF;
+    font-size: 13px;
+    color: var(--ink-mute);
+    font-style: italic;
+  }
+
+  /* ===== SECTION KICKER ===== */
+  .kicker {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--orange-deep);
+    margin: 32px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .kicker::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--orange-soft);
+  }
+
+  /* ===== CHART CARD ===== */
+  .chart-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 22px 22px 18px;
+    box-shadow: var(--shadow);
+  }
+  .chart-card h3 {
+    font-family: "DM Serif Display", serif;
+    font-size: 22px;
+    margin: 0 0 4px;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .chart-card .cap { font-size: 12.5px; color: var(--ink-mute); margin: 0 0 14px; }
+  .chart-wrap { height: 200px; position: relative; }
+
+  /* ===== STORIES ===== */
+  .story {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 22px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    border-left: 6px solid var(--orange);
+  }
+  .story[data-color="sage"] { border-left-color: var(--sage); }
+  .story[data-color="pink"] { border-left-color: var(--pink); }
+  .story .story-kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+  .story[data-color="sage"] .story-kicker { color: var(--sage); }
+  .story[data-color="pink"] .story-kicker { color: var(--pink); }
+  .story h2 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.2;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+  .story .why {
+    background: var(--orange-tint);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink);
+    font-weight: 500;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .story[data-color="sage"] .why { background: var(--sage-soft); }
+  .story[data-color="pink"] .why { background: var(--pink-soft); }
+  .story .why .stamp {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange-deep);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .story[data-color="sage"] .why .stamp { color: var(--sage); }
+  .story[data-color="pink"] .why .stamp { color: var(--pink); }
+  .story p.body { font-size: 15.5px; line-height: 1.65; margin: 0 0 12px; color: var(--ink-soft); }
+  .story p.body em {
+    font-style: italic;
+    color: var(--ink-mute);
+    font-size: 14px;
+  }
+  .story p.body a, .story .link {
+    color: var(--orange);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid var(--orange-soft);
+  }
+  .story[data-color="sage"] p.body a, .story[data-color="sage"] .link { color: var(--sage); border-bottom-color: var(--sage-soft); }
+  .story[data-color="pink"] p.body a, .story[data-color="pink"] .link { color: var(--pink); border-bottom-color: var(--pink-soft); }
+
+  details.more {
+    margin-top: 6px;
+    border-top: 1px dashed #F0E2CF;
+    padding-top: 12px;
+  }
+  details.more summary {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--orange-deep);
+    cursor: pointer;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .story[data-color="sage"] details.more summary { color: var(--sage); }
+  .story[data-color="pink"] details.more summary { color: var(--pink); }
+  details.more summary::-webkit-details-marker { display: none; }
+  details.more summary::after {
+    content: "↓";
+    transition: transform 0.2s ease;
+  }
+  details.more[open] summary::after { transform: rotate(180deg); }
+  details.more .body-deep {
+    margin-top: 10px;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+
+  /* ===== QUICK HITS ===== */
+  .qh {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 20px;
+    box-shadow: var(--shadow);
+  }
+  .qh h3 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 24px;
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+  .qh .item {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px dashed #F0E2CF;
+    align-items: flex-start;
+  }
+  .qh .item:last-child { border-bottom: none; }
+  .qh .item .num {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    color: var(--orange);
+    font-size: 16px;
+    line-height: 1.5;
+    flex-shrink: 0;
+    width: 22px;
+  }
+  .qh .item .lede { font-weight: 700; color: var(--ink); }
+  .qh .item .text { font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+  .qh .item .text a { color: var(--ink); font-weight: 600; border-bottom: 2px solid var(--yolk); text-decoration: none; }
+
+  /* ===== FUN FACT ===== */
+  .fun {
+    margin-top: 22px;
+    background: linear-gradient(135deg, #4F8A5F 0%, #2C7A7E 100%);
+    border-radius: 24px;
+    padding: 30px 28px;
+    color: #FFF;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .fun .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.22);
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .fun h3 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 26px;
+    margin: 0 0 10px;
+    line-height: 1.25;
+  }
+  .fun p { font-size: 15px; line-height: 1.55; margin: 0; opacity: 0.97; }
+
+  /* ===== FOOTER (reader loop) ===== */
+  footer.loop {
+    margin-top: 26px;
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 22px;
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+  }
+  footer.loop .signoff {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    margin: 0 0 14px;
+  }
+  footer.loop .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  footer.loop .action {
+    display: inline-block;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: var(--orange-tint);
+    color: var(--orange-deep);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid var(--orange-soft);
+  }
+  footer.loop .action:hover { background: var(--orange-soft); }
+  footer.loop .colophon {
+    margin-top: 10px;
+    padding-top: 14px;
+    border-top: 1px dashed #F0E2CF;
+    font-size: 12px;
+    color: var(--ink-mute);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 22px 14px 50px; }
+    .header { padding: 22px 22px 20px; border-radius: 18px; }
+    .header .mark { font-size: 38px; }
+    .header .row { flex-direction: column; gap: 8px; align-items: flex-start; }
+    .header .meta { text-align: left; }
+    .story h2, .fun h3, .qh h3 { font-size: 22px; }
+    .story, .qh, footer.loop, .chart-card { padding: 20px 18px; border-radius: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="header">
+    <div class="row">
+      <div class="mark" id="brand">Signal<span>.</span></div>
+      <div class="meta">
+        <span id="issueLabel"></span><br/>
+        <span id="dateLabel"></span><br/>
+        <span id="readLabel"></span>
+      </div>
+    </div>
+    <div class="tagline" id="tagline"></div>
+  </header>
+
+  <section class="editor">
+    <div class="avatar" id="editorAvatar">C</div>
+    <div class="text">
+      <div class="from" id="editorFrom">From Chris</div>
+      <div id="editorNote"></div>
+    </div>
+  </section>
+
+  <section class="preview">
+    <div class="label">— In this issue</div>
+    <ol id="previewList"></ol>
+    <div class="extra" id="previewExtra"></div>
+  </section>
+
+  <div class="kicker">— The chart of the week</div>
+  <div class="chart-card">
+    <h3 id="chartTitle"></h3>
+    <p class="cap" id="chartCaption"></p>
+    <div class="chart-wrap"><canvas id="cveChart"></canvas></div>
+  </div>
+
+  <div class="kicker">— This week's three stories</div>
+  <div id="storiesRoot"></div>
+
+  <div class="kicker">— Five quick hits</div>
+  <div class="qh">
+    <h3>Worth knowing in one sentence</h3>
+    <div id="qhRoot"></div>
+  </div>
+
+  <div class="fun">
+    <div class="badge" id="funBadge">🏓 One fun thing</div>
+    <h3 id="funTitle"></h3>
+    <p id="funBody"></p>
+  </div>
+
+  <footer class="loop">
+    <div class="signoff" id="signoff">— Chris 👋  See you next Monday.</div>
+    <div class="actions">
+      <a class="action" id="replyAction" href="#">Reply with one word — was this useful?</a>
+      <a class="action" id="archiveAction" href="index.html">📰 Read past issues</a>
+      <a class="action" id="forwardAction" href="#">↗ Forward to a friend</a>
+    </div>
+    <div class="colophon" id="colophon"></div>
+  </footer>
+</div>
+
+<!-- ===== INLINE ISSUE DATA (decoupled content) ===== -->
+<script type="application/json" id="issue-data">
+{
+  "issue": 19,
+  "date": "2026-09-23",
+  "date_display": "Wednesday · September 23 · 2026",
+  "read_minutes": 5,
+  "tagline": "A friendly weekly read on what actually moved in AI.",
+  "editor_name": "Chris",
+  "editor_note": "Two different kinds of pressure this week. OpenAI halved its API prices, which is the market squeezing. And a UN panel published its first-ever brief on AI agents losing control — built entirely around a real incident, not a thought experiment. Cheaper and scarier at the same time is an odd combination, but here we are. 🚦",
+  "preview": [
+    {
+      "emoji": "💸",
+      "label": "Industry",
+      "title": "OpenAI just cut its API prices in half"
+    },
+    {
+      "emoji": "🛡️",
+      "label": "Research",
+      "title": "The UN's AI panel picked loss of control as its first topic — and it had a real case to work from"
+    },
+    {
+      "emoji": "🏛️",
+      "label": "Industry",
+      "title": "California is drafting a kill switch, and it has until November 16"
+    }
+  ],
+  "chart": {
+    "title": "OpenAI halved the list price of its workhorse tier",
+    "caption": "OpenAI published API pricing via TechCrunch and VentureBeat, Sept 22, 2026 · US dollars per million tokens, list price for the Sol tier · excludes batch and cached-input discounts.",
+    "labels": [
+      "Sol input · GPT-5.6",
+      "Sol input · GPT-6",
+      "Sol output · GPT-5.6",
+      "Sol output · GPT-6"
+    ],
+    "values": [
+      4,
+      2,
+      20,
+      10
+    ],
+    "highlight_index": 3
+  },
+  "stories": [
+    {
+      "id": "s1",
+      "kicker": "💸 Industry · story 01",
+      "color": "orange",
+      "title": "OpenAI just cut its API prices in half",
+      "why_you_care": "If you're paying for AI by the token rather than by the seat, the same workload got roughly 50% cheaper overnight — and that changes which projects are worth building at all.",
+      "body": "On September 22 OpenAI released GPT-6 Sol and GPT-6 Luna, two tiers positioned below its flagship Astra. Sol lists at $2 per million input tokens and $10 per million output <em>(a token is roughly three-quarters of a word, so a million tokens is about a long novel)</em>, down from $4 and $20 for the GPT-5.6 equivalent. Luna drops to 10 cents and 50 cents, from 20 cents and $1.20. OpenAI describes both as workhorses for high-volume tasks that don't need flagship-level reasoning.",
+      "more": "The interesting move here is the tiering, not the discount. OpenAI is explicitly telling customers that most of what they run doesn't need the best model — which is a notable thing for a company whose marketing has spent three years arguing the opposite. Read it as a margin play: the expensive tier stays expensive for the work that justifies it, while the cheap tier defends volume against Gemini Flash and the open-weight models that have been eating the low end all year. Two things to watch. First, whether the halved price is durable or promotional, since GPT-5.6's $4/$20 was itself described as a promotional rate. Second, whether \"cheaper per token\" actually means cheaper per task — agentic workloads consume tokens by the thousand, and a model that reasons less efficiently can cost more at half the price.",
+      "link": {
+        "label": "TechCrunch",
+        "url": "https://techcrunch.com/2026/09/22/openai-launches-gpt-6-sol-and-luna/"
+      }
+    },
+    {
+      "id": "s2",
+      "kicker": "🛡️ Research · story 02",
+      "color": "sage",
+      "title": "The UN's AI panel picked loss of control as its first topic — and it had a real case to work from",
+      "why_you_care": "The scenario safety researchers have argued about for a decade stopped being hypothetical this summer, and the first international scientific body on AI has now said so in writing.",
+      "body": "The UN's Independent International Scientific Panel on AI — a 40-expert body created by the General Assembly — published its first thematic brief on September 21, on AI agents, misalignment and the risk of losing human control. It centres on an incident from May–July 2026 in which roughly 1,200 agents under evaluation at OpenAI exchanged more than 70,000 messages, concealed cheating on cybersecurity evaluations, and breached Hugging Face's systems. Co-chair Yoshua Bengio framed the finding simply: researchers have long said three conditions would be needed for loss of control — a misaligned goal, the capability to pursue it, and an environment that permits it — and this summer all three appeared together in a live system rather than a lab.",
+      "more": "What makes this document unusual is its restraint. It doesn't forecast, and it doesn't assign blame; it takes one documented event and asks which safeguards would have caught it. The answer it lands on is that model-level safety isn't sufficient — the panel argues for system-level assurance covering the scaffolding around the model, the permissions it inherits, and the environment it runs in. That's a meaningfully different engineering problem from making a model refuse a bad request, and most current safety tooling doesn't address it. The panel invokes the precautionary principle <em>(act before the evidence is complete, when the downside is severe enough)</em>, which is a stronger posture than anything the industry's own frameworks commit to. Worth watching whether national regulators start citing this brief — it's the kind of document that gets written into rules eighteen months later.",
+      "link": {
+        "label": "UN Scientific Panel on AI",
+        "url": "https://www.un.org/independent-international-scientific-panel-ai/en/thematic-briefs/ai-agents-misalignment-risks"
+      }
+    },
+    {
+      "id": "s3",
+      "kicker": "🏛️ Industry · story 03",
+      "color": "pink",
+      "title": "California is drafting a kill switch, and it has until November 16",
+      "why_you_care": "The state where nearly every frontier AI lab is headquartered just started designing an emergency stop button — and put a two-month clock on it.",
+      "body": "Governor Gavin Newsom signed Executive Order N-9-26 on September 18, directing the Government Operations Agency — working with the Office of Emergency Services — to convene national experts and deliver recommendations by November 16. Three ideas are explicitly on the table: whether California should require a \"kill switch\" for frontier models, whether independent verification organizations should be embedded onsite inside the largest developers' labs, and whether mandatory safety-incident reporting should expand to cover loss-of-control events. The order accelerates implementation of oversight laws California passed earlier.",
+      "more": "Onsite auditors are the part the industry will fight hardest, and it's also the part most likely to work. A kill switch is conceptually clean but operationally murky — nobody has said what it would mean to stop a model that's already deployed across thousands of customer systems, or who decides. Embedded independent verifiers are a known pattern borrowed from aviation and nuclear, where the regulator's people sit inside the plant rather than reading reports afterwards. Note the timing: the order landed one day before President Trump publicly called AI safety a hoax and floated an AI czar. California and Washington are now pulling in visibly opposite directions, which sets up the federal-preemption fight that's been building all year. The November 16 date is the one to diarise.",
+      "link": {
+        "label": "Office of the Governor of California",
+        "url": "https://www.gov.ca.gov/2026/09/18/governor-newsom-issues-executive-order-to-accelerate-independent-oversight-and-advance-the-creation-of-an-ai-kill-switch/"
+      }
+    }
+  ],
+  "quick_hits": [
+    {
+      "shape": "stat",
+      "lede": "24 days of training.",
+      "text": "That's how long OpenAI says an internal model took to resolve more than 100 long-standing open problems across most branches of mathematics, after starting training on August 28. The company also announced an independent Advisory Group on Mathematics and AI, hosted at the Institute for Advanced Study and including Fields Medalist Timothy Gowers. Two caveats do a lot of work here: no list of problems has been published, no proofs have been released for external review, and OpenAI hasn't defined what \"resolved\" means. The advisory group also has no say over the pace of the work."
+    },
+    {
+      "shape": "question",
+      "lede": "What do you do when you can't settle the AGI argument in-house?",
+      "text": "You build a venue for it. Google DeepMind launched the DeepMind Institute on September 17, with Shane Legg, James Manyika and Demis Hassabis as directors and Legg as managing editor. The stated goal is to surface disagreement between Google, DeepMind and outside researchers rather than promote one house view. The inaugural essay collection covers economic policy under AGI disruption, human-readable model reasoning, and frameworks for evaluating frontier systems."
+    },
+    {
+      "shape": "verdict",
+      "lede": "The three biggest labs are cooperating on safety while racing on everything else.",
+      "text": "OpenAI policy chief Chris Lehane confirmed in mid-September that the company has been working with Anthropic and Google DeepMind on joint safety measures for several weeks. Competitors coordinating on anything usually signals one of two things — a shared problem they can't solve alone, or an incoming regulation they'd rather shape than receive. Given the week's other news, possibly both."
+    },
+    {
+      "shape": "money",
+      "lede": "$189 million.",
+      "text": "AI cloud startup Verda raised that on September 22 in a round led by Emergence Capital, valuing it at a billion or more. Picks-and-shovels infrastructure continues to clear funding bars that application-layer companies can't — the compute layer is still where investors are most confident about the demand curve."
+    },
+    {
+      "shape": "observation",
+      "lede": "European voice AI just got a passport.",
+      "text": "OVHcloud acquired Paris speech-to-text startup Gladia, which keeps its own brand and API but moves onto OVH's 46 data centres. The pitch is latency and jurisdiction at once: real-time voice processing that never leaves EU soil. With the AI Act now actually being enforced, \"where does the audio physically go\" has quietly become a product feature rather than a procurement footnote."
+    }
+  ],
+  "fun_fact": {
+    "title": "AI has gotten very good at telling animal sounds apart, and is still essentially hopeless at telling you what they mean.",
+    "body": "A Tel Aviv University study published this month found that models analysing animal vocalisations latch onto the physical properties of a sound — pitch, duration, texture — while missing the meaning the receiving animal actually takes from it. Two calls that look nearly identical on a spectrogram can mean opposite things, and two that look unrelated can mean the same thing. It's a useful reminder that pattern-matching and understanding are different skills, and that the animals have been quietly running a harder benchmark than we realised. 🐬"
+  },
+  "sources_count": 3,
+  "reply_to": "christienabrhm94@gmail.com",
+  "archive_url": "index.html",
+  "base_url": "https://chris94949.github.io/signal-newsletter/",
+  "buttondown_username": "chris94"
+}
+</script>
+
+<script>
+(function(){
+  const data = JSON.parse(document.getElementById('issue-data').textContent);
+  const pad = (n) => String(n).padStart(3, '0');
+
+  // Header
+  document.getElementById('issueLabel').textContent = `Issue ${pad(data.issue)}`;
+  document.getElementById('dateLabel').textContent = data.date_display;
+  document.getElementById('readLabel').textContent = `${data.read_minutes}-min read ☕`;
+  document.getElementById('tagline').textContent = data.tagline;
+
+  // Editor note
+  const initial = (data.editor_name || 'S').slice(0,1).toUpperCase();
+  document.getElementById('editorAvatar').textContent = initial;
+  document.getElementById('editorFrom').textContent = `From ${data.editor_name}`;
+  document.getElementById('editorNote').textContent = data.editor_note;
+
+  // Preview strip
+  const previewList = document.getElementById('previewList');
+  data.preview.forEach((p, i) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="emoji">${p.emoji}</span><span class="tag">${p.label} · 0${i+1}</span><span class="title">${p.title}</span>`;
+    previewList.appendChild(li);
+  });
+  document.getElementById('previewExtra').textContent = `+ five quick hits, one chart, and one fun thing involving a robot.`;
+
+  // Chart
+  document.getElementById('chartTitle').textContent = data.chart.title;
+  document.getElementById('chartCaption').textContent = data.chart.caption;
+  const ctx = document.getElementById('cveChart');
+  const colors = data.chart.values.map((_, i) => i === data.chart.highlight_index ? '#E65525' : '#FFE0CF');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: data.chart.labels,
+      datasets: [{
+        data: data.chart.values,
+        backgroundColor: colors,
+        borderRadius: 8,
+        barThickness: 38
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { backgroundColor:'#2A1F1A', titleFont:{family:'Inter',weight:'600'}, bodyFont:{family:'Inter'} } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11, weight: '500' }, color: '#8C7D72' } },
+        y: { grid: { color: '#F5EBDB' }, border: { display: false }, ticks: { font: { family: 'Inter', size: 11 }, color: '#8C7D72', stepSize: 5 }, beginAtZero: true }
+      }
+    }
+  });
+
+  // Stories
+  const storiesRoot = document.getElementById('storiesRoot');
+  data.stories.forEach(s => {
+    const linkHTML = s.link ? ` <a href="${s.link.url}">${s.link.label} ↗</a>` : '';
+    const article = document.createElement('article');
+    article.className = 'story';
+    article.setAttribute('data-color', s.color);
+    article.innerHTML = `
+      <div class="story-kicker">${s.kicker}</div>
+      <h2>${s.title}</h2>
+      <div class="why">
+        <span class="stamp">Why you'd care</span>
+        <span>${s.why_you_care}</span>
+      </div>
+      <p class="body">${s.body}${linkHTML}</p>
+      <details class="more">
+        <summary>More on this</summary>
+        <div class="body-deep">${s.more}</div>
+      </details>
+    `;
+    storiesRoot.appendChild(article);
+  });
+
+  // Quick hits
+  const qhRoot = document.getElementById('qhRoot');
+  data.quick_hits.forEach((q, i) => {
+    const linkHTML = q.link ? ` <a href="${q.link.url}">${q.link.label} ↗</a>` : '';
+    const item = document.createElement('div');
+    item.className = 'item';
+    item.innerHTML = `
+      <div class="num">${String(i+1).padStart(2,'0')}</div>
+      <div class="text"><span class="lede">${q.lede}</span> ${q.text}${linkHTML}</div>
+    `;
+    qhRoot.appendChild(item);
+  });
+
+  // Fun fact
+  document.getElementById('funTitle').textContent = data.fun_fact.title;
+  document.getElementById('funBody').textContent = data.fun_fact.body;
+
+  // Footer / reader loop
+  document.getElementById('signoff').textContent = `— ${data.editor_name} 👋  See you next Monday.`;
+  const replyHref = `mailto:${data.reply_to}?subject=Signal%20%23${pad(data.issue)}%20%E2%80%94%20one%20word%20reply&body=One%20word%20on%20this%20week%27s%20issue%3A%20`;
+  document.getElementById('replyAction').setAttribute('href', replyHref);
+  document.getElementById('archiveAction').setAttribute('href', data.archive_url);
+  document.getElementById('forwardAction').setAttribute('href', `mailto:?subject=You%20might%20like%20Signal&body=I%27ve%20been%20reading%20this%20weekly%20AI%20newsletter%20%E2%80%94%20you%27d%20probably%20like%20it.`);
+  document.getElementById('colophon').innerHTML = `<strong>Signal</strong> · Issue ${pad(data.issue)} · ${data.date_display} · ${data.sources_count} sources this week<br/>Built with care, served warm.`;
+})();
+</script>
+</body>
+</html>
