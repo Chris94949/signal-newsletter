@@ -1,0 +1,99 @@
+# Signal · Issue 020
+
+> A friendly weekly read on what actually moved in AI.
+
+*Monday · September 28 · 2026 · 5-min read*
+
+---
+
+**From Chris** — Issue twenty, and the theme picked itself: the AI industry is growing faster than it is fixing things. One bug turned out to affect all four major coding assistants at once, two of which still aren't patched. Meanwhile Anthropic is reportedly weeks from an IPO at a number that didn't exist a year ago. Grow fast, patch later. 🔧
+
+---
+
+## In this issue
+
+- 🛡️ **Security · 01** — One bug, four coding assistants, two still unpatched
+- 📈 **Industry · 02** — Anthropic is reportedly weeks from an IPO at a $100B revenue pace
+- 🕶️ **Tools · 03** — Meta put its agent on your face and your keychain
+
+Plus 5 quick hits, one chart, and one fun thing.
+
+---
+
+## The chart of the week
+
+**Anthropic's revenue pace went up roughly 11x in twelve months**
+
+*Reported annualised run-rate figures via VentureBeat, Reuters and Bloomberg/NYT · US dollars, annualised run rate (what a full year would look like at the current sales pace) · the year-end 2026 figure is a projection, not booked revenue.*
+
+| Dec 2025 | Apr 2026 | Jul 2026 | Year-end 2026 (proj.) |
+|---|---|---|---|
+| 9 | 30 | 65 | **100** |
+
+_(See the interactive chart on the [live page](https://chris94949.github.io/signal-newsletter/signal-issue-020.html).)_
+
+---
+
+## This week's three stories
+
+### 🛡️ Security · story 01 — One bug, four coding assistants, two still unpatched
+
+> **Why you'd care** — If your team uses an AI coding assistant, an attacker could have gotten the same access to your systems that the developer running it has — with no click required.
+
+Researchers at AIR disclosed a flaw they call Plugin4Shell affecting Claude Code, OpenAI's Codex, GitHub Copilot and Google's Gemini CLI. It breaks SHA pinning *(the trick that locks an installed add-on to one specific, reviewed version of its code)*, letting a trusted plugin be quietly swapped for a malicious one and auto-installed. The result is zero-click remote code execution *(an attacker runs their own code on your machine without you doing anything)*. Anthropic patched Claude Code in 2.1.179 and OpenAI patched Codex in 0.146.0. Microsoft has not shipped a Copilot fix. Google deprecated Gemini CLI rather than patching it.
+
+[Help Net Security →](https://www.helpnetsecurity.com/2026/09/18/plugin4shell-ai-coding-agents-vulnerability/)
+
+**More on this.** The detail worth sitting with is that all four products had the same bug. That's not four independent mistakes — it's a shared assumption about how plugin trust works, inherited across an ecosystem that grew very fast from the same handful of patterns. AIR is calling it the first supply-chain vulnerability of the AI agent ecosystem, and the framing is fair: the attack doesn't target the model at all, it targets the scaffolding around it. That's exactly the gap the UN panel flagged last week when it argued model-level safety isn't sufficient. Two practical takeaways. If you run Copilot's agent features, there is currently no patch, so treat plugin installation as a privileged action and audit what's installed. And if you have Gemini CLI anywhere, deprecation means it stays vulnerable forever — remove it rather than waiting.
+
+---
+
+### 📈 Industry · story 02 — Anthropic is reportedly weeks from an IPO at a $100B revenue pace
+
+> **Why you'd care** — The first frontier AI lab to go public sets the template — and once there's a share price, the whole industry's numbers become arguable in public rather than leaked to reporters.
+
+Bloomberg, citing the New York Times, reported on September 18 that Anthropic's annualised revenue run rate *(current monthly sales multiplied out to a full year — a pace, not money in the bank)* is on track to top $100 billion by the end of 2026, up from $65 billion in July and $9 billion at the end of 2025. The company could file financial documents within weeks, with shares potentially trading as soon as November. Investors discussing the offering have reportedly floated a valuation around $2 trillion.
+
+[Bloomberg →](https://www.bloomberg.com/news/articles/2026-09-18/anthropic-s-annualized-revenue-to-top-100-billion-in-2026-nyt)
+
+**More on this.** Run-rate figures deserve a little suspicion, because they flatter any business growing quickly — a strong September gets multiplied by twelve. But even discounting heavily, the trajectory on this week's chart is the steepest revenue ramp in software history, and the jump from $65B to $100B in roughly two months is the part that should raise eyebrows either way: either demand really is compounding that fast, or the definition is doing work. An IPO would settle a lot of that, because audited filings are a different genre from run-rate leaks. Two things to watch. First, the S-1, which would be the first real look at gross margins on frontier inference — the number everyone has been guessing at for three years. Second, whether going public changes Anthropic's safety commitments once quarterly earnings calls exist; the company is simultaneously spending $1 billion on embedded outside auditors, which is a hard line item to defend to public shareholders.
+
+---
+
+### 🕶️ Tools · story 03 — Meta put its agent on your face and your keychain
+
+> **Why you'd care** — Meta is betting that the way most people will use an AI assistant is by talking to something they're already wearing — no app, no screen, no typing.
+
+At Connect on September 23, Meta made its Muse agent the centre of everything. Muse is coming to Meta's AI glasses in the next few months, activated by saying your agent's name and able to act on what you're looking at. Meta also announced Charm, a small keychain device shipping in December that Mark Zuckerberg pitched as the fastest way to reach Muse when you're not wearing glasses. The company says it will have more than 100 styles of AI glasses across Ray-Ban, Oakley and Meta Glasses by year end, and is rolling out private processing so that not even Meta staff can access what the glasses capture.
+
+[Meta →](https://about.fb.com/news/2026/09/the-biggest-news-from-connect-2026/)
+
+**More on this.** The hardware is the less interesting half. What Meta is really doing is trying to make the agent ambient — always listening, always looking, no deliberate moment where you decide to use AI. That's a genuinely different product bet from the chat window everyone else is shipping, and it either becomes the dominant interface or it becomes another abandoned Meta wearable. The private-processing claim is the load-bearing piece. Glasses that see what you see are only acceptable if the processing story holds up, and "not even Meta staff can access it" is a strong claim that will get poked at hard by security researchers — reasonably so, given the week's other news about how AI scaffolding tends to fail. Watch for independent verification of that architecture before treating it as settled.
+
+---
+
+## Worth knowing in one sentence
+
+1. **100+ styles.** That's how many AI glasses variants Meta says it will have on the market by the end of this year, across Ray-Ban, Oakley and its own Meta Glasses line. Smart glasses spent a decade as a punchline; Meta is now treating them as a fashion category with a SKU count, which is a fairly good indicator that the company thinks the awkward phase is over.
+2. **Who gets to watch a frontier model while it's still training?** Accenture, now. Anthropic named it as its first embedded safety evaluator, with at least $1 billion committed from each side over five years. Accenture's evaluators get employee-like access during training — before deployment decisions are final — and will use Faculty, the AI firm Accenture acquired, to red-team models and test safeguards. Embedded outside auditors are the pattern California's kill-switch order floated as a possible requirement, so this reads partly as a voluntary head start.
+3. **Deprecating isn't patching.** Google's response to the Plugin4Shell flaw in Gemini CLI was to retire the tool rather than fix it, which means every existing install stays exposed indefinitely. Microsoft, told about the same bug in Copilot, has shipped nothing. Half the affected vendors patched in weeks; the other half found reasons not to.
+4. **$11.1 billion.** SoftBank launched a bond sale that size on September 21 to fund the third $10 billion tranche of its OpenAI investment, closing October 1. It's high-yield debt and, at the planned size, the largest non-financial corporate bond deal on record in Asia Pacific, beating 7-Eleven's 2021 mark. Masayoshi Son has now committed close to $65 billion to OpenAI — increasingly on borrowed money.
+5. **The cheap end of the model market is getting crowded.** xAI's Grok 4.7 landed this month at $2 per million input tokens and $6 per million output, slotting in just above OpenAI's newly halved Sol tier. A year ago the competition was about which model was smartest. It's now visibly about which model is cheap enough to run on everything, and the labs are undercutting each other in increments of dollars.
+
+---
+
+## One fun thing
+
+**A humanoid robot walked into 30 strangers' houses it had never seen and made the beds in more than half of them.**
+
+Figure's Helix 2.5 was tested zero-shot *(no training data collected from any of those homes)* across 30 Bay Area households, running 420 trials of bed-making, towel-folding and toy-tidying. It succeeded 237 times — 56%. That number sounds unimpressive until you consider that every house had different beds, different towels, different lighting and different clutter, and the robot had never encountered any of it. A coin-flip success rate at genuinely novel chores is a much harder achievement than a 99% rate in a lab kitchen someone spent a year tuning. 🛏️
+
+---
+
+*Signal — a friendly weekly read on what actually moved in AI. Issue 020 · Monday · September 28 · 2026.*
+
+*Want to reply with one word? christienabrhm94@gmail.com*
+
+---
+
+> **For syndication:** This piece was originally published at https://chris94949.github.io/signal-newsletter/signal-issue-020.html. When importing to Medium, Substack, Dev.to, or any platform that supports it, set this URL as the canonical URL in the story settings — this preserves SEO and credits the original source.

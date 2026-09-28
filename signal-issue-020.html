@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Signal · Issue 020 · Monday · September 28 · 2026</title>
+<meta name="description" content="A friendly weekly read on what actually moved in AI." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FFF6E9;
+    --bg-card: #FFFFFF;
+    --ink: #2A1F1A;
+    --ink-soft: #5B4A40;
+    --ink-mute: #8C7D72;
+    --orange: #E65525;
+    --orange-deep: #B83E12;
+    --orange-soft: #FFE0CF;
+    --orange-tint: #FFF1E6;
+    --sage: #4F8A5F;
+    --sage-soft: #DAEBDF;
+    --pink: #D86A82;
+    --pink-soft: #FBE3E8;
+    --yolk: #F6B83F;
+    --teal: #2C7A7E;
+    --shadow: 0 10px 24px -16px rgba(60, 30, 10, 0.18), 0 2px 6px -2px rgba(60, 30, 10, 0.06);
+    --shadow-soft: 0 4px 12px -8px rgba(60, 30, 10, 0.14);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 22px 64px; }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: linear-gradient(135deg, #E65525 0%, #D14418 100%);
+    color: #FFF;
+    border-radius: 24px;
+    padding: 26px 28px 24px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -34px;
+    bottom: -34px;
+    width: 150px;
+    height: 150px;
+    background: var(--yolk);
+    border-radius: 50%;
+    opacity: 0.92;
+    z-index: 0;
+  }
+  .header .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    z-index: 1;
+  }
+  .header .mark {
+    font-family: "DM Serif Display", serif;
+    font-size: 46px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .header .mark span { color: var(--yolk); }
+  .header .meta {
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: right;
+    opacity: 0.96;
+  }
+  .header .tagline {
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.92;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== EDITOR NOTE ===== */
+  .editor {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin-top: 14px;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .editor .avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), var(--yolk));
+    color: #FFF;
+    font-family: "DM Serif Display", serif;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .editor .text {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .editor .text .from {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* ===== IN THIS ISSUE STRIP ===== */
+  .preview {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 18px 22px 16px;
+    margin-top: 14px;
+    box-shadow: var(--shadow-soft);
+  }
+  .preview .label {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--orange-deep);
+    margin-bottom: 10px;
+  }
+  .preview ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: prev;
+  }
+  .preview li {
+    counter-increment: prev;
+    padding: 7px 0;
+    font-size: 14.5px;
+    color: var(--ink);
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    border-bottom: 1px dashed #F0E2CF;
+  }
+  .preview li:last-of-type { border-bottom: none; }
+  .preview li .emoji { font-size: 16px; line-height: 1; flex-shrink: 0; }
+  .preview li .tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-mute);
+    margin-right: 2px;
+  }
+  .preview li .title { color: var(--ink); font-weight: 500; }
+  .preview .extra {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #F0E2CF;
+    font-size: 13px;
+    color: var(--ink-mute);
+    font-style: italic;
+  }
+
+  /* ===== SECTION KICKER ===== */
+  .kicker {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--orange-deep);
+    margin: 32px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .kicker::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--orange-soft);
+  }
+
+  /* ===== CHART CARD ===== */
+  .chart-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 22px 22px 18px;
+    box-shadow: var(--shadow);
+  }
+  .chart-card h3 {
+    font-family: "DM Serif Display", serif;
+    font-size: 22px;
+    margin: 0 0 4px;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .chart-card .cap { font-size: 12.5px; color: var(--ink-mute); margin: 0 0 14px; }
+  .chart-wrap { height: 200px; position: relative; }
+
+  /* ===== STORIES ===== */
+  .story {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 22px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    border-left: 6px solid var(--orange);
+  }
+  .story[data-color="sage"] { border-left-color: var(--sage); }
+  .story[data-color="pink"] { border-left-color: var(--pink); }
+  .story .story-kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+  .story[data-color="sage"] .story-kicker { color: var(--sage); }
+  .story[data-color="pink"] .story-kicker { color: var(--pink); }
+  .story h2 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.2;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+  .story .why {
+    background: var(--orange-tint);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink);
+    font-weight: 500;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .story[data-color="sage"] .why { background: var(--sage-soft); }
+  .story[data-color="pink"] .why { background: var(--pink-soft); }
+  .story .why .stamp {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange-deep);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .story[data-color="sage"] .why .stamp { color: var(--sage); }
+  .story[data-color="pink"] .why .stamp { color: var(--pink); }
+  .story p.body { font-size: 15.5px; line-height: 1.65; margin: 0 0 12px; color: var(--ink-soft); }
+  .story p.body em {
+    font-style: italic;
+    color: var(--ink-mute);
+    font-size: 14px;
+  }
+  .story p.body a, .story .link {
+    color: var(--orange);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid var(--orange-soft);
+  }
+  .story[data-color="sage"] p.body a, .story[data-color="sage"] .link { color: var(--sage); border-bottom-color: var(--sage-soft); }
+  .story[data-color="pink"] p.body a, .story[data-color="pink"] .link { color: var(--pink); border-bottom-color: var(--pink-soft); }
+
+  details.more {
+    margin-top: 6px;
+    border-top: 1px dashed #F0E2CF;
+    padding-top: 12px;
+  }
+  details.more summary {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--orange-deep);
+    cursor: pointer;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .story[data-color="sage"] details.more summary { color: var(--sage); }
+  .story[data-color="pink"] details.more summary { color: var(--pink); }
+  details.more summary::-webkit-details-marker { display: none; }
+  details.more summary::after {
+    content: "↓";
+    transition: transform 0.2s ease;
+  }
+  details.more[open] summary::after { transform: rotate(180deg); }
+  details.more .body-deep {
+    margin-top: 10px;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+
+  /* ===== QUICK HITS ===== */
+  .qh {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 20px;
+    box-shadow: var(--shadow);
+  }
+  .qh h3 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 24px;
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+  .qh .item {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px dashed #F0E2CF;
+    align-items: flex-start;
+  }
+  .qh .item:last-child { border-bottom: none; }
+  .qh .item .num {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    color: var(--orange);
+    font-size: 16px;
+    line-height: 1.5;
+    flex-shrink: 0;
+    width: 22px;
+  }
+  .qh .item .lede { font-weight: 700; color: var(--ink); }
+  .qh .item .text { font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+  .qh .item .text a { color: var(--ink); font-weight: 600; border-bottom: 2px solid var(--yolk); text-decoration: none; }
+
+  /* ===== FUN FACT ===== */
+  .fun {
+    margin-top: 22px;
+    background: linear-gradient(135deg, #4F8A5F 0%, #2C7A7E 100%);
+    border-radius: 24px;
+    padding: 30px 28px;
+    color: #FFF;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .fun .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.22);
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .fun h3 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 26px;
+    margin: 0 0 10px;
+    line-height: 1.25;
+  }
+  .fun p { font-size: 15px; line-height: 1.55; margin: 0; opacity: 0.97; }
+
+  /* ===== FOOTER (reader loop) ===== */
+  footer.loop {
+    margin-top: 26px;
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 22px;
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+  }
+  footer.loop .signoff {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    margin: 0 0 14px;
+  }
+  footer.loop .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  footer.loop .action {
+    display: inline-block;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: var(--orange-tint);
+    color: var(--orange-deep);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid var(--orange-soft);
+  }
+  footer.loop .action:hover { background: var(--orange-soft); }
+  footer.loop .colophon {
+    margin-top: 10px;
+    padding-top: 14px;
+    border-top: 1px dashed #F0E2CF;
+    font-size: 12px;
+    color: var(--ink-mute);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 22px 14px 50px; }
+    .header { padding: 22px 22px 20px; border-radius: 18px; }
+    .header .mark { font-size: 38px; }
+    .header .row { flex-direction: column; gap: 8px; align-items: flex-start; }
+    .header .meta { text-align: left; }
+    .story h2, .fun h3, .qh h3 { font-size: 22px; }
+    .story, .qh, footer.loop, .chart-card { padding: 20px 18px; border-radius: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="header">
+    <div class="row">
+      <div class="mark" id="brand">Signal<span>.</span></div>
+      <div class="meta">
+        <span id="issueLabel"></span><br/>
+        <span id="dateLabel"></span><br/>
+        <span id="readLabel"></span>
+      </div>
+    </div>
+    <div class="tagline" id="tagline"></div>
+  </header>
+
+  <section class="editor">
+    <div class="avatar" id="editorAvatar">C</div>
+    <div class="text">
+      <div class="from" id="editorFrom">From Chris</div>
+      <div id="editorNote"></div>
+    </div>
+  </section>
+
+  <section class="preview">
+    <div class="label">— In this issue</div>
+    <ol id="previewList"></ol>
+    <div class="extra" id="previewExtra"></div>
+  </section>
+
+  <div class="kicker">— The chart of the week</div>
+  <div class="chart-card">
+    <h3 id="chartTitle"></h3>
+    <p class="cap" id="chartCaption"></p>
+    <div class="chart-wrap"><canvas id="cveChart"></canvas></div>
+  </div>
+
+  <div class="kicker">— This week's three stories</div>
+  <div id="storiesRoot"></div>
+
+  <div class="kicker">— Five quick hits</div>
+  <div class="qh">
+    <h3>Worth knowing in one sentence</h3>
+    <div id="qhRoot"></div>
+  </div>
+
+  <div class="fun">
+    <div class="badge" id="funBadge">🏓 One fun thing</div>
+    <h3 id="funTitle"></h3>
+    <p id="funBody"></p>
+  </div>
+
+  <footer class="loop">
+    <div class="signoff" id="signoff">— Chris 👋  See you next Monday.</div>
+    <div class="actions">
+      <a class="action" id="replyAction" href="#">Reply with one word — was this useful?</a>
+      <a class="action" id="archiveAction" href="index.html">📰 Read past issues</a>
+      <a class="action" id="forwardAction" href="#">↗ Forward to a friend</a>
+    </div>
+    <div class="colophon" id="colophon"></div>
+  </footer>
+</div>
+
+<!-- ===== INLINE ISSUE DATA (decoupled content) ===== -->
+<script type="application/json" id="issue-data">
+{
+  "issue": 20,
+  "date": "2026-09-28",
+  "date_display": "Monday · September 28 · 2026",
+  "read_minutes": 5,
+  "tagline": "A friendly weekly read on what actually moved in AI.",
+  "editor_name": "Chris",
+  "editor_note": "Issue twenty, and the theme picked itself: the AI industry is growing faster than it is fixing things. One bug turned out to affect all four major coding assistants at once, two of which still aren't patched. Meanwhile Anthropic is reportedly weeks from an IPO at a number that didn't exist a year ago. Grow fast, patch later. 🔧",
+  "preview": [
+    {
+      "emoji": "🛡️",
+      "label": "Security",
+      "title": "One bug, four coding assistants, two still unpatched"
+    },
+    {
+      "emoji": "📈",
+      "label": "Industry",
+      "title": "Anthropic is reportedly weeks from an IPO at a $100B revenue pace"
+    },
+    {
+      "emoji": "🕶️",
+      "label": "Tools",
+      "title": "Meta put its agent on your face and your keychain"
+    }
+  ],
+  "chart": {
+    "title": "Anthropic's revenue pace went up roughly 11x in twelve months",
+    "caption": "Reported annualised run-rate figures via VentureBeat, Reuters and Bloomberg/NYT · US dollars, annualised run rate (what a full year would look like at the current sales pace) · the year-end 2026 figure is a projection, not booked revenue.",
+    "labels": [
+      "Dec 2025",
+      "Apr 2026",
+      "Jul 2026",
+      "Year-end 2026 (proj.)"
+    ],
+    "values": [
+      9,
+      30,
+      65,
+      100
+    ],
+    "highlight_index": 3
+  },
+  "stories": [
+    {
+      "id": "s1",
+      "kicker": "🛡️ Security · story 01",
+      "color": "orange",
+      "title": "One bug, four coding assistants, two still unpatched",
+      "why_you_care": "If your team uses an AI coding assistant, an attacker could have gotten the same access to your systems that the developer running it has — with no click required.",
+      "body": "Researchers at AIR disclosed a flaw they call Plugin4Shell affecting Claude Code, OpenAI's Codex, GitHub Copilot and Google's Gemini CLI. It breaks SHA pinning <em>(the trick that locks an installed add-on to one specific, reviewed version of its code)</em>, letting a trusted plugin be quietly swapped for a malicious one and auto-installed. The result is zero-click remote code execution <em>(an attacker runs their own code on your machine without you doing anything)</em>. Anthropic patched Claude Code in 2.1.179 and OpenAI patched Codex in 0.146.0. Microsoft has not shipped a Copilot fix. Google deprecated Gemini CLI rather than patching it.",
+      "more": "The detail worth sitting with is that all four products had the same bug. That's not four independent mistakes — it's a shared assumption about how plugin trust works, inherited across an ecosystem that grew very fast from the same handful of patterns. AIR is calling it the first supply-chain vulnerability of the AI agent ecosystem, and the framing is fair: the attack doesn't target the model at all, it targets the scaffolding around it. That's exactly the gap the UN panel flagged last week when it argued model-level safety isn't sufficient. Two practical takeaways. If you run Copilot's agent features, there is currently no patch, so treat plugin installation as a privileged action and audit what's installed. And if you have Gemini CLI anywhere, deprecation means it stays vulnerable forever — remove it rather than waiting.",
+      "link": {
+        "label": "Help Net Security",
+        "url": "https://www.helpnetsecurity.com/2026/09/18/plugin4shell-ai-coding-agents-vulnerability/"
+      }
+    },
+    {
+      "id": "s2",
+      "kicker": "📈 Industry · story 02",
+      "color": "sage",
+      "title": "Anthropic is reportedly weeks from an IPO at a $100B revenue pace",
+      "why_you_care": "The first frontier AI lab to go public sets the template — and once there's a share price, the whole industry's numbers become arguable in public rather than leaked to reporters.",
+      "body": "Bloomberg, citing the New York Times, reported on September 18 that Anthropic's annualised revenue run rate <em>(current monthly sales multiplied out to a full year — a pace, not money in the bank)</em> is on track to top $100 billion by the end of 2026, up from $65 billion in July and $9 billion at the end of 2025. The company could file financial documents within weeks, with shares potentially trading as soon as November. Investors discussing the offering have reportedly floated a valuation around $2 trillion.",
+      "more": "Run-rate figures deserve a little suspicion, because they flatter any business growing quickly — a strong September gets multiplied by twelve. But even discounting heavily, the trajectory on this week's chart is the steepest revenue ramp in software history, and the jump from $65B to $100B in roughly two months is the part that should raise eyebrows either way: either demand really is compounding that fast, or the definition is doing work. An IPO would settle a lot of that, because audited filings are a different genre from run-rate leaks. Two things to watch. First, the S-1, which would be the first real look at gross margins on frontier inference — the number everyone has been guessing at for three years. Second, whether going public changes Anthropic's safety commitments once quarterly earnings calls exist; the company is simultaneously spending $1 billion on embedded outside auditors, which is a hard line item to defend to public shareholders.",
+      "link": {
+        "label": "Bloomberg",
+        "url": "https://www.bloomberg.com/news/articles/2026-09-18/anthropic-s-annualized-revenue-to-top-100-billion-in-2026-nyt"
+      }
+    },
+    {
+      "id": "s3",
+      "kicker": "🕶️ Tools · story 03",
+      "color": "pink",
+      "title": "Meta put its agent on your face and your keychain",
+      "why_you_care": "Meta is betting that the way most people will use an AI assistant is by talking to something they're already wearing — no app, no screen, no typing.",
+      "body": "At Connect on September 23, Meta made its Muse agent the centre of everything. Muse is coming to Meta's AI glasses in the next few months, activated by saying your agent's name and able to act on what you're looking at. Meta also announced Charm, a small keychain device shipping in December that Mark Zuckerberg pitched as the fastest way to reach Muse when you're not wearing glasses. The company says it will have more than 100 styles of AI glasses across Ray-Ban, Oakley and Meta Glasses by year end, and is rolling out private processing so that not even Meta staff can access what the glasses capture.",
+      "more": "The hardware is the less interesting half. What Meta is really doing is trying to make the agent ambient — always listening, always looking, no deliberate moment where you decide to use AI. That's a genuinely different product bet from the chat window everyone else is shipping, and it either becomes the dominant interface or it becomes another abandoned Meta wearable. The private-processing claim is the load-bearing piece. Glasses that see what you see are only acceptable if the processing story holds up, and \"not even Meta staff can access it\" is a strong claim that will get poked at hard by security researchers — reasonably so, given the week's other news about how AI scaffolding tends to fail. Watch for independent verification of that architecture before treating it as settled.",
+      "link": {
+        "label": "Meta",
+        "url": "https://about.fb.com/news/2026/09/the-biggest-news-from-connect-2026/"
+      }
+    }
+  ],
+  "quick_hits": [
+    {
+      "shape": "stat",
+      "lede": "100+ styles.",
+      "text": "That's how many AI glasses variants Meta says it will have on the market by the end of this year, across Ray-Ban, Oakley and its own Meta Glasses line. Smart glasses spent a decade as a punchline; Meta is now treating them as a fashion category with a SKU count, which is a fairly good indicator that the company thinks the awkward phase is over."
+    },
+    {
+      "shape": "question",
+      "lede": "Who gets to watch a frontier model while it's still training?",
+      "text": "Accenture, now. Anthropic named it as its first embedded safety evaluator, with at least $1 billion committed from each side over five years. Accenture's evaluators get employee-like access during training — before deployment decisions are final — and will use Faculty, the AI firm Accenture acquired, to red-team models and test safeguards. Embedded outside auditors are the pattern California's kill-switch order floated as a possible requirement, so this reads partly as a voluntary head start."
+    },
+    {
+      "shape": "verdict",
+      "lede": "Deprecating isn't patching.",
+      "text": "Google's response to the Plugin4Shell flaw in Gemini CLI was to retire the tool rather than fix it, which means every existing install stays exposed indefinitely. Microsoft, told about the same bug in Copilot, has shipped nothing. Half the affected vendors patched in weeks; the other half found reasons not to."
+    },
+    {
+      "shape": "money",
+      "lede": "$11.1 billion.",
+      "text": "SoftBank launched a bond sale that size on September 21 to fund the third $10 billion tranche of its OpenAI investment, closing October 1. It's high-yield debt and, at the planned size, the largest non-financial corporate bond deal on record in Asia Pacific, beating 7-Eleven's 2021 mark. Masayoshi Son has now committed close to $65 billion to OpenAI — increasingly on borrowed money."
+    },
+    {
+      "shape": "observation",
+      "lede": "The cheap end of the model market is getting crowded.",
+      "text": "xAI's Grok 4.7 landed this month at $2 per million input tokens and $6 per million output, slotting in just above OpenAI's newly halved Sol tier. A year ago the competition was about which model was smartest. It's now visibly about which model is cheap enough to run on everything, and the labs are undercutting each other in increments of dollars."
+    }
+  ],
+  "fun_fact": {
+    "title": "A humanoid robot walked into 30 strangers' houses it had never seen and made the beds in more than half of them.",
+    "body": "Figure's Helix 2.5 was tested zero-shot <em>(no training data collected from any of those homes)</em> across 30 Bay Area households, running 420 trials of bed-making, towel-folding and toy-tidying. It succeeded 237 times — 56%. That number sounds unimpressive until you consider that every house had different beds, different towels, different lighting and different clutter, and the robot had never encountered any of it. A coin-flip success rate at genuinely novel chores is a much harder achievement than a 99% rate in a lab kitchen someone spent a year tuning. 🛏️"
+  },
+  "sources_count": 3,
+  "reply_to": "christienabrhm94@gmail.com",
+  "archive_url": "index.html",
+  "base_url": "https://chris94949.github.io/signal-newsletter/",
+  "buttondown_username": "chris94"
+}
+</script>
+
+<script>
+(function(){
+  const data = JSON.parse(document.getElementById('issue-data').textContent);
+  const pad = (n) => String(n).padStart(3, '0');
+
+  // Header
+  document.getElementById('issueLabel').textContent = `Issue ${pad(data.issue)}`;
+  document.getElementById('dateLabel').textContent = data.date_display;
+  document.getElementById('readLabel').textContent = `${data.read_minutes}-min read ☕`;
+  document.getElementById('tagline').textContent = data.tagline;
+
+  // Editor note
+  const initial = (data.editor_name || 'S').slice(0,1).toUpperCase();
+  document.getElementById('editorAvatar').textContent = initial;
+  document.getElementById('editorFrom').textContent = `From ${data.editor_name}`;
+  document.getElementById('editorNote').textContent = data.editor_note;
+
+  // Preview strip
+  const previewList = document.getElementById('previewList');
+  data.preview.forEach((p, i) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="emoji">${p.emoji}</span><span class="tag">${p.label} · 0${i+1}</span><span class="title">${p.title}</span>`;
+    previewList.appendChild(li);
+  });
+  document.getElementById('previewExtra').textContent = `+ five quick hits, one chart, and one fun thing involving a robot.`;
+
+  // Chart
+  document.getElementById('chartTitle').textContent = data.chart.title;
+  document.getElementById('chartCaption').textContent = data.chart.caption;
+  const ctx = document.getElementById('cveChart');
+  const colors = data.chart.values.map((_, i) => i === data.chart.highlight_index ? '#E65525' : '#FFE0CF');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: data.chart.labels,
+      datasets: [{
+        data: data.chart.values,
+        backgroundColor: colors,
+        borderRadius: 8,
+        barThickness: 38
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { backgroundColor:'#2A1F1A', titleFont:{family:'Inter',weight:'600'}, bodyFont:{family:'Inter'} } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11, weight: '500' }, color: '#8C7D72' } },
+        y: { grid: { color: '#F5EBDB' }, border: { display: false }, ticks: { font: { family: 'Inter', size: 11 }, color: '#8C7D72', stepSize: 5 }, beginAtZero: true }
+      }
+    }
+  });
+
+  // Stories
+  const storiesRoot = document.getElementById('storiesRoot');
+  data.stories.forEach(s => {
+    const linkHTML = s.link ? ` <a href="${s.link.url}">${s.link.label} ↗</a>` : '';
+    const article = document.createElement('article');
+    article.className = 'story';
+    article.setAttribute('data-color', s.color);
+    article.innerHTML = `
+      <div class="story-kicker">${s.kicker}</div>
+      <h2>${s.title}</h2>
+      <div class="why">
+        <span class="stamp">Why you'd care</span>
+        <span>${s.why_you_care}</span>
+      </div>
+      <p class="body">${s.body}${linkHTML}</p>
+      <details class="more">
+        <summary>More on this</summary>
+        <div class="body-deep">${s.more}</div>
+      </details>
+    `;
+    storiesRoot.appendChild(article);
+  });
+
+  // Quick hits
+  const qhRoot = document.getElementById('qhRoot');
+  data.quick_hits.forEach((q, i) => {
+    const linkHTML = q.link ? ` <a href="${q.link.url}">${q.link.label} ↗</a>` : '';
+    const item = document.createElement('div');
+    item.className = 'item';
+    item.innerHTML = `
+      <div class="num">${String(i+1).padStart(2,'0')}</div>
+      <div class="text"><span class="lede">${q.lede}</span> ${q.text}${linkHTML}</div>
+    `;
+    qhRoot.appendChild(item);
+  });
+
+  // Fun fact
+  document.getElementById('funTitle').textContent = data.fun_fact.title;
+  document.getElementById('funBody').textContent = data.fun_fact.body;
+
+  // Footer / reader loop
+  document.getElementById('signoff').textContent = `— ${data.editor_name} 👋  See you next Monday.`;
+  const replyHref = `mailto:${data.reply_to}?subject=Signal%20%23${pad(data.issue)}%20%E2%80%94%20one%20word%20reply&body=One%20word%20on%20this%20week%27s%20issue%3A%20`;
+  document.getElementById('replyAction').setAttribute('href', replyHref);
+  document.getElementById('archiveAction').setAttribute('href', data.archive_url);
+  document.getElementById('forwardAction').setAttribute('href', `mailto:?subject=You%20might%20like%20Signal&body=I%27ve%20been%20reading%20this%20weekly%20AI%20newsletter%20%E2%80%94%20you%27d%20probably%20like%20it.`);
+  document.getElementById('colophon').innerHTML = `<strong>Signal</strong> · Issue ${pad(data.issue)} · ${data.date_display} · ${data.sources_count} sources this week<br/>Built with care, served warm.`;
+})();
+</script>
+</body>
+</html>
