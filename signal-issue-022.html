@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Signal · Issue 022 · Monday · October 26 · 2026</title>
+<meta name="description" content="A friendly weekly read on what actually moved in AI." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FFF6E9;
+    --bg-card: #FFFFFF;
+    --ink: #2A1F1A;
+    --ink-soft: #5B4A40;
+    --ink-mute: #8C7D72;
+    --orange: #E65525;
+    --orange-deep: #B83E12;
+    --orange-soft: #FFE0CF;
+    --orange-tint: #FFF1E6;
+    --sage: #4F8A5F;
+    --sage-soft: #DAEBDF;
+    --pink: #D86A82;
+    --pink-soft: #FBE3E8;
+    --yolk: #F6B83F;
+    --teal: #2C7A7E;
+    --shadow: 0 10px 24px -16px rgba(60, 30, 10, 0.18), 0 2px 6px -2px rgba(60, 30, 10, 0.06);
+    --shadow-soft: 0 4px 12px -8px rgba(60, 30, 10, 0.14);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 22px 64px; }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: linear-gradient(135deg, #E65525 0%, #D14418 100%);
+    color: #FFF;
+    border-radius: 24px;
+    padding: 26px 28px 24px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -34px;
+    bottom: -34px;
+    width: 150px;
+    height: 150px;
+    background: var(--yolk);
+    border-radius: 50%;
+    opacity: 0.92;
+    z-index: 0;
+  }
+  .header .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    z-index: 1;
+  }
+  .header .mark {
+    font-family: "DM Serif Display", serif;
+    font-size: 46px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .header .mark span { color: var(--yolk); }
+  .header .meta {
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: right;
+    opacity: 0.96;
+  }
+  .header .tagline {
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.92;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== EDITOR NOTE ===== */
+  .editor {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin-top: 14px;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .editor .avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), var(--yolk));
+    color: #FFF;
+    font-family: "DM Serif Display", serif;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .editor .text {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .editor .text .from {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* ===== IN THIS ISSUE STRIP ===== */
+  .preview {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 18px 22px 16px;
+    margin-top: 14px;
+    box-shadow: var(--shadow-soft);
+  }
+  .preview .label {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--orange-deep);
+    margin-bottom: 10px;
+  }
+  .preview ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: prev;
+  }
+  .preview li {
+    counter-increment: prev;
+    padding: 7px 0;
+    font-size: 14.5px;
+    color: var(--ink);
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    border-bottom: 1px dashed #F0E2CF;
+  }
+  .preview li:last-of-type { border-bottom: none; }
+  .preview li .emoji { font-size: 16px; line-height: 1; flex-shrink: 0; }
+  .preview li .tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-mute);
+    margin-right: 2px;
+  }
+  .preview li .title { color: var(--ink); font-weight: 500; }
+  .preview .extra {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #F0E2CF;
+    font-size: 13px;
+    color: var(--ink-mute);
+    font-style: italic;
+  }
+
+  /* ===== SECTION KICKER ===== */
+  .kicker {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--orange-deep);
+    margin: 32px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .kicker::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--orange-soft);
+  }
+
+  /* ===== CHART CARD ===== */
+  .chart-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 22px 22px 18px;
+    box-shadow: var(--shadow);
+  }
+  .chart-card h3 {
+    font-family: "DM Serif Display", serif;
+    font-size: 22px;
+    margin: 0 0 4px;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .chart-card .cap { font-size: 12.5px; color: var(--ink-mute); margin: 0 0 14px; }
+  .chart-wrap { height: 200px; position: relative; }
+
+  /* ===== STORIES ===== */
+  .story {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 22px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    border-left: 6px solid var(--orange);
+  }
+  .story[data-color="sage"] { border-left-color: var(--sage); }
+  .story[data-color="pink"] { border-left-color: var(--pink); }
+  .story .story-kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+  .story[data-color="sage"] .story-kicker { color: var(--sage); }
+  .story[data-color="pink"] .story-kicker { color: var(--pink); }
+  .story h2 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.2;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+  .story .why {
+    background: var(--orange-tint);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink);
+    font-weight: 500;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .story[data-color="sage"] .why { background: var(--sage-soft); }
+  .story[data-color="pink"] .why { background: var(--pink-soft); }
+  .story .why .stamp {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange-deep);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .story[data-color="sage"] .why .stamp { color: var(--sage); }
+  .story[data-color="pink"] .why .stamp { color: var(--pink); }
+  .story p.body { font-size: 15.5px; line-height: 1.65; margin: 0 0 12px; color: var(--ink-soft); }
+  .story p.body em {
+    font-style: italic;
+    color: var(--ink-mute);
+    font-size: 14px;
+  }
+  .story p.body a, .story .link {
+    color: var(--orange);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid var(--orange-soft);
+  }
+  .story[data-color="sage"] p.body a, .story[data-color="sage"] .link { color: var(--sage); border-bottom-color: var(--sage-soft); }
+  .story[data-color="pink"] p.body a, .story[data-color="pink"] .link { color: var(--pink); border-bottom-color: var(--pink-soft); }
+
+  details.more {
+    margin-top: 6px;
+    border-top: 1px dashed #F0E2CF;
+    padding-top: 12px;
+  }
+  details.more summary {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--orange-deep);
+    cursor: pointer;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .story[data-color="sage"] details.more summary { color: var(--sage); }
+  .story[data-color="pink"] details.more summary { color: var(--pink); }
+  details.more summary::-webkit-details-marker { display: none; }
+  details.more summary::after {
+    content: "↓";
+    transition: transform 0.2s ease;
+  }
+  details.more[open] summary::after { transform: rotate(180deg); }
+  details.more .body-deep {
+    margin-top: 10px;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+
+  /* ===== QUICK HITS ===== */
+  .qh {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 20px;
+    box-shadow: var(--shadow);
+  }
+  .qh h3 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 24px;
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+  .qh .item {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px dashed #F0E2CF;
+    align-items: flex-start;
+  }
+  .qh .item:last-child { border-bottom: none; }
+  .qh .item .num {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    color: var(--orange);
+    font-size: 16px;
+    line-height: 1.5;
+    flex-shrink: 0;
+    width: 22px;
+  }
+  .qh .item .lede { font-weight: 700; color: var(--ink); }
+  .qh .item .text { font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+  .qh .item .text a { color: var(--ink); font-weight: 600; border-bottom: 2px solid var(--yolk); text-decoration: none; }
+
+  /* ===== FUN FACT ===== */
+  .fun {
+    margin-top: 22px;
+    background: linear-gradient(135deg, #4F8A5F 0%, #2C7A7E 100%);
+    border-radius: 24px;
+    padding: 30px 28px;
+    color: #FFF;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .fun .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.22);
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .fun h3 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 26px;
+    margin: 0 0 10px;
+    line-height: 1.25;
+  }
+  .fun p { font-size: 15px; line-height: 1.55; margin: 0; opacity: 0.97; }
+
+  /* ===== FOOTER (reader loop) ===== */
+  footer.loop {
+    margin-top: 26px;
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px 26px 22px;
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+  }
+  footer.loop .signoff {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    margin: 0 0 14px;
+  }
+  footer.loop .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  footer.loop .action {
+    display: inline-block;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: var(--orange-tint);
+    color: var(--orange-deep);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid var(--orange-soft);
+  }
+  footer.loop .action:hover { background: var(--orange-soft); }
+  footer.loop .colophon {
+    margin-top: 10px;
+    padding-top: 14px;
+    border-top: 1px dashed #F0E2CF;
+    font-size: 12px;
+    color: var(--ink-mute);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 22px 14px 50px; }
+    .header { padding: 22px 22px 20px; border-radius: 18px; }
+    .header .mark { font-size: 38px; }
+    .header .row { flex-direction: column; gap: 8px; align-items: flex-start; }
+    .header .meta { text-align: left; }
+    .story h2, .fun h3, .qh h3 { font-size: 22px; }
+    .story, .qh, footer.loop, .chart-card { padding: 20px 18px; border-radius: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="header">
+    <div class="row">
+      <div class="mark" id="brand">Signal<span>.</span></div>
+      <div class="meta">
+        <span id="issueLabel"></span><br/>
+        <span id="dateLabel"></span><br/>
+        <span id="readLabel"></span>
+      </div>
+    </div>
+    <div class="tagline" id="tagline"></div>
+  </header>
+
+  <section class="editor">
+    <div class="avatar" id="editorAvatar">C</div>
+    <div class="text">
+      <div class="from" id="editorFrom">From Chris</div>
+      <div id="editorNote"></div>
+    </div>
+  </section>
+
+  <section class="preview">
+    <div class="label">— In this issue</div>
+    <ol id="previewList"></ol>
+    <div class="extra" id="previewExtra"></div>
+  </section>
+
+  <div class="kicker">— The chart of the week</div>
+  <div class="chart-card">
+    <h3 id="chartTitle"></h3>
+    <p class="cap" id="chartCaption"></p>
+    <div class="chart-wrap"><canvas id="cveChart"></canvas></div>
+  </div>
+
+  <div class="kicker">— This week's three stories</div>
+  <div id="storiesRoot"></div>
+
+  <div class="kicker">— Five quick hits</div>
+  <div class="qh">
+    <h3>Worth knowing in one sentence</h3>
+    <div id="qhRoot"></div>
+  </div>
+
+  <div class="fun">
+    <div class="badge" id="funBadge">🏓 One fun thing</div>
+    <h3 id="funTitle"></h3>
+    <p id="funBody"></p>
+  </div>
+
+  <footer class="loop">
+    <div class="signoff" id="signoff">— Chris 👋  See you next Monday.</div>
+    <div class="actions">
+      <a class="action" id="replyAction" href="#">Reply with one word — was this useful?</a>
+      <a class="action" id="archiveAction" href="index.html">📰 Read past issues</a>
+      <a class="action" id="forwardAction" href="#">↗ Forward to a friend</a>
+    </div>
+    <div class="colophon" id="colophon"></div>
+  </footer>
+</div>
+
+<!-- ===== INLINE ISSUE DATA (decoupled content) ===== -->
+<script type="application/json" id="issue-data">
+{
+  "issue": 22,
+  "date": "2026-10-26",
+  "date_display": "Monday · October 26 · 2026",
+  "read_minutes": 5,
+  "tagline": "A friendly weekly read on what actually moved in AI.",
+  "editor_name": "Chris",
+  "editor_note": "Big week, and the biggest story is a little uncomfortable: AI found a hole in 70% of the internet, and attackers were already poking at it before anyone said a word in public. Also — Google started selling OpenAI's models, and Claude got an app that messages you first. 🔎",
+  "preview": [
+    {
+      "emoji": "🛡️",
+      "label": "Security",
+      "title": "AI found a decade-old flaw in 70% of the web — and attackers got there first"
+    },
+    {
+      "emoji": "🌐",
+      "label": "Industry",
+      "title": "Google Cloud is now selling OpenAI's models"
+    },
+    {
+      "emoji": "🤖",
+      "label": "Tools",
+      "title": "Claude got an app that messages you first"
+    }
+  ],
+  "chart": {
+    "title": "One week, four AI infrastructure numbers — and the biggest one came from the chip vendor",
+    "caption": "Nvidia's quarterly filing (Forbes, Oct 21), CNBC (Oct 20), Reuters, CBS News · US dollars, as reported Oct 20–23 · these are deliberately different kinds of commitment — a guarantee, a deal in talks, a debt raise, a community fund — so read the scale, not a like-for-like comparison. Two of the four are unsigned.",
+    "labels": [
+      "Nvidia guarantees behind AI data centres",
+      "Anthropic–Nscale second deal (in talks)",
+      "SpaceX debt for Nvidia chips (in talks)",
+      "Amazon fund for data-centre towns"
+    ],
+    "values": [
+      164.5,
+      45,
+      40,
+      1
+    ],
+    "highlight_index": 0
+  },
+  "stories": [
+    {
+      "id": "s1",
+      "kicker": "🛡️ Security · story 01",
+      "color": "orange",
+      "title": "AI found a decade-old flaw in 70% of the web — and attackers got there first",
+      "why_you_care": "Almost every website you used this week runs on the software that just got emergency-patched, and the reason the flaw finally became exploitable is that frontier AI made the hard part easy.",
+      "body": "On October 21, Wiz Research disclosed two critical vulnerabilities in core PHP — the language behind WordPress, Drupal, Joomla and Wikipedia's MediaWiki — tracked as CVE-2026-109618 and CVE-2026-109619, both rated CVSS 9.2. They allow unauthenticated remote code execution <em>(a stranger running their own code on your server, with no login)</em> plus Heartbleed-style memory leaks that can spill passwords, tokens and API keys. Every PHP release going back to version 5.4 is affected by at least one. PHP shipped the patch the same day. Amazon's threat intelligence team saw an exploitation attempt on October 17 — four days before anyone announced anything.",
+      "more": "The headline number is 70% of websites, but the interesting number is one week. Wiz says a single researcher, working with Wiz Atlas, Google's Gemini 4 Argon and an OpenAI model, did in about a week what would previously have taken a world-class team months. The bugs themselves are ancient; what was hard was chaining them together and adapting the exploit to each server's memory layout, which traditionally meant weeks of specialist debugging per target. Models collapsed that cost. Google DeepMind's head of Gemini security framed it as a defensive win, and in this case it was — coordinated disclosure, a patch, and mitigations pre-staged at Cloudflare, AWS, Google, Akamai, Fastly and Vercel before the details went public. But Wiz's own conclusion is the one worth sitting with: if complexity no longer protects a bug, then a lot of software currently filed under \"theoretically vulnerable\" has quietly moved into \"exploitable.\" Nobody has re-audited that pile yet. Practical note if you run anything PHP: patch, and prioritise mod_php setups, where an unauthenticated request can trigger the bug before your application code runs at all.",
+      "link": {
+        "label": "Wiz Research",
+        "url": "https://www.wiz.io/blog/php2shell-php-rce"
+      }
+    },
+    {
+      "id": "s2",
+      "kicker": "🌐 Industry · story 02",
+      "color": "sage",
+      "title": "Google Cloud is now selling OpenAI's models",
+      "why_you_care": "The two companies people describe as the fiercest rivals in AI just agreed that enterprise customers care more about one invoice than about picking a side.",
+      "body": "On October 21, Google Cloud announced that three of OpenAI's GPT-6 models — Astra among them — are available in its Model Garden, as a private preview for selected enterprise customers who request access through an interest form. Usage lands on a single Google Cloud bill and counts against existing cloud commitments. Google says prompts, context and outputs stay inside the customer's data perimeter and are not used to train models, with Zero Data Retention and Confidential Compute listed as coming soon. Developers can also point OpenAI's Codex CLI and desktop tools at Google's platform for inference. OpenAI's own post is careful to add that \"Microsoft remains OpenAI's primary cloud partner.\"",
+      "more": "This is a distribution deal dressed as a truce. Google's pitch to large enterprises has long been hampered by one objection — we're standardising on OpenAI — and it just removed it, at the cost of helping a competitor's models reach more buyers. OpenAI gets the reverse: access to customers whose procurement, security review and spend commitments all live inside Google Cloud, without them having to open a second vendor relationship. The clause about Microsoft is doing real work; this is additive, not a migration. What to watch: whether general availability actually lands \"in the coming weeks\" as OpenAI says (Google has committed to no date), and whether existing OpenAI API applications run unchanged against the Google endpoints, which the announcement notably does not promise. The broader signal is that the frontier-model layer is commoditising faster than the cloud layer underneath it. When your fiercest rival's product becomes a line item in your own marketplace, the moat has moved somewhere else.",
+      "link": {
+        "label": "Google Cloud",
+        "url": "https://cloud.google.com/blog/products/ai-machine-learning/google-cloud-brings-openai-models-to-customers"
+      }
+    },
+    {
+      "id": "s3",
+      "kicker": "🤖 Tools · story 03",
+      "color": "pink",
+      "title": "Claude got an app that messages you first",
+      "why_you_care": "Every assistant so far has waited to be asked; this one decides on its own when something deserves your attention, which is a genuinely different relationship with a piece of software.",
+      "body": "Anthropic opened a research preview of Claude Duet on October 21 — a waitlisted app for US Pro and Max subscribers. Duet sends a morning brief, re-checks your connected apps every few hours, and messages you only when it judges something needs you. Tasks run on its own cloud virtual machine with its own browser, so work continues with your laptop shut. Four categories of action are gated behind explicit approval: sending messages, making payments, signing documents, and deleting things. Background checks draw on your existing plan limits rather than a new fee, and Anthropic says plainly that Duet can still misjudge what's urgent.",
+      "more": "The design choice worth noticing is the approval gate, because it defines where the product is actually betting. Duet is allowed to decide what matters — a judgment call, and the one Anthropic admits it gets wrong — but it is not allowed to send, pay, sign or delete without a yes. That split says the hard, unsolved problem isn't capability, it's trust in irreversible actions. Duet also launched into a crowded week: Meta and OpenAI have both been shipping proactive agent products, and the category has quietly become the main competitive front now that chat is table stakes. The honest limitations are a decent guide to the state of the art — no phone calls, no SMS, no general local file access, no Microsoft 365. And the usage model has a catch worth flagging: if the agent is working in the background on your quota, you're paying attention-tax in tokens for checks that may surface nothing. Worth watching whether proactive agents stay inside flat-rate subscriptions once people actually leave them running.",
+      "link": {
+        "label": "Anthropic",
+        "url": "https://claude.com/product/claude-duet"
+      }
+    }
+  ],
+  "quick_hits": [
+    {
+      "shape": "stat",
+      "lede": "70% of all websites.",
+      "text": "That's the share running PHP, and every version back to 5.4 is affected by at least one of the two critical flaws disclosed October 21. The bug sits in PHP's core engine, below your application — a \"Hello World\" page on a vulnerable version is still exposed. The patch shipped the same day as the disclosure; Cloudflare, AWS, Google, Akamai, Fastly and Vercel had mitigations staged in advance for anyone who can't update immediately."
+    },
+    {
+      "shape": "question",
+      "lede": "Can a chip company be its own customer?",
+      "text": "Nvidia has put as much as $164.5 billion of guarantees and commitments behind the data centres that buy its GPUs, per figures in its latest quarterly filing reported October 21. The single largest piece is a guarantee on lease payments for an Ohio campus being built for OpenAI. None of that is spending, exactly — it's Nvidia making someone else's financing possible so the chips get bought. Whether that counts as demand depends on who you ask."
+    },
+    {
+      "shape": "verdict",
+      "lede": "Complexity has stopped being a defence.",
+      "text": "The PHP flaws sat in plain sight for over a decade because exploiting them required chaining multiple bugs and re-tuning for each server's memory layout — too fiddly to be worth it. With frontier models doing the adaptation, Wiz says one researcher managed in a week what a world-class team would have needed months for. A whole category of bugs just got reclassified from theoretical to practical."
+    },
+    {
+      "shape": "money",
+      "lede": "$45 billion, for the second time.",
+      "text": "Anthropic is in talks for a second Nscale deal of roughly that size, covering another 460-megawatt data centre at the same West Virginia site as the first, per CNBC on October 20. That's the same Nscale whose IPO filing last week showed $103 billion in contracts and $2.6 billion actually switched on. Meanwhile investors have started shorting neocloud names, and CoreWeave's bonds have reportedly traded at distressed levels."
+    },
+    {
+      "shape": "observation",
+      "lede": "Voxtral 3 listens, thinks and speaks in one unbroken stream.",
+      "text": "Mistral's October 20 release bundles speech-to-text, text-to-speech and a voice-agent SDK built on LiveKit, so transcription, reasoning, tool calls and reply audio all run in a single pipeline instead of three stitched-together services. The realtime transcriber is reported to stream text in under 500 milliseconds, at roughly $0.008 per minute. No open weights this time — it's a hosted API, EU-hosted first."
+    }
+  ],
+  "fun_fact": {
+    "title": "A robot rolling up behind you seems to be moving faster than the exact same robot rolling toward your face.",
+    "body": "A team at Toyohashi University of Technology led by Hideki Tamura ran five experiments using a real autonomous mobile robot and immersive VR, and found that approaches from behind are judged faster at identical physical speed — in about 92% of participants. It isn't that people become less precise; the whole judgment shifts, and it seems tied to the act of turning to look rather than to how the robot looks. They then baked the bias into a navigation model, which produced robots that start avoiding you earlier and give you more room. Published in <em>IEEE Robotics and Automation Letters</em> — a rare case of a perceptual quirk becoming a politeness feature. 🤖"
+  },
+  "sources_count": 3,
+  "reply_to": "christienabrhm94@gmail.com",
+  "archive_url": "index.html",
+  "base_url": "https://chris94949.github.io/signal-newsletter/",
+  "buttondown_username": "chris94"
+}
+</script>
+
+<script>
+(function(){
+  const data = JSON.parse(document.getElementById('issue-data').textContent);
+  const pad = (n) => String(n).padStart(3, '0');
+
+  // Header
+  document.getElementById('issueLabel').textContent = `Issue ${pad(data.issue)}`;
+  document.getElementById('dateLabel').textContent = data.date_display;
+  document.getElementById('readLabel').textContent = `${data.read_minutes}-min read ☕`;
+  document.getElementById('tagline').textContent = data.tagline;
+
+  // Editor note
+  const initial = (data.editor_name || 'S').slice(0,1).toUpperCase();
+  document.getElementById('editorAvatar').textContent = initial;
+  document.getElementById('editorFrom').textContent = `From ${data.editor_name}`;
+  document.getElementById('editorNote').textContent = data.editor_note;
+
+  // Preview strip
+  const previewList = document.getElementById('previewList');
+  data.preview.forEach((p, i) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="emoji">${p.emoji}</span><span class="tag">${p.label} · 0${i+1}</span><span class="title">${p.title}</span>`;
+    previewList.appendChild(li);
+  });
+  document.getElementById('previewExtra').textContent = `+ five quick hits, one chart, and one fun thing involving a robot.`;
+
+  // Chart
+  document.getElementById('chartTitle').textContent = data.chart.title;
+  document.getElementById('chartCaption').textContent = data.chart.caption;
+  const ctx = document.getElementById('cveChart');
+  const colors = data.chart.values.map((_, i) => i === data.chart.highlight_index ? '#E65525' : '#FFE0CF');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: data.chart.labels,
+      datasets: [{
+        data: data.chart.values,
+        backgroundColor: colors,
+        borderRadius: 8,
+        barThickness: 38
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { backgroundColor:'#2A1F1A', titleFont:{family:'Inter',weight:'600'}, bodyFont:{family:'Inter'} } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11, weight: '500' }, color: '#8C7D72' } },
+        y: { grid: { color: '#F5EBDB' }, border: { display: false }, ticks: { font: { family: 'Inter', size: 11 }, color: '#8C7D72', stepSize: 5 }, beginAtZero: true }
+      }
+    }
+  });
+
+  // Stories
+  const storiesRoot = document.getElementById('storiesRoot');
+  data.stories.forEach(s => {
+    const linkHTML = s.link ? ` <a href="${s.link.url}">${s.link.label} ↗</a>` : '';
+    const article = document.createElement('article');
+    article.className = 'story';
+    article.setAttribute('data-color', s.color);
+    article.innerHTML = `
+      <div class="story-kicker">${s.kicker}</div>
+      <h2>${s.title}</h2>
+      <div class="why">
+        <span class="stamp">Why you'd care</span>
+        <span>${s.why_you_care}</span>
+      </div>
+      <p class="body">${s.body}${linkHTML}</p>
+      <details class="more">
+        <summary>More on this</summary>
+        <div class="body-deep">${s.more}</div>
+      </details>
+    `;
+    storiesRoot.appendChild(article);
+  });
+
+  // Quick hits
+  const qhRoot = document.getElementById('qhRoot');
+  data.quick_hits.forEach((q, i) => {
+    const linkHTML = q.link ? ` <a href="${q.link.url}">${q.link.label} ↗</a>` : '';
+    const item = document.createElement('div');
+    item.className = 'item';
+    item.innerHTML = `
+      <div class="num">${String(i+1).padStart(2,'0')}</div>
+      <div class="text"><span class="lede">${q.lede}</span> ${q.text}${linkHTML}</div>
+    `;
+    qhRoot.appendChild(item);
+  });
+
+  // Fun fact
+  document.getElementById('funTitle').textContent = data.fun_fact.title;
+  document.getElementById('funBody').textContent = data.fun_fact.body;
+
+  // Footer / reader loop
+  document.getElementById('signoff').textContent = `— ${data.editor_name} 👋  See you next Monday.`;
+  const replyHref = `mailto:${data.reply_to}?subject=Signal%20%23${pad(data.issue)}%20%E2%80%94%20one%20word%20reply&body=One%20word%20on%20this%20week%27s%20issue%3A%20`;
+  document.getElementById('replyAction').setAttribute('href', replyHref);
+  document.getElementById('archiveAction').setAttribute('href', data.archive_url);
+  document.getElementById('forwardAction').setAttribute('href', `mailto:?subject=You%20might%20like%20Signal&body=I%27ve%20been%20reading%20this%20weekly%20AI%20newsletter%20%E2%80%94%20you%27d%20probably%20like%20it.`);
+  document.getElementById('colophon').innerHTML = `<strong>Signal</strong> · Issue ${pad(data.issue)} · ${data.date_display} · ${data.sources_count} sources this week<br/>Built with care, served warm.`;
+})();
+</script>
+</body>
+</html>

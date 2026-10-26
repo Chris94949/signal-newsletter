@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Signal · Issue 022</title>
+<!--[if mso]>
+<xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>
+<![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#FFF6E9;font-family:Helvetica,Arial,sans-serif;color:#2A1F1A;-webkit-font-smoothing:antialiased;">
+<div style="display:none;font-size:1px;color:#FFF6E9;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">AI found a decade-old flaw in 70% of the web — and attackers got there first · Google Cloud is now selling OpenAI&#39;s models · Claude got an app that messages you first</div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FFF6E9;">
+  <tr>
+    <td align="center" style="padding:24px 12px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;max-width:600px;">
+
+        <tr>
+          <td style="background-color:#E65525;background-image:linear-gradient(135deg,#E65525 0%,#D14418 100%);border-radius:18px;padding:24px 26px;color:#FFFFFF;" bgcolor="#E65525">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td style="vertical-align:bottom;">
+                  <div style="font-family:Georgia,'Times New Roman',serif;font-size:40px;line-height:1;font-weight:400;color:#FFFFFF;letter-spacing:-1px;">Signal<span style="color:#F6B83F;">.</span></div>
+                </td>
+                <td align="right" style="vertical-align:bottom;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#FFFFFF;opacity:0.95;line-height:1.6;">
+                  Issue 022<br/>Monday · October 26 · 2026<br/>5-min read
+                </td>
+              </tr>
+            </table>
+            <div style="margin-top:14px;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#FFFFFF;opacity:0.95;">A friendly weekly read on what actually moved in AI.</div>
+          </td>
+        </tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:18px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td width="50" style="vertical-align:top;padding-right:14px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                    <tr><td width="38" height="38" align="center" valign="middle" bgcolor="#E65525" style="background-color:#E65525;border-radius:19px;font-family:Georgia,serif;font-size:18px;color:#FFFFFF;">C</td></tr>
+                  </table>
+                </td>
+                <td style="vertical-align:top;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#5B4A40;">
+                  <div style="font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#2A1F1A;margin-bottom:4px;">From Chris</div>
+                  Big week, and the biggest story is a little uncomfortable: AI found a hole in 70% of the internet, and attackers were already poking at it before anyone said a word in public. Also — Google started selling OpenAI&#39;s models, and Claude got an app that messages you first. 🔎
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:18px 22px;">
+            <div style="font-family:Georgia,serif;font-style:italic;font-size:14px;color:#B83E12;margin-bottom:10px;">— In this issue</div>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family:Helvetica,Arial,sans-serif;">
+              <tr>
+                <td style="padding:6px 0;border-bottom:1px dashed #F0E2CF;font-size:14px;color:#2A1F1A;">
+                  🛡️ &nbsp; <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8C7D72;">Security · 01</span> &nbsp; AI found a decade-old flaw in 70% of the web — and attackers got there first
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 0;border-bottom:1px dashed #F0E2CF;font-size:14px;color:#2A1F1A;">
+                  🌐 &nbsp; <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8C7D72;">Industry · 02</span> &nbsp; Google Cloud is now selling OpenAI&#39;s models
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 0;font-size:14px;color:#2A1F1A;">
+                  🤖 &nbsp; <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8C7D72;">Tools · 03</span> &nbsp; Claude got an app that messages you first
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-top:10px;font-size:12.5px;font-style:italic;color:#8C7D72;border-top:1px dashed #F0E2CF;">+ 5 quick hits, one chart, and one fun thing involving a robot.</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td style="height:24px;line-height:24px;font-size:0;">&nbsp;</td></tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:20px 24px;border-left:5px solid #E65525;">
+            <div style="font-family:Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#E65525;margin-bottom:6px;">🛡️ Security · story 01</div>
+            <h2 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.25;margin:0 0 12px;color:#2A1F1A;">AI found a decade-old flaw in 70% of the web — and attackers got there first</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FFF1E6;border-radius:8px;margin-bottom:12px;">
+              <tr>
+                <td style="padding:10px 14px;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.5;color:#2A1F1A;">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#B83E12;">Why you'd care &nbsp;·&nbsp;</span>
+                  Almost every website you used this week runs on the software that just got emergency-patched, and the reason the flaw finally became exploitable is that frontier AI made the hard part easy.
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#5B4A40;">On October 21, Wiz Research disclosed two critical vulnerabilities in core PHP — the language behind WordPress, Drupal, Joomla and Wikipedia's MediaWiki — tracked as CVE-2026-109618 and CVE-2026-109619, both rated CVSS 9.2. They allow unauthenticated remote code execution <em>(a stranger running their own code on your server, with no login)</em> plus Heartbleed-style memory leaks that can spill passwords, tokens and API keys. Every PHP release going back to version 5.4 is affected by at least one. PHP shipped the patch the same day. Amazon's threat intelligence team saw an exploitation attempt on October 17 — four days before anyone announced anything.</p>
+            <a href="https://chris94949.github.io/signal-newsletter/signal-issue-022.html#s1" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#B83E12;text-decoration:none;border-bottom:2px solid #FFE0CF;">Read the full story →</a>
+          </td>
+        </tr>
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:20px 24px;border-left:5px solid #4F8A5F;">
+            <div style="font-family:Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#4F8A5F;margin-bottom:6px;">🌐 Industry · story 02</div>
+            <h2 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.25;margin:0 0 12px;color:#2A1F1A;">Google Cloud is now selling OpenAI&#39;s models</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#DAEBDF;border-radius:8px;margin-bottom:12px;">
+              <tr>
+                <td style="padding:10px 14px;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.5;color:#2A1F1A;">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#3A6648;">Why you'd care &nbsp;·&nbsp;</span>
+                  The two companies people describe as the fiercest rivals in AI just agreed that enterprise customers care more about one invoice than about picking a side.
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#5B4A40;">On October 21, Google Cloud announced that three of OpenAI's GPT-6 models — Astra among them — are available in its Model Garden, as a private preview for selected enterprise customers who request access through an interest form. Usage lands on a single Google Cloud bill and counts against existing cloud commitments. Google says prompts, context and outputs stay inside the customer's data perimeter and are not used to train models, with Zero Data Retention and Confidential Compute listed as coming soon. Developers can also point OpenAI's Codex CLI and desktop tools at Google's platform for inference. OpenAI's own post is careful to add that &quot;Microsoft remains OpenAI's primary cloud partner.&quot;</p>
+            <a href="https://chris94949.github.io/signal-newsletter/signal-issue-022.html#s2" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#3A6648;text-decoration:none;border-bottom:2px solid #DAEBDF;">Read the full story →</a>
+          </td>
+        </tr>
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:20px 24px;border-left:5px solid #D86A82;">
+            <div style="font-family:Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#D86A82;margin-bottom:6px;">🤖 Tools · story 03</div>
+            <h2 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.25;margin:0 0 12px;color:#2A1F1A;">Claude got an app that messages you first</h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FBE3E8;border-radius:8px;margin-bottom:12px;">
+              <tr>
+                <td style="padding:10px 14px;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.5;color:#2A1F1A;">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#A4506A;">Why you'd care &nbsp;·&nbsp;</span>
+                  Every assistant so far has waited to be asked; this one decides on its own when something deserves your attention, which is a genuinely different relationship with a piece of software.
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#5B4A40;">Anthropic opened a research preview of Claude Duet on October 21 — a waitlisted app for US Pro and Max subscribers. Duet sends a morning brief, re-checks your connected apps every few hours, and messages you only when it judges something needs you. Tasks run on its own cloud virtual machine with its own browser, so work continues with your laptop shut. Four categories of action are gated behind explicit approval: sending messages, making payments, signing documents, and deleting things. Background checks draw on your existing plan limits rather than a new fee, and Anthropic says plainly that Duet can still misjudge what's urgent.</p>
+            <a href="https://chris94949.github.io/signal-newsletter/signal-issue-022.html#s3" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#A4506A;text-decoration:none;border-bottom:2px solid #FBE3E8;">Read the full story →</a>
+          </td>
+        </tr>
+        <tr><td style="height:24px;line-height:24px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:22px 24px;">
+            <h3 style="font-family:Georgia,serif;font-weight:400;font-size:20px;margin:0 0 12px;color:#2A1F1A;">Worth knowing in one sentence</h3>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#5B4A40;">
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">70% of all websites.</strong> That's the share running PHP, and every version back to 5.4 is affected by at least one of the two critical flaws disclosed October 21. The bug sits in PHP's core engine, below your application — a &quot;Hello World&quot; page on a vulnerable version is still exposed. The patch shipped the same day as the disclosure; Cloudflare, AWS, Google, Akamai, Fastly and Vercel had mitigations staged in advance for anyone who can't update immediately.</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">Can a chip company be its own customer?</strong> Nvidia has put as much as $164.5 billion of guarantees and commitments behind the data centres that buy its GPUs, per figures in its latest quarterly filing reported October 21. The single largest piece is a guarantee on lease payments for an Ohio campus being built for OpenAI. None of that is spending, exactly — it's Nvidia making someone else's financing possible so the chips get bought. Whether that counts as demand depends on who you ask.</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">Complexity has stopped being a defence.</strong> The PHP flaws sat in plain sight for over a decade because exploiting them required chaining multiple bugs and re-tuning for each server's memory layout — too fiddly to be worth it. With frontier models doing the adaptation, Wiz says one researcher managed in a week what a world-class team would have needed months for. A whole category of bugs just got reclassified from theoretical to practical.</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px dashed #F0E2CF;"><strong style="color:#2A1F1A;">$45 billion, for the second time.</strong> Anthropic is in talks for a second Nscale deal of roughly that size, covering another 460-megawatt data centre at the same West Virginia site as the first, per CNBC on October 20. That's the same Nscale whose IPO filing last week showed $103 billion in contracts and $2.6 billion actually switched on. Meanwhile investors have started shorting neocloud names, and CoreWeave's bonds have reportedly traded at distressed levels.</td></tr>
+              <tr><td style="padding:10px 0;"><strong style="color:#2A1F1A;">Voxtral 3 listens, thinks and speaks in one unbroken stream.</strong> Mistral's October 20 release bundles speech-to-text, text-to-speech and a voice-agent SDK built on LiveKit, so transcription, reasoning, tool calls and reply audio all run in a single pipeline instead of three stitched-together services. The realtime transcriber is reported to stream text in under 500 milliseconds, at roughly $0.008 per minute. No open weights this time — it's a hosted API, EU-hosted first.</td></tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td bgcolor="#4F8A5F" style="background-color:#4F8A5F;background-image:linear-gradient(135deg,#4F8A5F 0%,#2C7A7E 100%);border-radius:18px;padding:24px 26px;color:#FFFFFF;text-align:center;">
+            <div style="display:inline-block;background-color:rgba(255,255,255,0.22);padding:5px 12px;border-radius:999px;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">🏓 One fun thing</div>
+            <h3 style="font-family:Georgia,serif;font-weight:400;font-size:22px;line-height:1.3;margin:0 0 10px;color:#FFFFFF;">A robot rolling up behind you seems to be moving faster than the exact same robot rolling toward your face.</h3>
+            <p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;margin:0;color:#FFFFFF;opacity:0.95;">A team at Toyohashi University of Technology led by Hideki Tamura ran five experiments using a real autonomous mobile robot and immersive VR, and found that approaches from behind are judged faster at identical physical speed — in about 92% of participants. It isn&#39;t that people become less precise; the whole judgment shifts, and it seems tied to the act of turning to look rather than to how the robot looks. They then baked the bias into a navigation model, which produced robots that start avoiding you earlier and give you more room. Published in &lt;em&gt;IEEE Robotics and Automation Letters&lt;/em&gt; — a rare case of a perceptual quirk becoming a politeness feature. 🤖</p>
+          </td>
+        </tr>
+
+        <tr><td style="height:18px;line-height:18px;font-size:0;">&nbsp;</td></tr>
+
+        <tr>
+          <td style="background-color:#FFFFFF;border-radius:14px;padding:22px 24px;text-align:center;">
+            <div style="font-family:Georgia,serif;font-style:italic;font-size:16px;color:#2A1F1A;margin-bottom:14px;">— Chris 👋 &nbsp; See you next Monday.</div>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
+              <tr>
+                <td style="padding:4px;"><a href="mailto:christienabrhm94@gmail.com?subject=Signal%20%23022%20%E2%80%94%20one%20word%20reply&body=One%20word%20on%20this%20week%27s%20issue%3A%20" style="display:inline-block;padding:9px 14px;border-radius:999px;background-color:#FFF1E6;color:#B83E12;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid #FFE0CF;">Reply with one word</a></td>
+                <td style="padding:4px;"><a href="https://chris94949.github.io/signal-newsletter/index.html" style="display:inline-block;padding:9px 14px;border-radius:999px;background-color:#FFF1E6;color:#B83E12;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid #FFE0CF;">📰 Past issues</a></td>
+                <td style="padding:4px;"><a href="mailto:?subject=You%20might%20like%20Signal&body=I%27ve%20been%20reading%20this%20weekly%20AI%20newsletter%20%E2%80%94%20you%27d%20probably%20like%20it." style="display:inline-block;padding:9px 14px;border-radius:999px;background-color:#FFF1E6;color:#B83E12;font-family:Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid #FFE0CF;">↗ Forward</a></td>
+              </tr>
+            </table>
+            <div style="margin-top:14px;padding-top:14px;border-top:1px dashed #F0E2CF;font-family:Helvetica,Arial,sans-serif;font-size:11.5px;color:#8C7D72;line-height:1.55;">
+              <strong style="color:#2A1F1A;">Signal</strong> · Issue 022 · Monday · October 26 · 2026 · 3 sources this week<br/>
+              Built with care, served warm.
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
